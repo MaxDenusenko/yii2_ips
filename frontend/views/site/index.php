@@ -13,9 +13,4 @@ use yii\data\ActiveDataProvider; ?>
         'tariffDataProvider' => $tariffDataProvider
     ]) ?>
 
-    <!--<h2>Attach profile</h2>
-    --><?/*= AuthChoice::widget([
-        'baseAuthUrl' => ['auth/network/attach'],
-        'popupMode' => false,
-    ])*/?>
 </div>

@@ -11,10 +11,5 @@ use yii\web\View;
     <?= $this->render('_tariff_list', [
         'tariffDataProvider' => $tariffDataProvider
     ]) ?>
-
-    <!--<h2>Attach profile</h2>
-    --><?/*= AuthChoice::widget([
-        'baseAuthUrl' => ['auth/network/attach'],
-        'popupMode' => false,
-    ])*/?>
+    
 </div>

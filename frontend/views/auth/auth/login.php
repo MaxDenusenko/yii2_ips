@@ -41,12 +41,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
             <?php ActiveForm::end(); ?>
 
-<!--            <h2>Socials</h2>-->
-<!--            --><?//= AuthChoice::widget([
-//                'baseAuthUrl' => ['auth/network/auth'],
-//                'popupMode' => false,
-//            ])?>
-
         </div>
     </div>
 </div>
