@@ -30,7 +30,7 @@ class AuthService
     {
         $user = $this->users->findByUsernameOrEmail($form->username);
         if (!$user || !$user->isActive() || !$user->validatePassword($form->password)) {
-            throw new DomainException('Undefined user or password');
+            throw new DomainException('Неверный логин или пароль');
         }
         return $user;
     }

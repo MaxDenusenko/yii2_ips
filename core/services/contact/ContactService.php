@@ -41,7 +41,7 @@ class ContactService
             ->send();
 
         if (!$sent) {
-            throw new \RuntimeException('Sending error');
+            throw new \RuntimeException('Ошибка отправки');
         }
     }
 }

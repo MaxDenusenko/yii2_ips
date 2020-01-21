@@ -22,7 +22,6 @@ return [
         ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
-            'defaultRoles' => ['admin', 'user'],
         ],
         'i18n' => [
             'translations' => [

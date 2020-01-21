@@ -9,13 +9,13 @@ use himiklab\yii2\recaptcha\ReCaptcha2;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Login';
+$this->title = 'Вход';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Please fill out the following fields to login:</p>
+    <p>Пожалуйста, заполните следующие поля для входа:</p>
 
     <div class="row">
         <div class="col-lg-5">
@@ -30,13 +30,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?= $form->field($model, 'reCaptcha')->widget(ReCaptcha2::className()) ?>
 
                 <div style="color:#999;margin:1em 0">
-                    If you forgot your password you can <?= Html::a('reset it', ['/auth/reset/request-password-reset']) ?>.
+                    Если вы забыли свой пароль, вы можете <?= Html::a('сбросить его', ['/auth/reset/request-password-reset']) ?>.
                     <br>
-                    Need new verification email? <?= Html::a('Resend', ['/auth/signup/resend-verification-email']) ?>
+                    Нужно новое письмо с подтверждением? <?= Html::a('Отправить', ['/auth/signup/resend-verification-email']) ?>
                 </div>
 
                 <div class="form-group">
-                    <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+                    <?= Html::submitButton('Вход', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>
 
             <?php ActiveForm::end(); ?>

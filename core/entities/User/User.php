@@ -11,6 +11,7 @@ use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\rbac\DbManager;
 use yii\web\IdentityInterface;
 
 /**
@@ -118,7 +119,7 @@ class User extends ActiveRecord implements IdentityInterface
          */
         foreach ($networks as $current) {
             if ($current->isFor($networks, $identity)) {
-                throw new \DomainException('Network is already attached');
+                throw new \DomainException('Сеть уже подключена');
             }
         }
         $networks[] = Network::create($network, $identity);
@@ -169,7 +170,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function checkPasswordResetToken(): void {
         if (!empty($this->password_reset_token) && self::isPasswordResetTokenValid($this->password_reset_token)) {
-            throw new \DomainException('Password resetting is already request');
+            throw new \DomainException('Сброс пароля уже запрошен');
         }
         $this->generatePasswordResetToken();
     }
@@ -182,7 +183,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function resetPassword(string $password) : void {
 
         if (empty($this->password_reset_token)) {
-            throw new \DomainException('Password resetting is not requested');
+            throw new \DomainException('Сброс пароля не запрошен');
         }
         $this->setPassword($password);
         $this->removePasswordResetToken();
@@ -193,10 +194,10 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function verifyEmail() : void {
         if (!$this->isWait()) {
-            throw new \DomainException('User is already active');
+            throw new \DomainException('Пользователь уже активен');
         }
 
-        $this->status = self::STATUS_ACTIVE;
+        $this->status = self::STATUS_INACTIVE;
         $this->removeEmailConfirmToken();
     }
 
@@ -214,6 +215,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function isActive(): bool
     {
         return $this->status == self::STATUS_ACTIVE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isBanned(): bool
+    {
+        return $this->status == self::STATUS_BANNED;
     }
 
     /**
@@ -467,10 +476,24 @@ class User extends ActiveRecord implements IdentityInterface
     public function toBan()
     {
         $this->status = self::STATUS_BANNED;
+        $r = new DbManager();
+        $role = $r->getRole('user');
+        $r->revoke($role, $this->id);
     }
 
     public function unban()
     {
         $this->status = self::STATUS_ACTIVE;
+        $r = new DbManager();
+        $role = $r->getRole('user');
+        $r->assign($role, $this->id);
+    }
+
+    public function activate()
+    {
+        $this->status = self::STATUS_ACTIVE;
+        $r = new DbManager();
+        $role = $r->getRole('user');
+        $r->assign($role, $this->id);
     }
 }

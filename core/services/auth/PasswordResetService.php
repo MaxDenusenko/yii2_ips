@@ -37,6 +37,7 @@ class PasswordResetService
      *
      * @param PasswordResetRequestForm $form
      * @return void whether the email was send
+     * @throws \yii\base\Exception
      */
     public function request(PasswordResetRequestForm $form): void
     {
@@ -51,11 +52,11 @@ class PasswordResetService
             )
             ->setFrom($this->supportEmail)
             ->setTo($user->email)
-            ->setSubject('Account registration at ' . $this->appName)
+            ->setSubject('Регистрация аккаунта ' . $this->appName)
             ->send();
 
         if (!$sent) {
-            throw new \RuntimeException('Sending email error');
+            throw new \RuntimeException('Ошибка отправки электронной почты');
         }
     }
 
@@ -68,10 +69,10 @@ class PasswordResetService
     public function validateToken($token) : void
     {
         if (empty($token) || !is_string($token)) {
-            throw new InvalidArgumentException('Password reset token cannot be blank.');
+            throw new InvalidArgumentException('Маркер сброса пароля не может быть пустым.');
         }
         if (!User::findByPasswordResetToken($token)) {
-            throw new InvalidArgumentException('Wrong password reset token.');
+            throw new InvalidArgumentException('Неверный токен сброса пароля.');
         }
     }
 
@@ -81,6 +82,7 @@ class PasswordResetService
      * @param string $token
      * @param ResetPasswordForm $form
      * @return void if password was reset.
+     * @throws \yii\base\Exception
      */
     public function resetPassword(string $token, ResetPasswordForm $form) : void
     {

@@ -11,6 +11,7 @@ use core\repositories\Core\TariffRepository;
 use core\repositories\UserRepository;
 use core\services\TransactionManager;
 use yii\base\Exception;
+use yii\rbac\DbManager;
 
 class UserManageService
 {
@@ -45,6 +46,11 @@ class UserManageService
             $form->gabber
         );
         $this->users->save($user);
+
+        $r = new DbManager();
+        $role = $r->getRole('user');
+        $r->assign($role,$user->id);
+
         return $user;
     }
 
@@ -59,6 +65,13 @@ class UserManageService
     {
         $user = $this->users->get($id);
         $user->unban();
+        $this->users->save($user);
+    }
+
+    public function activate($id)
+    {
+        $user = $this->users->get($id);
+        $user->activate();
         $this->users->save($user);
     }
 

@@ -35,10 +35,10 @@ class ContactController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->contactService->send($form);
-                Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible');
+                Yii::$app->session->setFlash('success', 'Благодарим Вас за обращение к нам. Мы ответим вам как можно скорее.');
             } catch (\Exception $e) {
                 Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('success', 'We was an error sending your message');
+                Yii::$app->session->setFlash('success', 'При отправке вашего сообщения произошла ошибка.');
             }
             return $this->refresh();
         }

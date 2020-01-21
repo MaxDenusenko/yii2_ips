@@ -148,6 +148,9 @@ class TariffAssignmentHelper
             if (!$tariff_assignment->isActive() || !$tariff_assignment->date_to || !$tariff_assignment->time_to)
                 continue;
 
+            if (("{$tariff_assignment->date_to} {$tariff_assignment->time_to}") < date("yy-m-d H:i"))
+                continue;
+
             if (date("yy-m-d H:i",strtotime('+3 day',time())) > ("{$tariff_assignment->date_to} {$tariff_assignment->time_to}")) {
                 $result []= "<p><strong>Tariff #3</strong> Окончание работы тарифа {$tariff_assignment->date_to} {$tariff_assignment->time_to}</p>";
             }

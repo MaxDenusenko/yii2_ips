@@ -67,7 +67,7 @@ class SignupController extends Controller
 
             try {
                 if ($this->signupService->signup($form)) {
-                    Yii::$app->session->setFlash('success', 'Thank you for registration. Please check your inbox for verification email.');
+                    Yii::$app->session->setFlash('success', 'Спасибо за регистрацию. Пожалуйста, проверьте свой почтовый ящик для подтверждения по электронной почте.');
                     return $this->goHome();
                 }
             } catch (DomainException $e) {
@@ -101,8 +101,8 @@ class SignupController extends Controller
         if ($form->validate()) {
             try {
                 $this->emailVerification->verifyEmail($token);
-                Yii::$app->session->setFlash('success', 'Your email has been confirmed!');
-                return $this->redirect(['login']);
+                Yii::$app->session->setFlash('success', 'Ваш email был подтвержден! Вам нужно связаться с администратором для активации аккаунта');
+                return $this->redirect(['/login']);
             } catch (DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
@@ -123,7 +123,7 @@ class SignupController extends Controller
 
             try {
                 $this->emailVerification->sendEmail($form);
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success', 'Проверьте свою электронную почту для дальнейших инструкций.');
                 return $this->goHome();
             } catch (DomainException $e) {
                 Yii::$app->errorHandler->logException($e);

@@ -26,8 +26,10 @@ YiiAsset::register($this);
     <p>
         <?php if ($user->isActive()): ?>
             <?= Html::a('To ban', ['to-ban',  'id' => $user->id], ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
-        <?php else: ?>
+        <?php elseif ($user->isBanned()): ?>
             <?= Html::a('Unban', ['unban',  'id' => $user->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
+        <?php else: ?>
+            <?= Html::a('Activate', ['activate',  'id' => $user->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
         <?php endif; ?>
 
         <?= Html::a('Update', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>

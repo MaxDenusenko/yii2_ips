@@ -66,11 +66,11 @@ class SignupService
             )
             ->setFrom($this->supportEmail)
             ->setTo($user->email)
-            ->setSubject('Account registration at ' . $this->appName)
+            ->setSubject('Регистрация аккаунта ' . $this->appName)
             ->send();
 
         if (!$send) {
-            throw new \RuntimeException('Sorry, we are unable to send verify token for the provided email address.');
+            throw new \RuntimeException('К сожалению, мы не можем отправить токен подтверждения для указанного адреса электронной почты.');
         }
     }
 }

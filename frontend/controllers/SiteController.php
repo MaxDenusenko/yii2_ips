@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use core\entities\Core\Tariff;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
+use yii2mod\rbac\filters\AccessControl;
 
 
 class SiteController extends Controller

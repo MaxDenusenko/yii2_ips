@@ -56,5 +56,15 @@ return [
             return Yii::$app->get('frontendUrlManager');
         },
     ],
+    'as access' => [
+        'class' => \yii2mod\rbac\filters\AccessControl::className(),
+        'except' => ['site/*', 'contact/*', 'auth/auth/*', 'auth/reset/*', 'auth/reset/*', 'auth/signup/*'],
+        'rules' => [
+            [
+                'allow' => true,
+                'roles' => ['user'],
+            ],
+        ],
+    ],
     'params' => $params,
 ];

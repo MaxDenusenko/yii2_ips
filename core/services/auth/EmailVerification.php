@@ -52,11 +52,11 @@ class EmailVerification
             )
             ->setFrom($this->supportEmail)
             ->setTo($form->email)
-            ->setSubject('Account registration at ' . $this->appName)
+            ->setSubject('Регистрация аккаунта ' . $this->appName)
             ->send();
 
         if (!$send) {
-            throw new \DomainException('Sorry, we are unable to resend verification email for the provided email address.');
+            throw new \DomainException('К сожалению, мы не можем переслать подтверждающее письмо на указанный адрес электронной почты..');
         }
     }
 
@@ -69,11 +69,11 @@ class EmailVerification
     public function validateToken(string $token): void
     {
         if (empty($token) || !is_string($token)) {
-            throw new InvalidArgumentException('Verify email token cannot be blank.');
+            throw new InvalidArgumentException('Ттокен электронной почты не может быть пустым.');
         }
 
         if (!User::findByVerificationToken($token)) {
-            throw new InvalidArgumentException('Wrong verify email token.');
+            throw new InvalidArgumentException('Неправильно подтвержден токен электронной почты.');
         }
     }
 
@@ -86,7 +86,7 @@ class EmailVerification
     public function verifyEmail(string $token) : void
     {
         if (empty($token)) {
-            throw new \DomainException(['Empty confirm token']);
+            throw new \DomainException(['Пустой токен подтверждения']);
         }
 
         $user = $this->users->getByEmailConfirmToken($token);

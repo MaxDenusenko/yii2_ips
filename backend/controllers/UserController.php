@@ -48,6 +48,7 @@ class UserController extends Controller
                     'delete' => ['POST'],
                     'to-ban' => ['POST'],
                     'unban' => ['POST'],
+                    'activate' => ['POST'],
                 ],
             ],
         ];
@@ -69,6 +70,18 @@ class UserController extends Controller
     {
         try {
             $this->userManageService->unban($id);
+        } catch (\DomainException $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(['view',
+            'id' => $id
+        ]);
+    }
+
+    public function actionActivate($id)
+    {
+        try {
+            $this->userManageService->activate($id);
         } catch (\DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
