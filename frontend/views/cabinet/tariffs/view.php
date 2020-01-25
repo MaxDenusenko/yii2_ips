@@ -24,7 +24,7 @@ use yii\widgets\DetailView; ?>
             </div>
         <?php else: ?>
             <?= Html::a('Попробовать', ['order', 'id' => $tariff->id, 'trial' => true], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
-            <?= Html::a('Заказать', ['edit', 'id' => $tariff->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
+            <?= Html::a('Заказать', ['order', 'id' => $tariff->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
         <?php endif; ?>
     </div>
 </div>

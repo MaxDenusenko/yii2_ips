@@ -17,7 +17,7 @@ class TariffAssignmentRepository
      */
     public function get($tariff_id, $user_id): TariffAssignment
     {
-        if (!$tariff = TariffAssignment::findOne([$tariff_id, $user_id])) {
+        if (!$tariff = TariffAssignment::findOne(['tariff_id' => $tariff_id, 'user_id' => $user_id])) {
             throw new NotFoundException('Tariff is not found');
         }
         return $tariff;

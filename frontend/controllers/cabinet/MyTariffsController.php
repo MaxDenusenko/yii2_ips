@@ -95,7 +95,7 @@ class MyTariffsController extends Controller
      */
     public function findTariffAssignment($id, $u)
     {
-        $tariff = TariffAssignment::findOne([$id, $u]);
+        $tariff = TariffAssignment::findOne(['tariff_id' => $id, 'user_id' => $u]);
         if (!$this->user->issetTariff($id, $u))
             throw new NotFoundException();
 
