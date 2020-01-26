@@ -1,5 +1,7 @@
 <?php
 
+use core\entities\Core\TariffDefaults;
+use core\helpers\TariffDefaultsHelper;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
@@ -23,8 +25,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filterModel' => $searchModel,
                 'columns' => [
 
-                    'name',
                     'mb_limit',
+                    'ip_quantity',
+                    [
+                        'attribute' => 'type',
+                        'filter' => $searchModel->statusList(),
+                        'value' => function (TariffDefaults $model) {
+                            return TariffDefaultsHelper::statusLabel($model->type);
+                        },
+                        'format' => 'raw',
+                    ],
+                    'extend_days',
+                    'extend_hours',
+                    'extend_minutes',
                     'quantity_incoming_traffic',
                     'quantity_outgoing_traffic',
 

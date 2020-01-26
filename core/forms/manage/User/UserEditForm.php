@@ -15,6 +15,7 @@ class UserEditForm extends CompositeForm
     public $full_name;
     public $telegram;
     public $gabber;
+    public $tariff_reminder;
 
     public $_user;
 
@@ -25,6 +26,7 @@ class UserEditForm extends CompositeForm
         $this->full_name = $user->full_name;
         $this->telegram = $user->telegram;
         $this->gabber = $user->gabber;
+        $this->tariff_reminder = $user->tariff_reminder;
         $this->_user = $user;
         $this->tariffs = new TariffsFom($user);
         parent::__construct($config);
@@ -33,11 +35,27 @@ class UserEditForm extends CompositeForm
     public function rules()
     {
         return [
+            [['tariff_reminder'] , 'integer'],
             [['username', 'email'] , 'required'],
             ['email', 'email'],
             ['email', 'string', 'max' => 255],
             [['username', 'email', 'full_name', 'telegram', 'gabber'] , 'string', 'max' => 255],
             [['username', 'email'] , 'unique', 'targetClass' => User::class, 'filter' => ['<>', 'id', $this->_user->id]],
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function attributeLabels()
+    {
+        return [
+            'username' => 'Логин',
+            'email' => 'Email',
+            'full_name' => 'ФИО',
+            'telegram' => 'Telegram',
+            'gabber' => 'Jabber',
+            'tariff_reminder' => 'Напоминание о окончании тарифа (за n дней)',
         ];
     }
 

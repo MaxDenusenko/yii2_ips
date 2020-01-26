@@ -2,6 +2,7 @@
 namespace frontend\controllers;
 
 use core\entities\Core\Tariff;
+use core\entities\Faq;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii2mod\rbac\filters\AccessControl;
@@ -49,5 +50,19 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function actionFaq()
+    {
+        $faqDataProvider = new ActiveDataProvider([
+            'query' => Faq::find(),
+        ]);
+
+        return $this->render('faq', [
+            'faqDataProvider' => $faqDataProvider
+        ]);
     }
 }

@@ -1,11 +1,14 @@
 <?php
 
+use core\forms\manage\Core\TariffAssignmentFormEditRenewal;
 use core\helpers\TariffAssignmentHelper;
 use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model core\entities\Core\TariffAssignment */
+/* @var $model_help TariffAssignmentFormEditRenewal */
 
 $this->title = $model->tariff->name . " - ". $model->user->username;
 $this->params['breadcrumbs'][] = ['label' => 'Tariff Assignments', 'url' => ['index']];
@@ -18,8 +21,42 @@ $this->params['breadcrumbs'][] = $this->title;
         <?php if ($model->isActive()): ?>
             <?= Html::a('Draft', ['draft',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
         <?php else: ?>
-            <?= Html::a('Activate', ['activate',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
-            <?= Html::a('Activate trial', ['activate-trial',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
+            <div class="row">
+                <div class="col-md-12">
+                    <?= Html::a('Применить дефолт (данные + дата)',
+                        ['apply-default',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => true],
+                        ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
+                    <?= Html::a('Применить дефолт (триал) (данные + дата)',
+                        ['apply-default-trial',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => true],
+                        ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <?= Html::a('Применить дефолт (данные)',
+                        ['apply-default',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => true, 'set_date' => false],
+                        ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
+                    <?= Html::a('Применить дефолт (триал) (данные)',
+                        ['apply-default-trial',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => true, 'set_date' => false],
+                        ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <?= Html::a('Применить дефолт (дата)',
+                        ['apply-default',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => false, 'set_date' => true],
+                        ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
+                    <?= Html::a('Применить дефолт (триал) (дата)',
+                        ['apply-default-trial',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => false, 'set_date' => true],
+                        ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <?= Html::a('Активировать',
+                        ['activate',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
+                </div>
+            </div>
         <?php endif; ?>
         <?= Html::a('Update', ['update', 'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id], [
@@ -76,9 +113,38 @@ $this->params['breadcrumbs'][] = $this->title;
                     'quantity_outgoing_traffic',
                     'date_to',
                     'time_to',
+                    'discount',
+                    'tariff.price_for_additional_ip',
+                    [
+                        'attribute' => 'tariff.price',
+                        'value' => function($price) use ($model) {
+                            return $model->getPrice();
+                        },
+                        'format' => 'raw',
+                    ],
+                    'hash',
                 ],
             ]) ?>
         </div>
     </div>
+
+
+    <?php $form = ActiveForm::begin(); ?>
+
+    <div class="box box-default">
+        <div class="box-header with-border">Renewal</div>
+        <div class="box-body">
+            <?= $form->field($model_help, 'extend_days')->textInput() ?>
+            <?= $form->field($model_help, 'extend_hours')->textInput() ?>
+            <?= $form->field($model_help, 'extend_minutes')->textInput() ?>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <?= Html::submitButton('Renewal', ['class' => 'btn btn-success']) ?>
+    </div>
+
+    <?php ActiveForm::end(); ?>
+
 
 </div>

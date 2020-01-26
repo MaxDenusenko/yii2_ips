@@ -7,6 +7,7 @@ namespace core\services\manage\Core;
 use core\entities\User\User;
 use core\forms\manage\Core\TariffAssignmentEditIpsForm;
 use core\forms\manage\Core\TariffAssignmentForm;
+use core\forms\manage\Core\TariffAssignmentFormEditRenewal;
 use core\helpers\TariffAssignmentHelper;
 use core\repositories\Core\TariffAssignmentRepository;
 
@@ -39,7 +40,8 @@ class TariffAssignmentManageService
             $form->quantity_incoming_traffic,
             $form->date_to,
             $form->time_to,
-            $form->ip_quantity
+            $form->ip_quantity,
+            $form->discount
         );
         $this->tariffs->save($tariff);
     }
@@ -51,14 +53,6 @@ class TariffAssignmentManageService
         $this->tariffs->save($tariff);
     }
 
-    public function activateTrial($tariff_id, $user_id)
-    {
-        $tariff = $this->tariffs->get($tariff_id, $user_id);
-        $tariff->activate();
-        $tariff->setTrial();
-        $this->tariffs->save($tariff);
-    }
-
     public function draft($tariff_id, $user_id)
     {
         $tariff = $this->tariffs->get($tariff_id, $user_id);
@@ -66,10 +60,50 @@ class TariffAssignmentManageService
         $this->tariffs->save($tariff);
     }
 
+    public function deactivated($tariff_id, $user_id)
+    {
+        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff->deactivated();
+        $this->tariffs->save($tariff);
+    }
+
+    public function renewalRequest($tariff_id, $user_id)
+    {
+        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff->renewalRequest();
+        $this->tariffs->save($tariff);
+    }
+
     public function checkDateTariff(User $user)
     {
         $tariff_assignments = $user->tariffAssignments;
         return TariffAssignmentHelper::checkDateTariff($tariff_assignments);
+    }
+
+    public function applyDefault($tariff_id, $user_id, bool $overwrite, bool $set_date)
+    {
+        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff->setDefault($overwrite, $set_date);
+        $this->tariffs->save($tariff);
+    }
+
+    public function applyDefaultTrial($tariff_id, $user_id, bool $overwrite, bool $set_date)
+    {
+        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff->setDefaultTrial($overwrite, $set_date);
+        $this->tariffs->save($tariff);
+    }
+
+    public function renewal(TariffAssignmentFormEditRenewal $form, $tariff_id, $user_id)
+    {
+        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff->renewal(
+            $form->extend_minutes,
+            $form->extend_hours,
+            $form->extend_days,
+            true
+        );
+        $this->tariffs->save($tariff);
     }
 
 }

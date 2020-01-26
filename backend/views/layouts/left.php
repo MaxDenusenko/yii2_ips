@@ -31,16 +31,18 @@
                 'items' => [
                     ['label' => 'Management', 'options' => ['class' => 'header']],
                     ['label' => 'Users', 'icon' => 'user-o', 'url' => ['/user/index'], 'active' => Yii::$app->controller->id == 'user'],
-                    ['label' => 'Menus', 'icon' => 'folder-o', 'url' => ['/menu/index-root-node'], 'active' => Yii::$app->controller->id == 'menu'],
+//                    ['label' => 'Menus', 'icon' => 'folder-o', 'url' => ['/menu/index-root-node'], 'active' => Yii::$app->controller->id == 'menu'],
                     ['label' => 'Tariffs', 'icon' => 'folder-o', 'url' => ['/core/tariff/index'], 'active' => Yii::$app->controller->id == 'core/tariff'],
                     ['label' => 'User - Tariff', 'icon' => 'folder-o', 'url' => ['/core/tariff-assignment/index'], 'active' => Yii::$app->controller->id == 'core/tariff-assignment'],
-                    ['label' => 'Tariff defaults', 'icon' => 'folder-o', 'url' => ['/core/tariff-defaults/index'], 'active' => Yii::$app->controller->id == 'core/tariff-defaults'],
-                    ['label' => 'RBAC', 'icon' => 'folder', 'items' => [
-                        ['label' => 'Route', 'icon' => 'file-o', 'url' => ['/rbac/route'], 'active' => Yii::$app->controller->id == 'route'],
-                        ['label' => 'Permission', 'icon' => 'file-o', 'url' => ['/rbac/permission'], 'active' => Yii::$app->controller->id == 'permission'],
-                        ['label' => 'Role', 'icon' => 'file-o', 'url' => ['/rbac/role'], 'active' => Yii::$app->controller->id == 'role'],
-                        ['label' => 'Assignment', 'icon' => 'file-o', 'url' => ['/rbac/assignment'], 'active' => Yii::$app->controller->id == 'assignment'],
-                    ]],
+                    ['label' => 'FAQ', 'icon' => 'folder-o', 'url' => ['/faq/index'], 'active' => Yii::$app->controller->id == 'faq'],
+                    ['label' => 'Pages', 'icon' => 'folder-o', 'url' => ['/fragments/index'], 'active' => Yii::$app->controller->id == 'fragments'],
+//                    ['label' => 'Tariff defaults', 'icon' => 'folder-o', 'url' => ['/core/tariff-defaults/index'], 'active' => Yii::$app->controller->id == 'core/tariff-defaults'],
+//                    ['label' => 'RBAC', 'icon' => 'folder', 'items' => [
+//                        ['label' => 'Route', 'icon' => 'file-o', 'url' => ['/rbac/route'], 'active' => Yii::$app->controller->id == 'route'],
+//                        ['label' => 'Permission', 'icon' => 'file-o', 'url' => ['/rbac/permission'], 'active' => Yii::$app->controller->id == 'permission'],
+//                        ['label' => 'Role', 'icon' => 'file-o', 'url' => ['/rbac/role'], 'active' => Yii::$app->controller->id == 'role'],
+//                        ['label' => 'Assignment', 'icon' => 'file-o', 'url' => ['/rbac/assignment'], 'active' => Yii::$app->controller->id == 'assignment'],
+//                    ]],
                 ],
             ]
         ) ?>

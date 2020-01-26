@@ -1,5 +1,7 @@
 <?php
 
+use core\entities\Core\TariffDefaults;
+use core\helpers\TariffDefaultsHelper;
 use core\helpers\TariffHelper;
 use yii\helpers\Html;
 use yii\web\YiiAsset;
@@ -7,6 +9,8 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model core\entities\Core\Tariff */
+/* @var $default TariffDefaults */
+/* @var $defaultTrial TariffDefaults */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Tariffs', 'url' => ['index']];
@@ -42,11 +46,93 @@ YiiAsset::register($this);
                     'name',
                     'quantity',
                     'price',
+                    'price_for_additional_ip',
+                    'qty_proxy',
+                    [
+                        'attribute' => 'proxy_link',
+                        'value' => function($model) {
+                            return Html::a($model->proxy_link, $model->proxy_link);
+                        },
+                        'format' => 'raw',
+                    ],
                     [
                         'attribute' => 'status',
                         'value' => TariffHelper::statusLabel($model->status),
                         'format' => 'raw',
                     ],
+                    'description:html',
+                ],
+            ]) ?>
+        </div>
+    </div>
+
+    <div class="box box-default">
+        <div class="box-header with-border">Default</div>
+        <div class="box-body">
+            <?= DetailView::widget([
+                'model' => $default,
+                'attributes' => [
+                    'mb_limit',
+                    'ip_quantity',
+                    [
+                        'label' => 'file_path',
+                        'value' => implode(
+                            "<br>",
+                            array_map(
+                                function ($str) use ($default) {
+                                    return Html::tag('span', $str, ['class' => 'label label-success',]);
+                                },
+                                $default->getFiles()
+                            )
+                        ),
+                        'format' => 'raw',
+                    ],
+                    [
+                        'attribute' => 'type',
+                        'value' => TariffDefaultsHelper::statusLabel($default->type),
+                        'format' => 'raw',
+                    ],
+                    'extend_days',
+                    'extend_hours',
+                    'extend_minutes',
+                    'quantity_incoming_traffic',
+                    'quantity_outgoing_traffic',
+                ],
+            ]) ?>
+        </div>
+    </div>
+
+    <div class="box box-default">
+        <div class="box-header with-border">Default trial</div>
+        <div class="box-body">
+            <?= DetailView::widget([
+                'model' => $defaultTrial,
+                'attributes' => [
+                    'mb_limit',
+                    'ip_quantity',
+                    [
+                        'label' => 'file_path',
+                        'value' => implode(
+                            "<br>",
+                            array_map(
+                                function ($str) use ($defaultTrial) {
+                                    return Html::tag('span', $str, ['class' => 'label label-success',]);
+                                },
+                                $defaultTrial->getFiles()
+                            )
+                        ),
+                        'format' => 'raw',
+                    ],
+                    [
+                        'attribute' => 'type',
+                        'value' => TariffDefaultsHelper::statusLabel($defaultTrial->type),
+                        'format' => 'raw',
+                    ],
+                    'extend_days',
+                    'extend_hours',
+                    'extend_minutes',
+                    'quantity_incoming_traffic',
+                    'quantity_outgoing_traffic',
                 ],
             ]) ?>
         </div>

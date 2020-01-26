@@ -12,7 +12,6 @@ class TariffAssignmentEditIpsForm extends Model
 {
     public $IPs;
     public $IPsArr;
-    public $reCaptcha;
 
     private $_tariff;
 
@@ -57,9 +56,8 @@ class TariffAssignmentEditIpsForm extends Model
     {
         return [
             [['IPs'] , 'string'],
+            [['IPs'] , 'required'],
             [['IPsArr'] , 'ip_arr_validator'],
-            [['reCaptcha'], ReCaptchaValidator2::className(),
-                'uncheckedMessage' => 'Пожалуйста, подтвердите, что вы не бот.'],
         ];
     }
 }

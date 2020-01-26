@@ -36,7 +36,7 @@ class ProfileEditForm extends Model
             'email' => 'Email',
             'full_name' => 'ФИО',
             'telegram' => 'Telegram',
-            'gabber' => 'Gabber',
+            'gabber' => 'Jabber',
         ];
     }
 

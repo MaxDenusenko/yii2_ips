@@ -93,8 +93,14 @@ class TariffController extends Controller
      */
     public function actionView($id)
     {
+        $tariff = $this->findModel($id);
+        $default = $tariff->default[0];
+        $defaultTrial = $tariff->defaultTrial[0];
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'default' => $default,
+            'defaultTrial' => $defaultTrial,
         ]);
     }
 

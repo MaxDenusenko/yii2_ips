@@ -36,9 +36,11 @@ AppAsset::register($this);
             'class' => 'navbar-default navbar-fixed-top',
         ],
     ]);
+
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/site/index']],
 //        ['label' => 'О нас', 'url' => ['/site/about']],
+        ['label' => 'FAQ', 'url' => ['/site/faq']],
         ['label' => 'Контакты', 'url' => ['/contact/index']],
         ['label' => 'Личный кабинет', 'url' => ['/cabinet/default/index'], 'active' => strpos(Yii::$app->controller->id, 'cabinet') !== false],
     ];

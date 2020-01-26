@@ -1,10 +1,12 @@
 <?php
+
+use core\entities\User\User;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $user \shop\entities\User\User */
+/* @var $user User */
 
-$verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['signup/verify-email', 'token' => $user->verification_token]);
+$verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['auth/signup/verify-email', 'token' => $user->verification_token]);
 ?>
 <div class="verify-email">
     <p>Здравствуйте <?= Html::encode($user->username) ?>,</p>

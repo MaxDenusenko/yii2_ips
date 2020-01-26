@@ -1,5 +1,6 @@
 <?php
 
+use core\helpers\TariffDefaultsHelper;
 use kartik\widgets\DatePicker;
 use kartik\widgets\TimePicker;
 use yii\helpers\Html;
@@ -17,10 +18,16 @@ use yii\widgets\ActiveForm;
     <div class="box box-default">
         <div class="box-header with-border">Common</div>
         <div class="box-body">
-            <?= $form->field($model, 'name')->textInput() ?>
             <?= $form->field($model, 'mb_limit')->textInput() ?>
             <?= $form->field($model, 'quantity_incoming_traffic')->textInput() ?>
             <?= $form->field($model, 'quantity_outgoing_traffic')->textInput() ?>
+
+            <?= $form->field($model, 'file_path')->textarea(['rows' => 4]) ?>
+            <?= $form->field($model, 'ip_quantity')->textInput() ?>
+            <?= $form->field($model, 'type')->dropDownList(TariffDefaultsHelper::statusList()) ?>
+            <?= $form->field($model, 'extend_days')->textInput() ?>
+            <?= $form->field($model, 'extend_hours')->textInput() ?>
+            <?= $form->field($model, 'extend_minutes')->textInput() ?>
         </div>
     </div>
 

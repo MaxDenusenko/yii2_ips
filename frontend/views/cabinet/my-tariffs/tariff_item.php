@@ -8,6 +8,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 ?>
+<h1>Тариф: <?=$tariff->tariff->name?></h1>
 
 <div class="row">
     <div class="col-lg-12">
@@ -17,6 +18,22 @@ use yii\widgets\DetailView;
                 [
                     'label' => 'Тариф',
                     'attribute' => 'tariff.name',
+                ],
+                [
+                    'attribute' => 'tariff.price',
+                    'value' => function($price) use ($tariff) {
+                        return $tariff->getPrice();
+                    },
+                    'format' => 'raw',
+                ],
+                'tariff.qty_proxy',
+                'tariff.price_for_additional_ip',
+                [
+                    'attribute' => 'tariff.proxy_link',
+                    'value' => function($model) {
+                        return Html::a($model->tariff->proxy_link, $model->tariff->proxy_link);
+                    },
+                    'format' => 'raw',
                 ],
                 [
                     'attribute' => 'status',
@@ -44,6 +61,8 @@ use yii\widgets\DetailView;
                 'time_to',
             ],
         ]) ?>
-        <?= Html::a('Изменить IPs', ['edit',  'id' => $tariff->tariff_id, 'u' => $tariff->user_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Изменить IP', ['edit',  'id' => $tariff->tariff_id], ['class' => 'btn btn-primary']) ?>
+        <?= $tariff->isDeactivated() ? Html::a('Запрос на продление тарифа', ['renewal',  'id' => $tariff->tariff_id], ['class' => 'btn btn-primary', 'data-method' => 'post']) : '' ?>
+        <?= Html::a('Отменить тариф', ['delete',  'id' => $tariff->tariff_id], ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
     </div>
 </div>

@@ -3,7 +3,9 @@
 /* @var $this yii\web\View */
 /* @var $form yii\bootstrap\ActiveForm */
 /* @var $model ContactForm */
+/* @var $content Fragments */
 
+use core\entities\Fragments;
 use core\forms\ContactForm;
 use himiklab\yii2\recaptcha\ReCaptcha2;
 use yii\helpers\Html;
@@ -16,30 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="site-contact">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        Если у вас есть деловые вопросы или другие вопросы, пожалуйста, заполните следующую форму, чтобы связаться с нами. Спасибо.
-    </p>
-
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
-
-                <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-                <?= $form->field($model, 'email') ?>
-
-                <?= $form->field($model, 'subject') ?>
-
-                <?= $form->field($model, 'body')->textarea(['rows' => 6]) ?>
-
-                <?= $form->field($model, 'reCaptcha')->widget(ReCaptcha2::className()) ?>
-
-                <div class="form-group">
-                    <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
-        </div>
-    </div>
+    <?=$content->text?>
 
 </div>

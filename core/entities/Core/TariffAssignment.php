@@ -5,8 +5,10 @@ namespace core\entities\Core;
 use core\entities\Core\queries\TariffAssignmentQuery;
 use core\entities\User\User;
 use core\helpers\TariffAssignmentHelper;
+use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\helpers\Html;
 
 /**
  * This is the model class for table "tariff_assignments".
@@ -14,7 +16,9 @@ use yii\db\ActiveRecord;
  * @property int $tariff_id
  * @property int $user_id
  * @property string $file_path
+ * @property string $hash
  * @property int $status
+ * @property int $discount
  * @property string $IPs
  * @property int $mb_limit
  * @property int $quantity_incoming_traffic
@@ -26,26 +30,76 @@ use yii\db\ActiveRecord;
  * @property Tariff $tariff
  * @property User $user
  */
+
 class TariffAssignment extends ActiveRecord
 {
     const STATUS_DRAFT = 1;
     const STATUS_ACTIVE = 2;
     const STATUS_REQUEST_TRIAL = 3;
+    const STATUS_DEACTIVATED = 4;
+    const STATUS_REQUEST_RENEWAL = 5;
 
     public static function create($tariffId, bool $trial = false): self
     {
         $assignment = new static();
         $assignment->tariff_id = $tariffId;
-        if ($trial)
+        $assignment->hash = Yii::$app->security->generateRandomString(10);
+
+        if ($trial) {
+            $assignment->setDefaultTrial(true, false);
             $assignment->status = self::STATUS_REQUEST_TRIAL;
+        } else {
+            $assignment->setDefault(true, false);
+        }
 
         return $assignment;
     }
 
-    public function setTrial()
+    public function getPrice()
     {
-        $this->date_to = date("yy-m-d",strtotime('+30 minutes',time()));
-        $this->time_to = date("H:i",strtotime('+30 minutes',time()));
+        $countIp = count($this->getIPs());
+        $price_for_ip = $this->tariff->price_for_additional_ip;
+        $price = $this->tariff->price;
+
+        if ($countIp > 1) {
+            $price += $price_for_ip*($countIp-1);
+        }
+        $str = $price;
+
+        if ($this->discount) {
+            $new_price = $price - $this->discount;
+            $str = Html::tag('span', $new_price, ['class' => 'label label-success',]);
+        }
+
+        return $str;
+    }
+
+    public function applyDefault(TariffDefaults $tariffDefaults, $overwrite = false, $set_time = true) : void
+    {
+        if ($overwrite) {
+            $this->file_path = $tariffDefaults->file_path;
+            $this->mb_limit = $tariffDefaults->mb_limit;
+            $this->quantity_incoming_traffic = $tariffDefaults->quantity_incoming_traffic;
+            $this->quantity_outgoing_traffic = $tariffDefaults->quantity_outgoing_traffic;
+            $this->ip_quantity = $tariffDefaults->ip_quantity;
+        }
+        if ($set_time) {
+            $this->renewal($tariffDefaults->extend_minutes, $tariffDefaults->extend_hours, $tariffDefaults->extend_days);
+        }
+    }
+
+    public function setStatusActive()
+    {
+        if ($this->isActive()) {
+            throw new \DomainException('Tariff is already active.');
+        }
+
+        $this->status = self::STATUS_ACTIVE;
+    }
+
+    public function activate(): void
+    {
+        $this->setStatusActive();
     }
 
     /**
@@ -78,6 +132,7 @@ class TariffAssignment extends ActiveRecord
             'date_to' => 'Дата(до)',
             'time_to' => 'Время(до)',
             'ip_quantity' => 'Количество доступных ip',
+            'discount' => 'Скидка',
         ];
     }
 
@@ -97,20 +152,28 @@ class TariffAssignment extends ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
-    public function activate(): void
-    {
-        if ($this->isActive()) {
-            throw new \DomainException('Tariff is already active.');
-        }
-        $this->status = self::STATUS_ACTIVE;
-    }
-
     public function draft(): void
     {
         if ($this->isDraft()) {
             throw new \DomainException('Tariff is already draft.');
         }
         $this->status = self::STATUS_DRAFT;
+    }
+
+    public function deactivated(): void
+    {
+        if ($this->isDeactivated()) {
+            throw new \DomainException('Tariff is already deactivated.');
+        }
+        $this->status = self::STATUS_DEACTIVATED;
+    }
+
+    public function renewalRequest(): void
+    {
+        if ($this->isRequestRenewal()) {
+            throw new \DomainException('Уже запрошено продление тарифа');
+        }
+        $this->status = self::STATUS_REQUEST_RENEWAL;
     }
 
     public function isActive(): bool
@@ -121,6 +184,16 @@ class TariffAssignment extends ActiveRecord
     public function isDraft(): bool
     {
         return $this->status == self::STATUS_DRAFT;
+    }
+
+    public function isDeactivated(): bool
+    {
+        return $this->status == self::STATUS_DEACTIVATED;
+    }
+
+    public function isRequestRenewal(): bool
+    {
+        return $this->status == self::STATUS_REQUEST_RENEWAL;
     }
 
     public static function find(): TariffAssignmentQuery
@@ -164,8 +237,11 @@ class TariffAssignment extends ActiveRecord
      * @param int $quantity_incoming_traffic
      * @param string $date_to
      * @param string $time_to
+     * @param $ip_quantity
+     * @param $discount
      */
-    public function edit($file_path, $IPs, $mb_limit, $quantity_outgoing_traffic, $quantity_incoming_traffic, $date_to, $time_to, $ip_quantity)
+    public function edit($file_path, $IPs, $mb_limit, $quantity_outgoing_traffic,
+                         $quantity_incoming_traffic, $date_to, $time_to, $ip_quantity, $discount)
     {
         $this->file_path = $file_path;
         $this->IPs = $IPs;
@@ -175,6 +251,7 @@ class TariffAssignment extends ActiveRecord
         $this->date_to = $date_to;
         $this->time_to = $time_to;
         $this->ip_quantity = $ip_quantity;
+        $this->discount = $discount;
     }
 
     public function beforeDelete()
@@ -224,6 +301,35 @@ class TariffAssignment extends ActiveRecord
         foreach ($files as $file) {
 
             TariffAssignmentHelper::updateFileInfo($file, $this, $arrIps, true);
+        }
+    }
+
+    public function setDefaultTrial(bool $overwrite, $set_date = true)
+    {
+        $tariff = Tariff::findOne($this->tariff_id);
+        $default = $tariff->defaultTrial[0];
+        $this->applyDefault($default, $overwrite, $set_date);
+    }
+
+    public function setDefault(bool $overwrite, $set_date = true)
+    {
+        $tariff = Tariff::findOne($this->tariff_id);
+        $default = $tariff->default[0];
+        $this->applyDefault($default, $overwrite, $set_date);
+    }
+
+    public function renewal($extend_minutes, $extend_hours, $extend_days, $add_current_time = false)
+    {
+        if ($add_current_time && $this->date_to && $this->time_to) {
+
+            $this->date_to = date("yy-m-d",strtotime("+".(int) $extend_days." day", strtotime($this->date_to) ));
+            $this->time_to = date("H:i",strtotime("+".(int) $extend_hours." hours", strtotime($this->time_to) ));
+            $this->time_to = date("H:i",strtotime("+".(int) $extend_minutes." minutes", strtotime($this->time_to) ));
+        } else {
+
+            $this->date_to = date("yy-m-d",strtotime("+".(int) $extend_days." day",time()));
+            $this->time_to = date("H:i",strtotime("+".(int) $extend_hours." hours",time()));
+            $this->time_to = date("H:i",strtotime("+".(int) $extend_minutes." minutes", strtotime($this->time_to)));
         }
     }
 }

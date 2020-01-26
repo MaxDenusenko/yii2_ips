@@ -1,10 +1,12 @@
 <?php
+
+use core\entities\User\User;
 use yii\helpers\Html;
 
 /* @var $this yii\web\View */
-/* @var $user \shop\entities\User\User */
+/* @var $user User */
 
-$resetLink = Yii::$app->urlManager->createAbsoluteUrl(['reset/reset-password', 'token' => $user->password_reset_token]);
+$resetLink = Yii::$app->urlManager->createAbsoluteUrl(['auth/reset/reset-password', 'token' => $user->password_reset_token]);
 ?>
 <div class="password-reset">
     <p>Здравствуйте <?= Html::encode($user->username) ?>,</p>

@@ -15,7 +15,6 @@ use yii\widgets\ActiveForm; ?>
         <?= $form->field($model, 'username')->textInput(['maxLength' => true]) ?>
         <?= $form->field($model, 'email')->textInput(['maxLength' => true]) ?>
 
-        <?= $form->field($model, 'full_name')->textInput(['maxLength' => true]) ?>
         <?= $form->field($model, 'telegram')->textInput(['maxLength' => true]) ?>
         <?= $form->field($model, 'gabber')->textInput(['maxLength' => true]) ?>
 

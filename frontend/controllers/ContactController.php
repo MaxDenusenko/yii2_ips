@@ -4,6 +4,7 @@
 namespace frontend\controllers;
 
 
+use core\entities\Fragments;
 use core\forms\ContactForm;
 use core\services\contact\ContactService;
 use Yii;
@@ -42,8 +43,12 @@ class ContactController extends Controller
             }
             return $this->refresh();
         }
+
+        $about = Fragments::find()->where(['name' => 'about'])->one();
+
         return $this->render('index', [
             'model' => $form,
+            'content' => $about,
         ]);
     }
 }

@@ -36,15 +36,16 @@ class ResetController extends Controller
     public function actionRequestPasswordReset()
     {
         $form = new PasswordResetRequestForm();
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            try {
+
+        try {
+            if ($form->load(Yii::$app->request->post()) && $form->validate()) {
                 $this->passwordResetService->request($form);
-                Yii::$app->session->setFlash('success', 'Check your email for further instructions.');
+                Yii::$app->session->setFlash('success',  \Yii::t('frontend', 'Check your email for further instructions.'));
                 return $this->goHome();
-            } catch (DomainException $e) {
-                Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('error', $e->getMessage());
             }
+        } catch (\Exception $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error', \Yii::t('frontend', $e->getMessage()));
         }
 
         return $this->render('requestPasswordResetToken', [
@@ -68,15 +69,16 @@ class ResetController extends Controller
         }
 
         $form = new ResetPasswordForm();
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
-            try {
+
+        try {
+            if ($form->load(Yii::$app->request->post()) && $form->validate()) {
                 $this->passwordResetService->resetPassword($token, $form);
-                Yii::$app->session->setFlash('success', 'New password saved');
+                Yii::$app->session->setFlash('success', \Yii::t('frontend', 'New password saved.'));
                 return $this->goHome();
-            } catch (DomainException $e) {
-                Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('error', $e->getMessage());
             }
+        } catch (\Exception $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error', \Yii::t('frontend', $e->getMessage()));
         }
 
         return $this->render('resetPassword', [

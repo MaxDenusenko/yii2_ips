@@ -14,7 +14,6 @@ use yii\base\InvalidArgumentException;
 use yii\filters\AccessControl;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
-use DomainException;
 use yii\web\Response;
 
 class SignupController extends Controller
@@ -63,17 +62,17 @@ class SignupController extends Controller
     public function actionIndex()
     {
         $form = new SignupForm();
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
 
-            try {
+        try {
+            if ($form->load(Yii::$app->request->post()) && $form->validate()) {
                 if ($this->signupService->signup($form)) {
                     Yii::$app->session->setFlash('success', 'Спасибо за регистрацию. Пожалуйста, проверьте свой почтовый ящик для подтверждения по электронной почте.');
                     return $this->goHome();
                 }
-            } catch (DomainException $e) {
-                Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('error', $e->getMessage());
             }
+        } catch (\Exception $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error',  \Yii::t('frontend', $e->getMessage()));
         }
 
         return $this->render('signup', [
@@ -98,16 +97,18 @@ class SignupController extends Controller
 
         $form = new VerifyEmailForm();
         $form->token = $token;
-        if ($form->validate()) {
-            try {
+
+        try {
+            if ($form->validate()) {
                 $this->emailVerification->verifyEmail($token);
-                Yii::$app->session->setFlash('success', 'Ваш email был подтвержден! Вам нужно связаться с администратором для активации аккаунта');
+                Yii::$app->session->setFlash('success', 'Ваш email подтвержден!');
                 return $this->redirect(['/login']);
-            } catch (DomainException $e) {
-                Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('error', $e->getMessage());
             }
+        } catch (\Exception $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error',  \Yii::t('frontend', $e->getMessage()));
         }
+
         return $this->goHome();
     }
 
@@ -119,16 +120,16 @@ class SignupController extends Controller
     public function actionResendVerificationEmail()
     {
         $form = new ResendVerificationEmailForm();
-        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
 
-            try {
+        try {
+            if ($form->load(Yii::$app->request->post()) && $form->validate()) {
                 $this->emailVerification->sendEmail($form);
                 Yii::$app->session->setFlash('success', 'Проверьте свою электронную почту для дальнейших инструкций.');
                 return $this->goHome();
-            } catch (DomainException $e) {
-                Yii::$app->errorHandler->logException($e);
-                Yii::$app->session->setFlash('error', $e->getMessage());
             }
+        } catch (\Exception $e) {
+            Yii::$app->errorHandler->logException($e);
+            Yii::$app->session->setFlash('error',  \Yii::t('frontend', $e->getMessage()));
         }
 
         return $this->render('resendVerificationEmail', [

@@ -2,6 +2,7 @@
 
 namespace backend\forms\core;
 
+use core\helpers\TariffDefaultsHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use core\entities\Core\TariffDefaults;
@@ -17,9 +18,14 @@ class TariffDefaultsSearch extends TariffDefaults
     public function rules()
     {
         return [
-            [['id', 'mb_limit', 'quantity_incoming_traffic', 'quantity_outgoing_traffic'], 'integer'],
-            [['name'], 'safe'],
+            [['id', 'mb_limit', 'quantity_incoming_traffic', 'quantity_outgoing_traffic',
+                'ip_quantity', 'type', 'extend_days', 'extend_hours', 'extend_minutes'], 'integer'],
         ];
+    }
+
+    public function statusList(): array
+    {
+        return TariffDefaultsHelper::statusList();
     }
 
     /**
@@ -62,9 +68,12 @@ class TariffDefaultsSearch extends TariffDefaults
             'mb_limit' => $this->mb_limit,
             'quantity_incoming_traffic' => $this->quantity_incoming_traffic,
             'quantity_outgoing_traffic' => $this->quantity_outgoing_traffic,
+            'ip_quantity' => $this->ip_quantity,
+            'type' => $this->type,
+            'extend_days' => $this->extend_days,
+            'extend_hours' => $this->extend_hours,
+            'extend_minutes' => $this->extend_minutes,
         ]);
-
-        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

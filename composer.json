@@ -26,7 +26,9 @@
         "paulzi/yii2-nested-sets": "^1.1",
         "yii-dream-team/yii2-upload-behavior": "*",
         "himiklab/yii2-recaptcha-widget": "*",
-        "yii2mod/yii2-rbac": "*"
+        "yii2mod/yii2-rbac": "*",
+        "kartik-v/yii2-password": "@dev",
+        "vova07/yii2-imperavi-widget": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

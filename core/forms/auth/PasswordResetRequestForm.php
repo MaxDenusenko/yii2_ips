@@ -1,6 +1,7 @@
 <?php
 namespace core\forms\auth;
 
+use himiklab\yii2\recaptcha\ReCaptchaValidator2;
 use Yii;
 use yii\base\Model;
 use core\entities\User\User;
@@ -11,6 +12,7 @@ use core\entities\User\User;
 class PasswordResetRequestForm extends Model
 {
     public $email;
+    public $reCaptcha;
 
     /**
      * {@inheritdoc}
@@ -26,6 +28,8 @@ class PasswordResetRequestForm extends Model
                 'filter' => ['status' => User::STATUS_ACTIVE],
                 'message' => 'Нет пользователя с этим адресом электронной почты.'
             ],
+            [['reCaptcha'], ReCaptchaValidator2::className(),
+                'uncheckedMessage' => 'Пожалуйста, подтвердите, что вы не бот.'],
         ];
     }
 

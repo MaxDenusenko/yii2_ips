@@ -18,6 +18,7 @@ use yii\web\IdentityInterface;
  * User model
  *
  * @property integer $id
+ * @property integer $tariff_reminder
  * @property string $username
  * @property string $password_hash
  * @property string $password_reset_token
@@ -39,28 +40,31 @@ class User extends ActiveRecord implements IdentityInterface
     const STATUS_BANNED = 1;
     const STATUS_INACTIVE = 9;
     const STATUS_ACTIVE = 10;
+
     /**
      * @param string $username
      * @param string $email
      * @param string $password
      * @param string $full_name
      * @param string $telegram
-     * @param string $gabber
+     * @param $jabber
+     * @param $tariff_reminder
      * @return static
      * @throws Exception
      */
-    public static function create(string $username, string $email, string $password, string $full_name, string $telegram, string $gabber): self
+    public static function create($username, $email, $password, $full_name, $telegram, $jabber, $tariff_reminder): self
     {
         $user = new static();
         $user->username = $username;
         $user->email = $email;
         $user->full_name = $full_name;
         $user->telegram = $telegram;
-        $user->gabber = $gabber;
+        $user->gabber = $jabber;
         $user->setPassword(!empty($password) ? $password : Yii::$app->security->generateRandomString());
         $user->created_at = time();
         $user->status = self::STATUS_ACTIVE;
         $user->auth_key = Yii::$app->security->generateRandomString();
+        $user->tariff_reminder = $tariff_reminder;
         return $user;
     }
 
@@ -69,16 +73,18 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $email
      * @param string $full_name
      * @param string $telegram
-     * @param string $gabber
+     * @param $jabber
+     * @param $tariff_reminder
      */
-    public function edit(string $username, string $email, string $full_name, string $telegram, string $gabber):void
+    public function edit($username, $email, $full_name, $telegram, $jabber, $tariff_reminder):void
     {
         $this->username = $username;
         $this->email = $email;
         $this->full_name = $full_name;
         $this->telegram = $telegram;
-        $this->gabber = $gabber;
+        $this->gabber = $jabber;
         $this->updated_at = time();
+        $this->tariff_reminder = $tariff_reminder;
     }
 
     /**
@@ -91,7 +97,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @return static
      * @throws Exception
      */
-    public static function signup(string $username, string $email, string $password, string $full_name, string $telegram, string $gabber):self {
+    public static function signup($username, $email, $password, $full_name, $telegram, $gabber):self {
         $user = new static();
         $user->username = $username;
         $user->email = $email;
@@ -197,7 +203,6 @@ class User extends ActiveRecord implements IdentityInterface
             throw new \DomainException('Пользователь уже активен');
         }
 
-        $this->status = self::STATUS_INACTIVE;
         $this->removeEmailConfirmToken();
     }
 
@@ -467,9 +472,10 @@ class User extends ActiveRecord implements IdentityInterface
             'email' => 'Email',
             'full_name' => 'ФИО',
             'telegram' => 'Telegram',
-            'gabber' => 'Gabber',
+            'gabber' => 'Jabber',
             'created_at' => 'Аккаунт создан',
             'updated_at' => 'Аккаунт изменен',
+            'tariff_reminder' => 'Напоминание о окончании тарифа (за n дней)',
         ];
     }
 
@@ -495,5 +501,20 @@ class User extends ActiveRecord implements IdentityInterface
         $r = new DbManager();
         $role = $r->getRole('user');
         $r->assign($role, $this->id);
+    }
+
+    public function beforeDelete()
+    {
+        $tariffs = $this->tariffAssignments;
+
+        if(count($tariffs)) {
+            Yii::$app->session->setFlash(
+                'warning',
+                'Нельзя удалить пользователя, который имеет тарифы'
+            );
+            return false;
+        }
+
+        return parent::beforeDelete();
     }
 }

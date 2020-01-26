@@ -20,10 +20,8 @@ use yii\widgets\ActiveForm;
 
         <?= $form->field($model, 'IPs')->textarea(['rows' => 10]) ?>
 
-        <?= $form->field($model, 'reCaptcha')->widget(ReCaptcha2::className()) ?>
-
         <div class="form-group">
-            <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

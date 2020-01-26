@@ -13,6 +13,7 @@ use yii\data\ActiveDataProvider;
             <th>Колличество</th>
             <th>Цена</th>
             <th>Статус</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>

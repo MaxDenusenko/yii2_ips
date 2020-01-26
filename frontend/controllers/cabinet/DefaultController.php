@@ -27,12 +27,6 @@ class DefaultController extends Controller
         ];
     }
 
-    public function __construct($id, $module, $config = [])
-    {
-        parent::__construct($id, $module, $config = []);
-        $this->user = User::findOne(\Yii::$app->user->id);
-    }
-
     public function actionIndex()
     {
         return $this->redirect('cabinet/tariffs');

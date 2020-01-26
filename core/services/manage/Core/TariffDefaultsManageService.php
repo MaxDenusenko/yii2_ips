@@ -29,8 +29,14 @@ class TariffDefaultsManageService
             $form->mb_limit,
             $form->quantity_incoming_traffic,
             $form->quantity_outgoing_traffic,
-            $form->name
+            $form->file_path,
+            $form->ip_quantity,
+            $form->type ,
+            $form->extend_days,
+            $form->extend_hours,
+            $form->extend_minutes
         );
+
         $this->tariffs->save($tariff);
         return $tariff;
     }
@@ -46,7 +52,12 @@ class TariffDefaultsManageService
             $form->mb_limit,
             $form->quantity_incoming_traffic,
             $form->quantity_outgoing_traffic,
-            $form->name
+            $form->file_path,
+            $form->ip_quantity,
+            $form->type ,
+            $form->extend_days,
+            $form->extend_hours,
+            $form->extend_minutes
         );
         $this->tariffs->save($tariff);
     }

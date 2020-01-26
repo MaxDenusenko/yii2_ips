@@ -1,6 +1,7 @@
 <?php
 
 use yii\filters\AccessControl;
+use yii\web\NotFoundHttpException;
 
 $params = array_merge(
     require __DIR__ . '/../../common/config/params.php',
@@ -68,7 +69,10 @@ return [
     ],
     'as access' => [
         'class' => \yii2mod\rbac\filters\AccessControl::className(),
-        'except' => ['site/login', 'site/error'],
+        'denyCallback' => function($rule, $action)
+        {
+            exit();
+        },
         'rules' => [
             [
                 'allow' => true,

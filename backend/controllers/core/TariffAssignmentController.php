@@ -4,6 +4,7 @@ namespace backend\controllers\core;
 
 use core\entities\Core\TariffDefaults;
 use core\forms\manage\Core\TariffAssignmentForm;
+use core\forms\manage\Core\TariffAssignmentFormEditRenewal;
 use core\services\manage\Core\TariffAssignmentManageService;
 use Yii;
 use core\entities\Core\TariffAssignment;
@@ -39,21 +40,47 @@ class TariffAssignmentController extends Controller
                     'delete' => ['POST'],
                     'draft' => ['POST'],
                     'activate' => ['POST'],
-                    'activate-trial' => ['POST'],
+                    'apply-default' => ['POST'],
+                    'apply-default-trial' => ['POST'],
                 ],
             ],
         ];
     }
 
-    public function actionActivateTrial($tariff_id, $user_id)
+    /**
+     * @param $tariff_id
+     * @param $user_id
+     * @param bool $overwrite
+     * @param bool $set_date
+     * @return Response
+     */
+    public function actionApplyDefaultTrial($tariff_id, $user_id, $overwrite = false, $set_date = true)
     {
         try {
-            $this->service->activateTrial($tariff_id, $user_id);
+            $this->service->applyDefaultTrial($tariff_id, $user_id, $overwrite, $set_date);
         } catch (\DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
         return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id]);
     }
+
+    /**
+     * @param $tariff_id
+     * @param $user_id
+     * @param bool $overwrite
+     * @param bool $set_date
+     * @return Response
+     */
+    public function actionApplyDefault($tariff_id, $user_id, $overwrite = false, $set_date = true)
+    {
+        try {
+            $this->service->applyDefault($tariff_id, $user_id, $overwrite, $set_date);
+        } catch (\DomainException $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id]);
+    }
+
     /**
      * @param $tariff_id
      * @param $user_id
@@ -109,8 +136,22 @@ class TariffAssignmentController extends Controller
      */
     public function actionView($tariff_id, $user_id)
     {
+        $assignment = $this->findModel($tariff_id, $user_id);
+        $form = new TariffAssignmentFormEditRenewal($assignment->tariff->default[0]);
+
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            try {
+                $this->service->renewal($form, $tariff_id, $user_id);
+                return $this->redirect(['view', 'tariff_id' => $assignment->tariff_id, 'user_id' => $assignment->user_id]);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
+        }
+
         return $this->render('view', [
-            'model' => $this->findModel($tariff_id, $user_id),
+            'model' => $assignment,
+            'model_help' => $form,
         ]);
     }
 
@@ -142,15 +183,9 @@ class TariffAssignmentController extends Controller
             $form->attributes = $default->attributes;
         }
 
-        $dataProviderDefaults = new ActiveDataProvider([
-            'query' => TariffDefaults::find(),
-            'pagination' => false,
-        ]);
-
         return $this->render('update', [
             'tariff_model' => $form,
             'tariff' => $tariff,
-            'dataProviderDefaults' => $dataProviderDefaults,
         ]);
     }
 

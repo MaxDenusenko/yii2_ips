@@ -24,6 +24,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'full_name')->textInput(['maxLength' => true]) ?>
             <?= $form->field($model, 'telegram')->textInput(['maxLength' => true]) ?>
             <?= $form->field($model, 'gabber')->textInput(['maxLength' => true]) ?>
+            <?= $form->field($model, 'tariff_reminder')->textInput(['maxLength' => true]) ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>

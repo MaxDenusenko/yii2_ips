@@ -47,6 +47,19 @@ return [
                 ],
             ],
         ],
+        'i18n' => [
+            'translations'=>[
+                'frontend*'=>[
+                    'class'=>yii\i18n\PhpMessageSource::className(),
+                    'basePath'=>'@frontend/messages',
+                    'sourceLanguage'=>'ru-RU',
+                    'fileMap'=>[
+                        'frontend'=>'frontend.php',
+                        'frontend/error'=>'frontend_error.php',
+                    ]
+                ],
+            ]
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],

@@ -16,6 +16,8 @@ class TariffAssignmentHelper
             TariffAssignment::STATUS_DRAFT => 'Неактивен',
             TariffAssignment::STATUS_ACTIVE => 'Активен',
             TariffAssignment::STATUS_REQUEST_TRIAL => 'Запрос триала',
+            TariffAssignment::STATUS_DEACTIVATED => 'Деактивирован',
+            TariffAssignment::STATUS_REQUEST_RENEWAL => 'Запрос на продление',
         ];
     }
 
@@ -28,12 +30,14 @@ class TariffAssignmentHelper
     {
         switch ($status) {
             case TariffAssignment::STATUS_DRAFT:
+            case TariffAssignment::STATUS_DEACTIVATED:
                 $class = 'label label-default';
                 break;
             case TariffAssignment::STATUS_ACTIVE:
                 $class = 'label label-success';
                 break;
             case TariffAssignment::STATUS_REQUEST_TRIAL:
+            case TariffAssignment::STATUS_REQUEST_RENEWAL:
                 $class = 'label label-info';
                 break;
             default:
@@ -46,7 +50,7 @@ class TariffAssignmentHelper
 
     public static function createConfigString(TariffAssignment $tA, string $ip): string
     {
-        return "{$tA->user->username}-{$tA->tariff_id}-{$tA->user_id};{$ip};{$tA->mb_limit}M;{$tA->quantity_incoming_traffic}/{$tA->quantity_outgoing_traffic};{$tA->date_to} {$tA->time_to};\r\n";
+        return "{$tA->user->username}-{$tA->tariff_id}-{$tA->user_id}-".md5($ip).";{$ip};{$tA->mb_limit}M;{$tA->quantity_incoming_traffic}/{$tA->quantity_outgoing_traffic};{$tA->date_to} {$tA->time_to};\r\n";
     }
 
     public static function checkFileHelper(string $help_file_path, $time = 10, $curTime = 0): bool
@@ -151,7 +155,9 @@ class TariffAssignmentHelper
             if (("{$tariff_assignment->date_to} {$tariff_assignment->time_to}") < date("yy-m-d H:i"))
                 continue;
 
-            if (date("yy-m-d H:i",strtotime('+3 day',time())) > ("{$tariff_assignment->date_to} {$tariff_assignment->time_to}")) {
+            $day = $tariff_assignment->user->tariff_reminder ? $tariff_assignment->user->tariff_reminder : 3;
+
+            if (date("yy-m-d H:i",strtotime("+$day day",time())) > ("{$tariff_assignment->date_to} {$tariff_assignment->time_to}")) {
                 $result []= "<p><strong>Tariff #3</strong> Окончание работы тарифа {$tariff_assignment->date_to} {$tariff_assignment->time_to}</p>";
             }
         }

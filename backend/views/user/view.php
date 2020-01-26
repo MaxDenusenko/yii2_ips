@@ -53,6 +53,7 @@ YiiAsset::register($this);
                     'telegram',
                     'gabber',
                     'email:email',
+                    'tariff_reminder',
                     [
                         'attribute' => 'status',
                         'filter' => UserHelper::statusList(),

@@ -43,7 +43,8 @@ class UserManageService
             $form->password,
             $form->full_name,
             $form->telegram,
-            $form->gabber
+            $form->gabber,
+            $form->tariff_reminder
         );
         $this->users->save($user);
 
@@ -83,8 +84,11 @@ class UserManageService
             $form->email,
             $form->full_name,
             $form->telegram,
-            $form->gabber
+            $form->gabber,
+            $form->tariff_reminder
         );
+
+        is_array($form->tariffs->list) ?: $form->tariffs->list = [];
 
         foreach ($form->tariffs->list as $otherId) {
             $tariff = $this->tariffs->get($otherId);

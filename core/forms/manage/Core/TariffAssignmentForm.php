@@ -17,6 +17,7 @@ class TariffAssignmentForm extends Model
     public $date_to;
     public $time_to;
     public $ip_quantity;
+    public $discount;
 
     private $_tariff;
 
@@ -31,6 +32,7 @@ class TariffAssignmentForm extends Model
             $this->date_to = $tariff->date_to;
             $this->time_to = $tariff->time_to;
             $this->ip_quantity = $tariff->ip_quantity;
+            $this->discount = $tariff->discount;
             $this->_tariff = $tariff;
         }
         parent::__construct($config);
@@ -40,7 +42,7 @@ class TariffAssignmentForm extends Model
     {
         return [
             [['file_path', 'IPs', 'mb_limit', 'quantity_incoming_traffic', 'quantity_outgoing_traffic'], 'required'],
-            [['mb_limit', 'quantity_incoming_traffic', 'quantity_outgoing_traffic', 'ip_quantity'], 'integer'],
+            [['mb_limit', 'quantity_incoming_traffic', 'quantity_outgoing_traffic', 'ip_quantity', 'discount'], 'integer'],
             [['file_path', 'IPs', 'date_to', 'time_to'], 'string'],
             [['ip_quantity'], 'ip_quantity_validator'],
             [['IPs'], 'ip_validator'],
@@ -89,6 +91,7 @@ class TariffAssignmentForm extends Model
             'date_to' => 'Дата(до)',
             'time_to' => 'Время(до)',
             'ip_quantity' => 'Количество доступных ip',
+            'discount' => 'Скидка',
         ];
     }
 }

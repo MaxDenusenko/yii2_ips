@@ -18,6 +18,16 @@ use yii\widgets\DetailView; ?>
                 'price',
             ],
         ]) ?>
+
+        <?php if ($tariff->description) : ?>
+            <div class="panel panel-default">
+                <div class="panel-heading"><?=$tariff->name?></div>
+                <div class="panel-body">
+                    <?=$tariff->description?>
+                </div>
+            </div>
+        <?php endif; ?>
+
         <?php if ($user->issetTariff($tariff->id, $user->id)) : ?>
             <div class="alert alert-warning">
                 Этот тариф уже заказан

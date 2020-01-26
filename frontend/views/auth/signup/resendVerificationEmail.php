@@ -4,6 +4,7 @@
 /* @var $model ResetPasswordForm */
 
 use core\forms\auth\ResetPasswordForm;
+use himiklab\yii2\recaptcha\ReCaptcha2;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -20,6 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
             <?php $form = ActiveForm::begin(['id' => 'resend-verification-email-form']); ?>
 
             <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+
+            <?= $form->field($model, 'reCaptcha')->widget(ReCaptcha2::className()) ?>
 
             <div class="form-group">
                 <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>

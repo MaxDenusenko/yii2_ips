@@ -91,6 +91,7 @@ class EmailVerification
 
         $user = $this->users->getByEmailConfirmToken($token);
         $user->verifyEmail();
+        $user->activate();
         $this->users->save($user);
     }
 }

@@ -73,7 +73,7 @@ class TariffAssignmentSearch extends TariffAssignment
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'status' => $this->status,
+            'tariff_assignments.status' => $this->status,
         ]);
 
         $query->andFilterWhere(['like', Tariff::tableName().'.name', $this->tariff_id])

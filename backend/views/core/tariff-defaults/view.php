@@ -1,12 +1,13 @@
 <?php
 
+use core\helpers\TariffDefaultsHelper;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model core\entities\Core\TariffDefaults */
 
-$this->title = $model->name;
+$this->title = $model->id;
 $this->params['breadcrumbs'][] = ['label' => 'Tariff Defaults', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -31,8 +32,16 @@ $this->params['breadcrumbs'][] = $this->title;
                 'model' => $model,
                 'attributes' => [
                     'id',
-                    'name',
                     'mb_limit',
+                    'ip_quantity',
+                    [
+                        'attribute' => 'type',
+                        'value' => TariffDefaultsHelper::statusLabel($model->type),
+                        'format' => 'raw',
+                    ],
+                    'extend_days',
+                    'extend_hours',
+                    'extend_minutes',
                     'quantity_incoming_traffic',
                     'quantity_outgoing_traffic',
                 ],

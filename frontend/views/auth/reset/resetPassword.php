@@ -5,6 +5,7 @@
 /* @var $model ResetPasswordForm */
 
 use core\forms\auth\ResetPasswordForm;
+use kartik\password\PasswordInput;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
@@ -20,7 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-lg-5">
             <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 
-                <?= $form->field($model, 'password')->passwordInput(['autofocus' => true]) ?>
+                <?= $form->field($model, 'password')->widget(PasswordInput::classname(), [
+                    'pluginOptions' => [
+                        'showMeter' => true,
+                        'toggleMask' => false
+                    ]
+                ]) ?>
 
                 <div class="form-group">
                     <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>

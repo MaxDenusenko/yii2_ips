@@ -14,7 +14,6 @@ use yii\widgets\DetailView;
             'model' => $user,
             'attributes' => [
                 'username',
-                'full_name',
                 'telegram',
                 'gabber',
                 'email:email',
