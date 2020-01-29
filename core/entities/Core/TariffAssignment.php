@@ -102,6 +102,9 @@ class TariffAssignment extends ActiveRecord
 
     public function activate(): void
     {
+        if (!$this->date_to && !$this->time_to) {
+            $this->setDefault(false, true);
+        }
         $this->setStatusActive();
     }
 
