@@ -19,7 +19,6 @@ $this->params['breadcrumbs'][] = 'Update';
     <?= $this->render('_form', [
         'tariff_model' => $tariff_model,
         'tariff' => $tariff,
-        'dataProviderDefaults' => $dataProviderDefaults,
     ]) ?>
 
 </div>
