@@ -19,47 +19,54 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <p>
         <?php if ($model->isActive()): ?>
-            <?= Html::a('Draft', ['draft',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
+            <?= Html::a('Draft', ['draft',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
         <?php else: ?>
             <div class="row">
                 <div class="col-md-12">
                     <?= Html::a('Применить дефолт (данные + дата)',
-                        ['apply-default',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => true],
+                        ['apply-default',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id, 'overwrite' => true],
                         ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
                     <?= Html::a('Применить дефолт (триал) (данные + дата)',
-                        ['apply-default-trial',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => true],
+                        ['apply-default-trial',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id, 'overwrite' => true],
                         ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <?= Html::a('Применить дефолт (данные)',
-                        ['apply-default',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => true, 'set_date' => false],
+                        ['apply-default',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id, 'overwrite' => true, 'set_date' => false],
                         ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
                     <?= Html::a('Применить дефолт (триал) (данные)',
-                        ['apply-default-trial',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => true, 'set_date' => false],
+                        ['apply-default-trial',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id, 'overwrite' => true, 'set_date' => false],
                         ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <?= Html::a('Применить дефолт (дата)',
-                        ['apply-default',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => false, 'set_date' => true],
+                        ['apply-default',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id, 'overwrite' => false, 'set_date' => true],
                         ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
                     <?= Html::a('Применить дефолт (триал) (дата)',
-                        ['apply-default-trial',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'overwrite' => false, 'set_date' => true],
+                        ['apply-default-trial',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id, 'overwrite' => false, 'set_date' => true],
                         ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <?= Html::a('Активировать',
-                        ['activate',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
+                        ['activate',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
                 </div>
             </div>
         <?php endif; ?>
-        <?= Html::a('Update', ['update', 'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id], [
+
+        <?php if (!$model->isCancel()) : ?>
+            <?= Html::a('Cancel', ['cancel',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id], ['class' => 'btn btn-danger', 'data-method' => 'post']) ?>
+        <?php else: ?>
+            <?= Html::a('Draft', ['draft',  'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
+        <?php endif; ?>
+
+        <?= Html::a('Update', ['update', 'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Delete', ['delete', 'tariff_id' => $model->tariff_id, 'user_id' => $model->user_id, 'hash_id' => $model->hash_id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
@@ -118,7 +125,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     [
                         'attribute' => 'tariff.price',
                         'value' => function($price) use ($model) {
-                            return $model->getPrice();
+                            return $model->getPrice().' '.$model->tariff->currency;
                         },
                         'format' => 'raw',
                     ],

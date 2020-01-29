@@ -16,13 +16,14 @@ use yii\db\ActiveRecord;
  * This is the model class for table "tariffs".
  *
  * @property int $id
- * @property int $qty_proxy
+ * @property string $qty_proxy
+ * @property string $currency
  * @property int $number
+ * @property int $category_id
  * @property string $name
  * @property string $description
  * @property string $proxy_link
- * @property int|null $quantity
- * @property int|null $price
+ * @property float $price
  * @property int $status
  * @property int $price_for_additional_ip
  * @property TariffDefaults [] default
@@ -36,50 +37,53 @@ class Tariff extends ActiveRecord
     /**
      * @param $name
      * @param $number
-     * @param $quantity
      * @param $price
      * @param $status
      * @param $proxy_link
      * @param $description
      * @param $price_for_additional_ip
      * @param $qty_proxy
+     * @param $currency
+     * @param $category_id
      * @return static
      */
-    public static function create($name, $number, $quantity, $price, $status, $proxy_link, $description, $price_for_additional_ip, $qty_proxy)
+    public static function create($name, $number, $price, $status, $proxy_link, $description, $price_for_additional_ip, $qty_proxy, $currency, $category_id)
     {
         $tariff = new static();
         $tariff->name = $name;
         $tariff->number = $number;
-        $tariff->quantity = $quantity;
         $tariff->price = $price;
         $tariff->status = $status;
         $tariff->proxy_link = $proxy_link;
         $tariff->description = $description;
         $tariff->price_for_additional_ip = $price_for_additional_ip;
         $tariff->qty_proxy = $qty_proxy;
+        $tariff->currency = $currency;
+        $tariff->category_id = $category_id;
         return $tariff;
     }
 
     /**
      * @param $name
      * @param $number
-     * @param $quantity
      * @param $price
      * @param $proxy_link
      * @param $description
      * @param $price_for_additional_ip
      * @param $qty_proxy
+     * @param $currency
      */
-    public function edit($name, $number, $quantity, $price, $proxy_link, $description, $price_for_additional_ip, $qty_proxy)
+    public function edit($name, $number, $price, $proxy_link, $description, $price_for_additional_ip, $qty_proxy, $currency, $category_id)
     {
         $this->name = $name;
         $this->number = $number;
-        $this->quantity = $quantity;
         $this->price = $price;
         $this->proxy_link = $proxy_link;
         $this->description = $description;
         $this->price_for_additional_ip = $price_for_additional_ip;
         $this->qty_proxy = $qty_proxy;
+        $this->currency = $currency;
+        $this->category_id = $category_id;
     }
 
     /**
@@ -123,9 +127,9 @@ class Tariff extends ActiveRecord
     {
         return [
             [['number', 'name'], 'required'],
-            [['number', 'quantity', 'price', 'status', 'price_for_additional_ip', 'qty_proxy'], 'integer'],
+            [['number', 'status', 'price_for_additional_ip', 'price', 'category_id'], 'integer'],
             [['name'], 'string', 'max' => 255],
-            [['proxy_link', 'description'], 'string'],
+            [['proxy_link', 'description', 'qty_proxy', 'currency'], 'string'],
             [['name'], 'unique'],
             [['number'], 'unique'],
         ];
@@ -140,13 +144,14 @@ class Tariff extends ActiveRecord
             'id' => 'ID',
             'number' => '№',
             'name' => 'Название',
-            'quantity' => 'Колличество',
             'price' => 'Цена',
             'status' => 'Статус',
             'proxy_link' => 'Ссылка на список прокси',
             'description' => 'Описание',
-            'price_for_additional_ip' => 'Цена за доп ip',
+            'price_for_additional_ip' => 'Цена за доп ip (% от стоимости номинала)',
             'qty_proxy' => 'Количество прокси',
+            'currency' => 'Валюта',
+            'category_id' => 'Категория',
         ];
     }
 
@@ -163,6 +168,11 @@ class Tariff extends ActiveRecord
     public function getDefaultTrial(): ActiveQuery
     {
         return $this->hasMany(TariffDefaults::class, ['tariff_id' => 'id'])->where(['type' => TariffDefaults::TYPE_TRIAL]);
+    }
+
+    public function getCategory(): ActiveQuery
+    {
+        return $this->hasOne(CategoryTariffs::class, ['id' => 'category_id']);
     }
 
     public function getTariffAssignment(): ActiveQuery

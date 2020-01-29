@@ -36,6 +36,7 @@
                     ['label' => 'User - Tariff', 'icon' => 'folder-o', 'url' => ['/core/tariff-assignment/index'], 'active' => Yii::$app->controller->id == 'core/tariff-assignment'],
                     ['label' => 'FAQ', 'icon' => 'folder-o', 'url' => ['/faq/index'], 'active' => Yii::$app->controller->id == 'faq'],
                     ['label' => 'Pages', 'icon' => 'folder-o', 'url' => ['/fragments/index'], 'active' => Yii::$app->controller->id == 'fragments'],
+                    ['label' => 'Category Tariffs', 'icon' => 'folder-o', 'url' => ['/core/category-tariffs/index'], 'active' => Yii::$app->controller->id == 'core/category-tariffs'],
 //                    ['label' => 'Tariff defaults', 'icon' => 'folder-o', 'url' => ['/core/tariff-defaults/index'], 'active' => Yii::$app->controller->id == 'core/tariff-defaults'],
 //                    ['label' => 'RBAC', 'icon' => 'folder', 'items' => [
 //                        ['label' => 'Route', 'icon' => 'file-o', 'url' => ['/rbac/route'], 'active' => Yii::$app->controller->id == 'route'],

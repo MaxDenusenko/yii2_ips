@@ -52,13 +52,14 @@ class TariffManageService
         $tariff = Tariff::create(
             $form->name,
             $form->number,
-            $form->quantity,
             $form->price,
             Tariff::STATUS_DRAFT,
             $form->proxy_link,
             $form->description,
             $form->price_for_additional_ip,
-            $form->qty_proxy
+            $form->qty_proxy,
+            $form->currency,
+            $form->category_id
         );
 
         $tariff->addDefault($form->default);
@@ -78,12 +79,13 @@ class TariffManageService
         $tariff->edit(
             $form->name,
             $form->number,
-            $form->quantity,
             $form->price,
             $form->proxy_link,
             $form->description,
             $form->price_for_additional_ip,
-            $form->qty_proxy
+            $form->qty_proxy,
+            $form->currency,
+            $form->category_id
         );
 
         $this->transaction->wrap(function () use ($tariff, $form) {

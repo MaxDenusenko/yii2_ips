@@ -13,11 +13,12 @@ class TariffAssignmentRepository
     /**
      * @param $tariff_id
      * @param $user_id
+     * @param $hash_id
      * @return TariffAssignment
      */
-    public function get($tariff_id, $user_id): TariffAssignment
+    public function get($tariff_id, $user_id, $hash_id): TariffAssignment
     {
-        if (!$tariff = TariffAssignment::findOne(['tariff_id' => $tariff_id, 'user_id' => $user_id])) {
+        if (!$tariff = TariffAssignment::findOne(['tariff_id' => $tariff_id, 'user_id' => $user_id, 'hash_id' => $hash_id])) {
             throw new NotFoundException('Tariff is not found');
         }
         return $tariff;

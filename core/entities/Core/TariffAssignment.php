@@ -15,6 +15,7 @@ use yii\helpers\Html;
  *
  * @property int $tariff_id
  * @property int $user_id
+ * @property string $hash_id
  * @property string $file_path
  * @property string $hash
  * @property int $status
@@ -39,11 +40,15 @@ class TariffAssignment extends ActiveRecord
     const STATUS_DEACTIVATED = 4;
     const STATUS_REQUEST_RENEWAL = 5;
 
+    const STATUS_REQUEST_CANCEL = 6;
+    const STATUS_CANCEL = 7;
+
     public static function create($tariffId, bool $trial = false): self
     {
         $assignment = new static();
         $assignment->tariff_id = $tariffId;
         $assignment->hash = Yii::$app->security->generateRandomString(10);
+        $assignment->hash_id = $assignment->hash;
 
         if ($trial) {
             $assignment->setDefaultTrial(true, false);
@@ -55,23 +60,21 @@ class TariffAssignment extends ActiveRecord
         return $assignment;
     }
 
-    public function getPrice()
+    public function getPrice(): int
     {
         $countIp = count($this->getIPs());
         $price_for_ip = $this->tariff->price_for_additional_ip;
         $price = $this->tariff->price;
 
         if ($countIp > 1) {
-            $price += $price_for_ip*($countIp-1);
+            $price += ($price * $price_for_ip)/100;
         }
-        $str = $price;
 
         if ($this->discount) {
-            $new_price = $price - $this->discount;
-            $str = Html::tag('span', $new_price, ['class' => 'label label-success',]);
+            $price = $price - $this->discount;
         }
 
-        return $str;
+        return $price;
     }
 
     public function applyDefault(TariffDefaults $tariffDefaults, $overwrite = false, $set_time = true) : void
@@ -160,6 +163,14 @@ class TariffAssignment extends ActiveRecord
         $this->status = self::STATUS_DRAFT;
     }
 
+    public function cancel(): void
+    {
+        if ($this->isCancel()) {
+            throw new \DomainException('Tariff is already cancel.');
+        }
+        $this->status = self::STATUS_CANCEL;
+    }
+
     public function deactivated(): void
     {
         if ($this->isDeactivated()) {
@@ -176,9 +187,22 @@ class TariffAssignment extends ActiveRecord
         $this->status = self::STATUS_REQUEST_RENEWAL;
     }
 
+    public function cancelRequest(): void
+    {
+        if ($this->isRequestCancel()) {
+            throw new \DomainException('Уже запрошена отмена тарифа');
+        }
+        $this->status = self::STATUS_REQUEST_CANCEL;
+    }
+
     public function isActive(): bool
     {
         return $this->status == self::STATUS_ACTIVE;
+    }
+
+    public function isCancel(): bool
+    {
+        return $this->status == self::STATUS_CANCEL;
     }
 
     public function isDraft(): bool
@@ -196,6 +220,11 @@ class TariffAssignment extends ActiveRecord
         return $this->status == self::STATUS_REQUEST_RENEWAL;
     }
 
+    public function isRequestCancel(): bool
+    {
+        return $this->status == self::STATUS_REQUEST_CANCEL;
+    }
+
     public static function find(): TariffAssignmentQuery
     {
         return new TariffAssignmentQuery(static::class);
@@ -203,9 +232,22 @@ class TariffAssignment extends ActiveRecord
 
     public function getIPs(): array
     {
-        return array_map(function ($str) {
+        $ar = array_map(function ($str) {
             return trim($str);
         }, array_diff(explode("\n", $this->IPs), array('')));
+
+        if ($this->ip_quantity && (count($ar) < $this->ip_quantity))
+        {
+            $n = $this->ip_quantity - count($ar);
+            $i = 0;
+
+            while ($i < $n) {
+                array_push($ar, '000.000.000.'.$i);
+                $i++;
+            }
+        }
+//
+        return $ar;
     }
 
     public function setIPs(array $files): void

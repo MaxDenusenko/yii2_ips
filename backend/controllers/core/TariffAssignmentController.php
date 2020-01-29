@@ -39,6 +39,7 @@ class TariffAssignmentController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                     'draft' => ['POST'],
+                    'cancel' => ['POST'],
                     'activate' => ['POST'],
                     'apply-default' => ['POST'],
                     'apply-default-trial' => ['POST'],
@@ -50,65 +51,85 @@ class TariffAssignmentController extends Controller
     /**
      * @param $tariff_id
      * @param $user_id
+     * @param $hash_id
      * @param bool $overwrite
      * @param bool $set_date
      * @return Response
      */
-    public function actionApplyDefaultTrial($tariff_id, $user_id, $overwrite = false, $set_date = true)
+    public function actionApplyDefaultTrial($tariff_id, $user_id, $hash_id, $overwrite = false, $set_date = true)
     {
         try {
-            $this->service->applyDefaultTrial($tariff_id, $user_id, $overwrite, $set_date);
+            $this->service->applyDefaultTrial($tariff_id, $user_id, $hash_id, $overwrite, $set_date);
         } catch (\DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
-        return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id]);
+        return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id, 'hash_id' => $hash_id]);
     }
 
     /**
      * @param $tariff_id
      * @param $user_id
+     * @param $hash_id
      * @param bool $overwrite
      * @param bool $set_date
      * @return Response
      */
-    public function actionApplyDefault($tariff_id, $user_id, $overwrite = false, $set_date = true)
+    public function actionApplyDefault($tariff_id, $user_id, $hash_id, $overwrite = false, $set_date = true)
     {
         try {
-            $this->service->applyDefault($tariff_id, $user_id, $overwrite, $set_date);
+            $this->service->applyDefault($tariff_id, $user_id, $hash_id, $overwrite, $set_date);
         } catch (\DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
-        return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id]);
+        return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id, 'hash_id' => $hash_id]);
     }
 
     /**
      * @param $tariff_id
      * @param $user_id
+     * @param $hash_id
      * @return Response
      */
-    public function actionActivate($tariff_id, $user_id)
+    public function actionActivate($tariff_id, $user_id, $hash_id)
     {
         try {
-            $this->service->activate($tariff_id, $user_id);
+            $this->service->activate($tariff_id, $user_id, $hash_id);
         } catch (\DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
-        return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id]);
+        return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id, 'hash_id' => $hash_id]);
     }
 
     /**
      * @param $tariff_id
      * @param $user_id
+     * @param $hash_id
      * @return mixed
      */
-    public function actionDraft($tariff_id, $user_id)
+    public function actionDraft($tariff_id, $user_id, $hash_id)
     {
         try {
-            $this->service->draft($tariff_id, $user_id);
+            $this->service->draft($tariff_id, $user_id, $hash_id);
         } catch (\DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
-        return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id]);
+        return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id, 'hash_id' => $hash_id]);
+    }
+
+    /**
+     * @param $tariff_id
+     * @param $user_id
+     * @param $hash_id
+     * @return mixed
+     */
+    public function actionCancel($tariff_id, $user_id, $hash_id)
+    {
+        try {
+            $this->service->cancel($tariff_id, $user_id, $hash_id);
+        } catch (\DomainException $e) {
+            Yii::$app->session->setFlash('error', $e->getMessage());
+        }
+        return $this->redirect(['view', 'tariff_id' => $tariff_id, 'user_id' => $user_id, 'hash_id' => $hash_id]);
     }
 
 
@@ -131,18 +152,19 @@ class TariffAssignmentController extends Controller
      * Displays a single TariffAssignment model.
      * @param integer $tariff_id
      * @param integer $user_id
+     * @param $hash_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($tariff_id, $user_id)
+    public function actionView($tariff_id, $user_id, $hash_id)
     {
-        $assignment = $this->findModel($tariff_id, $user_id);
+        $assignment = $this->findModel($tariff_id, $user_id, $hash_id);
         $form = new TariffAssignmentFormEditRenewal($assignment->tariff->default[0]);
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->renewal($form, $tariff_id, $user_id);
-                return $this->redirect(['view', 'tariff_id' => $assignment->tariff_id, 'user_id' => $assignment->user_id]);
+                $this->service->renewal($form, $tariff_id, $user_id, $hash_id);
+                return $this->redirect(['view', 'tariff_id' => $assignment->tariff_id, 'user_id' => $assignment->user_id, 'hash_id' => $assignment->hash_id]);
             } catch (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
@@ -160,19 +182,20 @@ class TariffAssignmentController extends Controller
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $tariff_id
      * @param integer $user_id
-     * @param null $default_id
+     * @param $hash_id
+     * @param int|null $default_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($tariff_id, $user_id, ?int $default_id = null)
+    public function actionUpdate($tariff_id, $user_id, $hash_id, ?int $default_id = null)
     {
-        $tariff = $this->findModel($tariff_id, $user_id);
+        $tariff = $this->findModel($tariff_id, $user_id, $hash_id);
         $form = new TariffAssignmentForm($tariff);
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->edit($tariff->tariff_id, $tariff->user_id, $form);
-                return $this->redirect(['view', 'tariff_id' => $tariff->tariff_id, 'user_id' => $tariff->user_id]);
+                $this->service->edit($tariff->tariff_id, $tariff->user_id, $hash_id, $form);
+                return $this->redirect(['view', 'tariff_id' => $tariff->tariff_id, 'user_id' => $tariff->user_id, 'hash_id' => $tariff->hash_id]);
             } catch (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', $e->getMessage());
@@ -194,14 +217,15 @@ class TariffAssignmentController extends Controller
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $tariff_id
      * @param integer $user_id
+     * @param $hash_id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function actionDelete($tariff_id, $user_id)
+    public function actionDelete($tariff_id, $user_id, $hash_id)
     {
-        $this->findModel($tariff_id, $user_id)->delete();
+        $this->findModel($tariff_id, $user_id, $hash_id)->delete();
 
         return $this->redirect(['index']);
     }
@@ -211,12 +235,13 @@ class TariffAssignmentController extends Controller
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $tariff_id
      * @param integer $user_id
+     * @param $hash_id
      * @return TariffAssignment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($tariff_id, $user_id)
+    protected function findModel($tariff_id, $user_id, $hash_id)
     {
-        if (($model = TariffAssignment::findOne(['tariff_id' => $tariff_id, 'user_id' => $user_id])) !== null) {
+        if (($model = TariffAssignment::findOne(['tariff_id' => $tariff_id, 'user_id' => $user_id, 'hash_id' => $hash_id])) !== null) {
             return $model;
         }
 

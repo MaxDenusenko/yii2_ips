@@ -20,18 +20,18 @@ class TariffAssignmentManageService
         $this->tariffs = $tariffs;
     }
 
-    public function editIPs(int $tariff_id, int $user_id, TariffAssignmentEditIpsForm $form)
+    public function editIPs(int $tariff_id, int $user_id, $hash_id, TariffAssignmentEditIpsForm $form)
     {
-        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
         $tariff->setIPs(
             $form->IPsArr
         );
         $this->tariffs->save($tariff);
     }
 
-    public function edit(int $tariff_id, int $user_id, TariffAssignmentForm $form)
+    public function edit(int $tariff_id, int $user_id, $hash_id, TariffAssignmentForm $form)
     {
-        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
         $tariff->edit(
             $form->file_path,
             $form->IPs,
@@ -46,31 +46,45 @@ class TariffAssignmentManageService
         $this->tariffs->save($tariff);
     }
 
-    public function activate($tariff_id, $user_id)
+    public function activate($tariff_id, $user_id, $hash_id)
     {
-        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
         $tariff->activate();
         $this->tariffs->save($tariff);
     }
 
-    public function draft($tariff_id, $user_id)
+    public function draft($tariff_id, $user_id, $hash_id)
     {
-        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
         $tariff->draft();
         $this->tariffs->save($tariff);
     }
 
-    public function deactivated($tariff_id, $user_id)
+    public function cancel($tariff_id, $user_id, $hash_id)
     {
-        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
+        $tariff->cancel();
+        $this->tariffs->save($tariff);
+    }
+
+    public function deactivated($tariff_id, $user_id, $hash_id)
+    {
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
         $tariff->deactivated();
         $this->tariffs->save($tariff);
     }
 
-    public function renewalRequest($tariff_id, $user_id)
+    public function renewalRequest($tariff_id, $user_id, $hash_id)
     {
-        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
         $tariff->renewalRequest();
+        $this->tariffs->save($tariff);
+    }
+
+    public function cancelRequest($tariff_id, $user_id, $hash_id)
+    {
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
+        $tariff->cancelRequest();
         $this->tariffs->save($tariff);
     }
 
@@ -80,23 +94,23 @@ class TariffAssignmentManageService
         return TariffAssignmentHelper::checkDateTariff($tariff_assignments);
     }
 
-    public function applyDefault($tariff_id, $user_id, bool $overwrite, bool $set_date)
+    public function applyDefault($tariff_id, $user_id, $hash_id, bool $overwrite, bool $set_date)
     {
-        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
         $tariff->setDefault($overwrite, $set_date);
         $this->tariffs->save($tariff);
     }
 
-    public function applyDefaultTrial($tariff_id, $user_id, bool $overwrite, bool $set_date)
+    public function applyDefaultTrial($tariff_id, $user_id, $hash_id, bool $overwrite, bool $set_date)
     {
-        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
         $tariff->setDefaultTrial($overwrite, $set_date);
         $this->tariffs->save($tariff);
     }
 
-    public function renewal(TariffAssignmentFormEditRenewal $form, $tariff_id, $user_id)
+    public function renewal(TariffAssignmentFormEditRenewal $form, $tariff_id, $user_id, $hash_id)
     {
-        $tariff = $this->tariffs->get($tariff_id, $user_id);
+        $tariff = $this->tariffs->get($tariff_id, $user_id, $hash_id);
         $tariff->renewal(
             $form->extend_minutes,
             $form->extend_hours,
@@ -105,5 +119,4 @@ class TariffAssignmentManageService
         );
         $this->tariffs->save($tariff);
     }
-
 }

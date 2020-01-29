@@ -34,18 +34,10 @@ $this->params['breadcrumbs'][] = 'Update';
     </div>
 
     <div class="box">
-        <div class="box-header with-border">Tariffs</div>
+        <div class="box-header with-border">Add Tariff</div>
         <div class="box-body">
 
-            <?= $form->field($model->tariffs, 'list')->widget(\kartik\select2\Select2::classname(), [
-                'data' => $model->tariffs->tariffsList(),
-                'options' => ['placeholder' => 'Select a tariff ...'],
-                'pluginOptions' => [
-                    'allowClear' => true,
-                    'multiple' => true
-                ],
-            ]);
-            ?>
+            <?= $form->field($model->tariffs, 'list')->dropDownList($model->tariffs->tariffsList(), ['prompt'=>'Выберете тариф']); ?>
 
         </div>
     </div>

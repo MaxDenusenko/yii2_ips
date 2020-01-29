@@ -9,6 +9,11 @@ use yii\db\ActiveQuery;
 
 class TariffAssignmentQuery extends ActiveQuery
 {
+    public function notCancel()
+    {
+        return $this->andWhere(['!=', 'status',  TariffAssignment::STATUS_CANCEL]);
+    }
+
     public function active()
     {
         return $this->andWhere(['status' => TariffAssignment::STATUS_ACTIVE]);

@@ -422,11 +422,11 @@ class User extends ActiveRecord implements IdentityInterface
     public function assignTariff($id, bool $trial = false): void
     {
         $assignments = $this->tariffAssignments;
-        foreach ($assignments as $assignment) {
-            if ($assignment->isForTariff($id)) {
-                return;
-            }
-        }
+//        foreach ($assignments as $assignment) {
+//            if ($assignment->isForTariff($id)) {
+//                return;
+//            }
+//        }
         $assignments[] = TariffAssignment::create($id, $trial);
         $this->tariffAssignments = $assignments;
     }
@@ -451,12 +451,12 @@ class User extends ActiveRecord implements IdentityInterface
         $this->gabber = $gabber;
     }
 
-    public function issetTariff($tariff_id, $user_id): bool
+    public function issetTariff($tariff_id, $user_id, $hash_id): bool
     {
         $tariffs = $this->tariffAssignments;
         foreach ($tariffs as $tariff) {
 
-            if ($tariff->tariff_id == $tariff_id && $tariff->user_id == $user_id)
+            if ($tariff->tariff_id == $tariff_id && $tariff->user_id == $user_id && $tariff->hash_id == $hash_id)
                 return true;
         }
         return false;

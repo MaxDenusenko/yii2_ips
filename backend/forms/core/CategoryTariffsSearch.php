@@ -2,16 +2,14 @@
 
 namespace backend\forms\core;
 
-use core\entities\Core\CategoryTariffs;
-use core\helpers\TariffHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use core\entities\Core\Tariff;
+use core\entities\Core\CategoryTariffs;
 
 /**
- * TariffSearch represents the model behind the search form of `core\entities\Core\Tariff`.
+ * CategoryTariffsSearch represents the model behind the search form of `core\entities\Core\CategoryTariffs`.
  */
-class TariffSearch extends Tariff
+class CategoryTariffsSearch extends CategoryTariffs
 {
     /**
      * {@inheritdoc}
@@ -19,8 +17,8 @@ class TariffSearch extends Tariff
     public function rules()
     {
         return [
-            [['id', 'number', 'status', 'category_id'], 'integer'],
-            [['name', 'qty_proxy',], 'safe'],
+            [['id'], 'integer'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -33,16 +31,6 @@ class TariffSearch extends Tariff
         return Model::scenarios();
     }
 
-    public function statusList(): array
-    {
-        return TariffHelper::statusList();
-    }
-
-    public function categoryList()
-    {
-        return TariffHelper::categoryList();
-    }
-
     /**
      * Creates data provider instance with search query applied
      *
@@ -52,18 +40,13 @@ class TariffSearch extends Tariff
      */
     public function search($params)
     {
-        $query = Tariff::find()->joinWith(['category']);;
+        $query = CategoryTariffs::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
-        $dataProvider->sort->attributes['category_id'] = [
-            'asc' => [CategoryTariffs::tableName().'.name' => SORT_ASC],
-            'desc' => [CategoryTariffs::tableName().'.name' => SORT_DESC],
-        ];
 
         $this->load($params);
 
@@ -76,14 +59,9 @@ class TariffSearch extends Tariff
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'number' => $this->number,
-            'status' => $this->status,
-            'price' => $this->price,
-            'category_id' => $this->category_id,
         ]);
 
-        $query->andFilterWhere(['like', Tariff::tableName().'.name', $this->name])
-            ->andFilterWhere(['like', 'qty_proxy', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

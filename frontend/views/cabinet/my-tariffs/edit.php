@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
         <?php $form = ActiveForm::begin(['id' => 'tariff-ips-edit-form']); ?>
 
-        <?= $form->field($model, 'IPs')->textarea(['rows' => 10]) ?>
+        <?= $form->field($model, 'IPs')->textarea(['rows' => 10, 'placeholder' => '000.000.000.000']) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>

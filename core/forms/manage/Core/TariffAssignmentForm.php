@@ -41,7 +41,6 @@ class TariffAssignmentForm extends Model
     public function rules(): array
     {
         return [
-            [['file_path', 'IPs', 'mb_limit', 'quantity_incoming_traffic', 'quantity_outgoing_traffic'], 'required'],
             [['mb_limit', 'quantity_incoming_traffic', 'quantity_outgoing_traffic', 'ip_quantity', 'discount'], 'integer'],
             [['file_path', 'IPs', 'date_to', 'time_to'], 'string'],
             [['ip_quantity'], 'ip_quantity_validator'],

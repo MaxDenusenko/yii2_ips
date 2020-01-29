@@ -15,16 +15,16 @@ class TariffsFom extends Model
 
     public function __construct(User $user = null, $config = [])
     {
-        if ($user) {
-            $this->list = ArrayHelper::getColumn($user->tariffAssignments, 'tariff_id');
-        }
+//        if ($user) {
+//            $this->list = ArrayHelper::getColumn($user->tariffAssignments, 'tariff_id');
+//        }
         parent::__construct($config);
     }
 
     public function rules(): array
     {
         return [
-            ['list', 'each', 'rule' => ['integer']],
+            ['list', 'integer'],
         ];
     }
 

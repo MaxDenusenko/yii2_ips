@@ -22,7 +22,7 @@ use yii\widgets\DetailView;
                 [
                     'attribute' => 'tariff.price',
                     'value' => function($price) use ($tariff) {
-                        return $tariff->getPrice();
+                        return $tariff->getPrice(). ' '.$tariff->tariff->currency;
                     },
                     'format' => 'raw',
                 ],
@@ -61,8 +61,8 @@ use yii\widgets\DetailView;
                 'time_to',
             ],
         ]) ?>
-        <?= Html::a('Изменить IP', ['edit',  'id' => $tariff->tariff_id], ['class' => 'btn btn-primary']) ?>
-        <?= $tariff->isDeactivated() ? Html::a('Запрос на продление тарифа', ['renewal',  'id' => $tariff->tariff_id], ['class' => 'btn btn-primary', 'data-method' => 'post']) : '' ?>
-        <?= Html::a('Отменить тариф', ['delete',  'id' => $tariff->tariff_id], ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
+        <?= $tariff->ip_quantity >= 1 ? Html::a('Изменить IP', ['edit',  'id' => $tariff->tariff_id, 'hash' => $tariff->hash], ['class' => 'btn btn-primary']) : '' ; ?>
+        <?= $tariff->isDeactivated() ? Html::a('Запрос на продление тарифа', ['renewal',  'id' => $tariff->tariff_id, 'hash' => $tariff->hash], ['class' => 'btn btn-primary', 'data-method' => 'post']) : '' ?>
+        <?= !$tariff->isRequestCancel() ? Html::a('Отменить тариф', ['cancel',  'id' => $tariff->tariff_id, 'hash' => $tariff->hash], ['class' => 'btn btn-warning', 'data-method' => 'post']) : '' ?>
     </div>
 </div>

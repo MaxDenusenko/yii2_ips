@@ -10,7 +10,7 @@ use yii\data\ActiveDataProvider;
         <tr>
             <th>№</th>
             <th>Название</th>
-            <th>Колличество</th>
+            <th>Количество прокси</th>
             <th>Цена</th>
             <th></th>
         </tr>

@@ -25,7 +25,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'dataProvider' => $dataProvider,
                 'filterModel' => $searchModel,
                 'columns' => [
-                    'id',
                     [
                         'attribute' => 'name',
                         'value' => function (Tariff $model) {
@@ -41,9 +40,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         },
                         'format' => 'raw',
                     ],
+                    [
+                        'attribute' => 'category_id',
+                        'filter' => $searchModel->categoryList(),
+                        'value' => function (Tariff $model) {
+                            return $model->category->name;
+                        },
+                        'format' => 'raw',
+                    ],
                     'number',
-                    'quantity',
-                    'price',
+                    'qty_proxy',
 
                     ['class' => 'yii\grid\ActionColumn'],
                 ],

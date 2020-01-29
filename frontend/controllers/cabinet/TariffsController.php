@@ -52,13 +52,11 @@ class TariffsController extends Controller
     {
         /** @var Tariff $tariff */
         $tariff = $this->findTariff($id);
-        if ($this->user->issetTariff($tariff->id, $this->user->id))
-            throw new NotFoundException();
 
         try {
             $this->profileService->addTariff($this->user, $tariff, $trial);
             Yii::$app->session->setFlash('success', 'Вы заказали тариф '.$tariff->name.'. Ожидайте активации');
-            return $this->redirect(['cabinet/my-tariffs/view', 'id' => $tariff->id]);
+            return $this->redirect(['cabinet/my-tariffs/index']);
         } catch (\DomainException $e) {
             Yii::$app->errorHandler->logException($e);
             Yii::$app->session->setFlash('error', $e->getMessage());

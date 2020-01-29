@@ -1,11 +1,12 @@
 <?php
 
+use core\forms\manage\Core\TariffForm;
 use vova07\imperavi\Widget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model core\entities\Core\Tariff */
+/* @var $model TariffForm */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -18,11 +19,12 @@ use yii\widgets\ActiveForm;
         <div class="box-body">
             <?= $form->field($model, 'number')->textInput() ?>
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'quantity')->textInput() ?>
             <?= $form->field($model, 'price')->textInput() ?>
+            <?= $form->field($model, 'currency')->textInput() ?>
             <?= $form->field($model, 'proxy_link')->textInput() ?>
             <?= $form->field($model, 'price_for_additional_ip')->textInput() ?>
             <?= $form->field($model, 'qty_proxy')->textInput() ?>
+            <?= $form->field($model, 'category_id')->dropDownList($model->categoryList(), ['prompt'=>'Выберете категорию']) ?>
 
             <?= $form->field($model, 'description')->widget(Widget::className(), [
                 'settings' => [

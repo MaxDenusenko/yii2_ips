@@ -44,10 +44,14 @@ YiiAsset::register($this);
                     'id',
                     'number',
                     'name',
-                    'quantity',
                     'price',
+                    'currency',
                     'price_for_additional_ip',
                     'qty_proxy',
+                    [
+                        'attribute' => 'category.name',
+                        'label' => 'Категория'
+                    ],
                     [
                         'attribute' => 'proxy_link',
                         'value' => function($model) {

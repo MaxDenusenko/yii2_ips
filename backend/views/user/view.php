@@ -103,7 +103,7 @@ YiiAsset::register($this);
                     [
                         'class' => 'yii\grid\ActionColumn',
                         'urlCreator' => function ($action, $model, $key, $index) use($user) {
-                            return Url::to(['core/tariff-assignment/'.$action, 'user_id' => $model->user_id, 'tariff_id' => $model->tariff_id]);
+                            return Url::to(['core/tariff-assignment/'.$action, 'user_id' => $model->user_id, 'tariff_id' => $model->tariff_id, 'hash_id' => $model->hash]);
                         }
                     ],
                 ],

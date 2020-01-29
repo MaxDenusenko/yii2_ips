@@ -14,7 +14,7 @@ use yii\widgets\DetailView; ?>
             'attributes' => [
                 'number',
                 'name',
-                'quantity',
+                'qty_proxy',
                 'price',
             ],
         ]) ?>
@@ -28,13 +28,7 @@ use yii\widgets\DetailView; ?>
             </div>
         <?php endif; ?>
 
-        <?php if ($user->issetTariff($tariff->id, $user->id)) : ?>
-            <div class="alert alert-warning">
-                Этот тариф уже заказан
-            </div>
-        <?php else: ?>
-            <?= Html::a('Попробовать', ['order', 'id' => $tariff->id, 'trial' => true], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
-            <?= Html::a('Заказать', ['order', 'id' => $tariff->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
-        <?php endif; ?>
+        <?= Html::a('Попробовать', ['order', 'id' => $tariff->id, 'trial' => true], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
+        <?= Html::a('Заказать', ['order', 'id' => $tariff->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
     </div>
 </div>

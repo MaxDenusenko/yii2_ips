@@ -38,7 +38,7 @@ class MyTariffsController extends Controller
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
-                    'delete' => ['POST'],
+                    'cancel' => ['POST'],
                     'renewal' => ['POST'],
                 ],
             ],
@@ -56,7 +56,7 @@ class MyTariffsController extends Controller
     public function actionIndex()
     {
         $tariffDataProvider = new ActiveDataProvider([
-            'query' => $this->user->getTariffAssignments(),
+            'query' => $this->user->getTariffAssignments()->andWhere(['!=', 'status',  TariffAssignment::STATUS_CANCEL]),
         ]);
 
         $infoAr = $this->service->checkDateTariff($this->user);
@@ -67,10 +67,10 @@ class MyTariffsController extends Controller
         ]);
     }
 
-    public function actionView($id)
+    public function actionView($id, $hash)
     {
         try {
-            $tariff = $this->findTariffAssignment($id);
+            $tariff = $this->findTariffAssignment($id, $hash);
         } catch (NotFoundException $e) {
             Yii::$app->session->setFlash('error', \Yii::t('frontend', $e->getMessage()));
             return $this->redirect(['index']);
@@ -81,22 +81,27 @@ class MyTariffsController extends Controller
         ]);
     }
 
-    public function actionEdit($id)
+    public function actionEdit($id, $hash)
     {
         try {
-            $tariff = $this->findTariffAssignment($id);
+            $tariff = $this->findTariffAssignment($id, $hash);
         } catch (NotFoundException $e) {
             Yii::$app->session->setFlash('error', \Yii::t('frontend', $e->getMessage()));
             return $this->redirect(['index']);
+        }
+
+        if (! (int)$tariff->ip_quantity) {
+            Yii::$app->session->setFlash('warning', 'Смена ip не доступна!');
+            return $this->redirect(['view', 'id' => $id, 'hash' => $hash]);
         }
 
         $form = new TariffAssignmentEditIpsForm($tariff);
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
-                $this->service->editIPs($id, $this->user->id, $form);
+                $this->service->editIPs($id, $this->user->id, $hash, $form);
                 Yii::$app->session->setFlash('success', 'Информация была обновлена!');
-                return $this->redirect(['view', 'id' => $id]);
+                return $this->redirect(['view', 'id' => $id, 'hash' => $hash]);
             } catch (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);
                 Yii::$app->session->setFlash('error', \Yii::t('frontend', $e->getMessage()));
@@ -109,10 +114,10 @@ class MyTariffsController extends Controller
         ]);
     }
 
-    public function actionRenewal($id)
+    public function actionRenewal($id, $hash)
     {
         try {
-            $tariff = $this->findTariffAssignment($id);
+            $tariff = $this->findTariffAssignment($id, $hash);
             if (!$tariff->isDeactivated()) {
                 throw new NotFoundException('Тариф не найден');
             }
@@ -122,43 +127,44 @@ class MyTariffsController extends Controller
         }
 
         try {
-            $this->service->renewalRequest($id, $this->user->id);
+            $this->service->renewalRequest($id, $this->user->id, $hash);
             Yii::$app->session->setFlash('success', 'Запрос на продление тарифа отправлен!');
         } catch (DomainException $e) {
             Yii::$app->session->setFlash('error', \Yii::t('frontend', $e->getMessage()));
             return $this->redirect(['index']);
         }
 
-        return $this->redirect(['view', 'id' => $id]);
+        return $this->redirect(['view', 'id' => $id, 'hash' => $hash]);
     }
 
     /**
      * @param $id
+     * @param $hash
      * @return Response
-     * @throws \Throwable
-     * @throws \yii\db\StaleObjectException
      */
-    public function actionDelete($id)
+    public function actionCancel($id, $hash)
     {
         try {
-            $tariff = $this->findTariffAssignment($id)->delete();
-            Yii::$app->session->setFlash('warning', 'Тариф отменен!');
-        } catch (NotFoundException $e) {
+            $this->service->cancelRequest($id, $this->user->id, $hash);
+            Yii::$app->session->setFlash('success', 'Запрос на отмену тарифа отправлен!');
+        } catch (DomainException $e) {
             Yii::$app->session->setFlash('error', \Yii::t('frontend', $e->getMessage()));
             return $this->redirect(['index']);
         }
 
-        return $this->redirect(['index']);
+        return $this->redirect(['view', 'id' => $id, 'hash' => $hash]);
     }
+
 
     /**
      * @param $id
-     * @return TariffAssignment|Response|null
+     * @param $hash
+     * @return array|\yii\db\ActiveRecord|null
      */
-    public function findTariffAssignment($id)
+    public function findTariffAssignment($id, $hash)
     {
-        $tariff = TariffAssignment::findOne(['tariff_id' => $id, 'user_id' => $this->user->id]);
-        if (!$this->user->issetTariff($id, $this->user->id))
+        $tariff = TariffAssignment::find()->where(['tariff_id' => $id, 'user_id' => $this->user->id, 'hash_id' => $hash])->notCancel()->one();
+        if (!$tariff || !$this->user->issetTariff($id, $this->user->id, $hash))
             throw new NotFoundException('Тариф не найден');
 
         return $tariff;

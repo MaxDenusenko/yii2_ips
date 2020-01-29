@@ -4,6 +4,7 @@
 namespace core\helpers;
 
 
+use core\entities\Core\CategoryTariffs;
 use core\entities\Core\Tariff;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -38,5 +39,10 @@ class TariffHelper
         return Html::tag('span', ArrayHelper::getValue(self::statusList(), $status), [
             'class' => $class,
         ]);
+    }
+
+    public static function categoryList()
+    {
+        return ArrayHelper::map(CategoryTariffs::find()->orderBy('name')->asArray()->all(), 'id', 'name');
     }
 }

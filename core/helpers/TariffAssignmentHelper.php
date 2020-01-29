@@ -18,6 +18,8 @@ class TariffAssignmentHelper
             TariffAssignment::STATUS_REQUEST_TRIAL => 'Запрос триала',
             TariffAssignment::STATUS_DEACTIVATED => 'Деактивирован',
             TariffAssignment::STATUS_REQUEST_RENEWAL => 'Запрос на продление',
+            TariffAssignment::STATUS_REQUEST_CANCEL => 'Запрос на отмену',
+            TariffAssignment::STATUS_CANCEL => 'Отменен',
         ];
     }
 
@@ -40,6 +42,12 @@ class TariffAssignmentHelper
             case TariffAssignment::STATUS_REQUEST_RENEWAL:
                 $class = 'label label-info';
                 break;
+            case TariffAssignment::STATUS_REQUEST_CANCEL:
+                $class = 'label label-warning';
+                break;
+            case TariffAssignment::STATUS_CANCEL:
+                $class = 'label label-danger';
+                break;
             default:
                 $class = 'label label-default';
         }
@@ -50,7 +58,7 @@ class TariffAssignmentHelper
 
     public static function createConfigString(TariffAssignment $tA, string $ip): string
     {
-        return "{$tA->user->username}-{$tA->tariff_id}-{$tA->user_id}-".md5($ip).";{$ip};{$tA->mb_limit}M;{$tA->quantity_incoming_traffic}/{$tA->quantity_outgoing_traffic};{$tA->date_to} {$tA->time_to};\r\n";
+        return "{$tA->user->username}-{$tA->tariff_id}-{$tA->user_id}-{$tA->hash_id}-".md5($ip).";{$ip};{$tA->mb_limit}M;{$tA->quantity_incoming_traffic}/{$tA->quantity_outgoing_traffic};{$tA->date_to} {$tA->time_to};\r\n";
     }
 
     public static function checkFileHelper(string $help_file_path, $time = 10, $curTime = 0): bool
@@ -87,7 +95,7 @@ class TariffAssignmentHelper
         while (!feof($reading)) {
             $line = fgets($reading);
 
-            if (strpos($line, "{$tariffAssignment->tariff_id}-{$tariffAssignment->user_id}") !== false) {
+            if (strpos($line, "{$tariffAssignment->tariff_id}-{$tariffAssignment->user_id}-{$tariffAssignment->hash_id}") !== false) {
 
                 preg_match('/\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}/', $line, $ip_match);
                 $ip = $ip_match[0];
@@ -131,7 +139,7 @@ class TariffAssignmentHelper
         while (!feof($reading)) {
             $line = fgets($reading);
 
-            if (strpos($line, "{$tariffAssignment->tariff_id}-{$tariffAssignment->user_id}") === false)
+            if (strpos($line, "{$tariffAssignment->tariff_id}-{$tariffAssignment->user_id}-{$tariffAssignment->hash_id}") === false)
                 fputs($writing, $line);
         }
         fclose($reading); fclose($writing);

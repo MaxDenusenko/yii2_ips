@@ -88,17 +88,9 @@ class UserManageService
             $form->tariff_reminder
         );
 
-        is_array($form->tariffs->list) ?: $form->tariffs->list = [];
-
-        foreach ($form->tariffs->list as $otherId) {
-            $tariff = $this->tariffs->get($otherId);
+        if ((int) $form->tariffs->list) {
+            $tariff = $this->tariffs->get($form->tariffs->list);
             $user->assignTariff($tariff->id);
-        }
-
-        foreach ($user->tariffAssignments as $assignment) {
-            if (!in_array($assignment->tariff_id, $form->tariffs->list)) {
-                $user->deleteTariff($assignment->tariff_id);
-            }
         }
 
         $this->users->save($user);

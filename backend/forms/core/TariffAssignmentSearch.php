@@ -56,13 +56,13 @@ class TariffAssignmentSearch extends TariffAssignment
         ]);
 
         $dataProvider->sort->attributes['tariff_id'] = [
-            'asc' => [User::tableName().'.name' => SORT_ASC],
-            'desc' => [Tariff::tableName().'tariff.name' => SORT_DESC],
+            'asc' => [Tariff::tableName().'.name' => SORT_ASC],
+            'desc' => [Tariff::tableName().'.name' => SORT_DESC],
         ];
 
         $dataProvider->sort->attributes['user_id'] = [
-            'asc' => ['user.username' => SORT_ASC],
-            'desc' => ['user.username' => SORT_DESC],
+            'asc' => [User::tableName().'.username' => SORT_ASC],
+            'desc' => [User::tableName().'.username' => SORT_DESC],
         ];
 
         $this->load($params);
