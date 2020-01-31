@@ -41,4 +41,24 @@ class CategoryTariffs extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
+
+    public function getTariffs()
+    {
+        return $this->hasMany(Tariff::class, ['category_id' => 'id']);
+    }
+
+    public function beforeDelete()
+    {
+        $tariffs = $this->tariffs;
+
+        if(count($tariffs)) {
+            Yii::$app->session->setFlash(
+                'warning',
+                'Нельзя удалить категорию, который имеет связи'
+            );
+            return false;
+        }
+
+        return parent::beforeDelete();
+    }
 }

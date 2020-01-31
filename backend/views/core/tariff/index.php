@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'category_id',
                         'filter' => $searchModel->categoryList(),
                         'value' => function (Tariff $model) {
-                            return $model->category->name;
+                            return $model->category ? $model->category->name : '';
                         },
                         'format' => 'raw',
                     ],
