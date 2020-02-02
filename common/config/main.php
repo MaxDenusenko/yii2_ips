@@ -20,6 +20,13 @@ return [
             'class' => 'yii\caching\FileCache',
             'cachePath' => '@common/runtime/cache',
         ],
+        'cart' => [
+            'class' => 'yii2mod\cart\Cart',
+            'storageClass' => [
+                'class' => 'yii2mod\cart\storage\DatabaseStorage',
+                'deleteIfEmpty' => true
+            ]
+        ],
         'authManager' => [
             'class' => 'yii\rbac\DbManager',
         ],

@@ -40,6 +40,7 @@ class MyTariffsController extends Controller
                 'actions' => [
                     'cancel' => ['POST'],
                     'renewal' => ['POST'],
+                    'pay' => ['POST'],
                 ],
             ],
         ];
@@ -51,6 +52,24 @@ class MyTariffsController extends Controller
         $this->user = User::findOne(\Yii::$app->user->id);
         $this->service = $service;
         $this->layout = 'cabinet';
+    }
+
+    public function actionPay($id, $hash)
+    {
+        try {
+            $tariff = $this->findTariffAssignment($id, $hash);
+        } catch (NotFoundException $e) {
+            Yii::$app->session->setFlash('error', \Yii::t('frontend', $e->getMessage()));
+            return $this->redirect(['index']);
+        }
+
+        if ($tariff->isPaid()) {
+            Yii::$app->session->setFlash('success', 'Тариф уже оплачен');
+            return $this->redirect(['index']);
+        }
+
+        $pay_link = $this->service->getPayLink($tariff);
+        return $this->redirect($pay_link);
     }
 
     public function actionIndex()

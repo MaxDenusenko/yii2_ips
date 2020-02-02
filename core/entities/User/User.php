@@ -419,7 +419,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Tariff::class, ['id' => 'tariff_id'])->via('tariffAssignments');
     }
 
-    public function assignTariff($id, bool $trial = false): void
+    public function assignTariff($id, bool $trial = false, $order = null): void
     {
         $assignments = $this->tariffAssignments;
 //        foreach ($assignments as $assignment) {
@@ -427,7 +427,7 @@ class User extends ActiveRecord implements IdentityInterface
 //                return;
 //            }
 //        }
-        $assignments[] = TariffAssignment::create($id, $trial);
+        $assignments[] = TariffAssignment::create($id, $trial, $order);
         $this->tariffAssignments = $assignments;
     }
 
@@ -442,13 +442,13 @@ class User extends ActiveRecord implements IdentityInterface
         $this->tariffAssignments = $assignments;
     }
 
-    public function editProfile(string $username, string $email, string $full_name, string $telegram, string $gabber)
+    public function editProfile($username, $email, $full_name, $telegram, $jabber)
     {
         $this->username = $username;
         $this->email = $email;
         $this->full_name = $full_name;
         $this->telegram = $telegram;
-        $this->gabber = $gabber;
+        $this->gabber = $jabber;
     }
 
     public function issetTariff($tariff_id, $user_id, $hash_id): bool

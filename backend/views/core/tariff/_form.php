@@ -1,6 +1,9 @@
 <?php
 
+use core\entities\Core\Currency;
 use core\forms\manage\Core\TariffForm;
+use core\helpers\CurrencyHelper;
+use kartik\money\MaskMoney;
 use vova07\imperavi\Widget;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -19,8 +22,16 @@ use yii\widgets\ActiveForm;
         <div class="box-body">
             <?= $form->field($model, 'number')->textInput() ?>
             <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
-            <?= $form->field($model, 'price')->textInput() ?>
-            <?= $form->field($model, 'currency')->textInput() ?>
+            <?= $form->field($model, 'price')->widget(MaskMoney::classname(), [
+                'pluginOptions' => [
+                    'prefix' => CurrencyHelper::getBaseSymbol().' ',
+                    'thousands' => '.',
+                    'decimal' => ',',
+                    'precision' => 2,
+                    'allowZero' => false,
+                    'allowEmpty' => false
+                ],
+            ]); ?>
             <?= $form->field($model, 'proxy_link')->textInput() ?>
             <?= $form->field($model, 'price_for_additional_ip')->textInput() ?>
             <?= $form->field($model, 'qty_proxy')->textInput() ?>

@@ -58,7 +58,6 @@ class TariffManageService
             $form->description,
             $form->price_for_additional_ip,
             $form->qty_proxy,
-            $form->currency,
             $form->category_id
         );
 
@@ -84,7 +83,6 @@ class TariffManageService
             $form->description,
             $form->price_for_additional_ip,
             $form->qty_proxy,
-            $form->currency,
             $form->category_id
         );
 

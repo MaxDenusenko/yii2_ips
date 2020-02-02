@@ -6,6 +6,8 @@ namespace frontend\controllers\cabinet;
 
 use core\entities\Core\Tariff;
 use core\entities\User\User;
+use core\forms\manage\Core\AddToBasketForm;
+use core\forms\manage\Core\OrderForm;
 use core\repositories\NotFoundException;
 use core\services\cabinet\ProfileService;
 use Yii;
@@ -48,23 +50,6 @@ class TariffsController extends Controller
         $this->layout = 'cabinet';
     }
 
-    public function actionOrder($id, $trial = false)
-    {
-        /** @var Tariff $tariff */
-        $tariff = $this->findTariff($id);
-
-        try {
-            $this->profileService->addTariff($this->user, $tariff, $trial);
-            Yii::$app->session->setFlash('success', 'Вы заказали тариф '.$tariff->name.'. Ожидайте активации');
-            return $this->redirect(['cabinet/my-tariffs/index']);
-        } catch (\DomainException $e) {
-            Yii::$app->errorHandler->logException($e);
-            Yii::$app->session->setFlash('error', $e->getMessage());
-        }
-        return $this->redirect('index');
-
-    }
-
     public function actionIndex()
     {
         $tariffDataProvider = new ActiveDataProvider([
@@ -79,10 +64,12 @@ class TariffsController extends Controller
     public function actionView($id)
     {
         $tariff = $this->findTariff($id);
+        $orderForm = new OrderForm();
 
         return $this->render('view', [
             'tariff' => $tariff,
-            'user' => $this->user
+            'user' => $this->user,
+            'orderForm' => $orderForm,
         ]);
     }
 

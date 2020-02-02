@@ -18,7 +18,6 @@ class TariffForm extends CompositeForm
     public $description;
     public $price_for_additional_ip;
     public $qty_proxy;
-    public $currency;
     public $category_id;
 
     private $_tariff;
@@ -33,7 +32,6 @@ class TariffForm extends CompositeForm
             $this->price_for_additional_ip = $tariff->price_for_additional_ip;
             $this->description = $tariff->description;
             $this->proxy_link = $tariff->proxy_link;
-            $this->currency = $tariff->currency;
             $this->category_id = $tariff->category_id;
             $this->default = new TariffDefaultsForm($tariff->default[0]);
             $this->defaultTrial = new TariffDefaultsTrialForm($tariff->defaultTrial[0]);
@@ -50,9 +48,10 @@ class TariffForm extends CompositeForm
     public function rules(): array
     {
         return [
-            [['number', 'name'], 'required'],
-            [['number', 'price_for_additional_ip', 'price', 'category_id'], 'integer'],
-            [['proxy_link', 'description', 'qty_proxy', 'currency'], 'string'],
+            [['number', 'name', 'price'], 'required'],
+            [['number', 'price_for_additional_ip', 'category_id'], 'integer'],
+            [['price'], 'double'],
+            [['proxy_link', 'description', 'qty_proxy'], 'string'],
             [['name'], 'string', 'max' => 255],
             [['name', 'number'], 'unique', 'targetClass' => Tariff::class, 'filter' => $this->_tariff ? ['<>', 'id', $this->_tariff->id] : null],
         ];
@@ -78,7 +77,6 @@ class TariffForm extends CompositeForm
             'description' => 'Описание',
             'price_for_additional_ip' => 'Цена за доп ip (% от стоимости номинала)',
             'qty_proxy' => 'Количество прокси',
-            'currency' => 'Валюта',
             'category_id' => 'Категория',
         ];
     }

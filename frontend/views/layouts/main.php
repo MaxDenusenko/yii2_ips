@@ -3,6 +3,7 @@
 /* @var $this View */
 /* @var $content string */
 
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -40,14 +41,18 @@ AppAsset::register($this);
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/site/index']],
 //        ['label' => 'О нас', 'url' => ['/site/about']],
-        ['label' => 'FAQ', 'url' => ['/site/faq']],
-        ['label' => 'Контакты', 'url' => ['/contact/index']],
-        ['label' => 'Личный кабинет', 'url' => ['/cabinet/default/index'], 'active' => strpos(Yii::$app->controller->id, 'cabinet') !== false],
     ];
+    if (!Yii::$app->user->isGuest) {
+        $menuItems[] = ['label' => 'Личный кабинет', 'url' => ['/cabinet/default/index'], 'active' => strpos(Yii::$app->controller->id, 'cabinet') !== false];
+    }
+    $menuItems[] = ['label' => 'FAQ', 'url' => ['/site/faq']];
+    $menuItems[] = ['label' => 'Контакты', 'url' => ['/contact/index']];
+
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Регистрация', 'url' => ['/auth/signup/index']];
         $menuItems[] = ['label' => 'Вход', 'url' => ['/auth/auth/login']];
     } else {
+        $menuItems[] = ['label' => 'Корзина', 'url' => ['/basket/index']];
         $menuItems[] = '<li>'
             . Html::beginForm(['/auth/auth/logout'], 'post')
             . Html::submitButton(
@@ -57,6 +62,7 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
     }
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,
@@ -72,6 +78,27 @@ AppAsset::register($this);
         <?= $content ?>
     </div>
 </div>
+
+
+<?php
+$footer =
+    <<<FOOTER
+<button type="button" class="btn btn-default" data-dismiss="modal">
+    Продолжить покупки
+</button>
+<button type="button" class="btn btn-warning">
+    Оформить заказ
+</button>
+FOOTER;
+Modal::begin([
+    'header' => '<h2>Корзина</h2>',
+    'id' => 'basket-modal',
+    'size'=>'modal-lg',
+    'footer' => $footer
+]);
+Modal::end();
+unset($footer);
+?>
 
 <?php $this->endBody() ?>
 </body>

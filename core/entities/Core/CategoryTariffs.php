@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string $description
  */
 class CategoryTariffs extends \yii\db\ActiveRecord
 {
@@ -17,7 +18,7 @@ class CategoryTariffs extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'category_tariffs';
+        return '{{%category_tariffs}}';
     }
 
     /**
@@ -28,6 +29,7 @@ class CategoryTariffs extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['name'], 'string', 'max' => 255],
+            [['description'], 'string'],
         ];
     }
 
@@ -38,7 +40,8 @@ class CategoryTariffs extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => 'Название',
+            'description' => 'Описание',
         ];
     }
 

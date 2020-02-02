@@ -31,9 +31,9 @@ class ProfileService
         $this->users->save($user);
     }
 
-    public function addTariff(User $user, Tariff $tariff, bool $trial)
+    public function addTariff(User $user, Tariff $tariff, bool $trial, $order = null)
     {
-        $user->assignTariff($tariff->id, $trial);
+        $user->assignTariff($tariff->id, $trial, $order);
         $this->users->save($user);
     }
 }

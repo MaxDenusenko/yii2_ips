@@ -37,6 +37,9 @@
                     ['label' => 'FAQ', 'icon' => 'folder-o', 'url' => ['/faq/index'], 'active' => Yii::$app->controller->id == 'faq'],
                     ['label' => 'Pages', 'icon' => 'folder-o', 'url' => ['/fragments/index'], 'active' => Yii::$app->controller->id == 'fragments'],
                     ['label' => 'Category Tariffs', 'icon' => 'folder-o', 'url' => ['/core/category-tariffs/index'], 'active' => Yii::$app->controller->id == 'core/category-tariffs'],
+                    ['label' => 'Currency', 'icon' => 'folder-o', 'url' => ['/core/currency/index'], 'active' => Yii::$app->controller->id == 'core/currency'],
+                    ['label' => 'Orders', 'icon' => 'folder-o', 'url' => ['/core/order/index'], 'active' => Yii::$app->controller->id == 'core/order'],
+                    ['label' => 'Payment methods', 'icon' => 'folder-o', 'url' => ['/core/payment-method/index'], 'active' => Yii::$app->controller->id == 'core/payment-method'],
 //                    ['label' => 'Tariff defaults', 'icon' => 'folder-o', 'url' => ['/core/tariff-defaults/index'], 'active' => Yii::$app->controller->id == 'core/tariff-defaults'],
 //                    ['label' => 'RBAC', 'icon' => 'folder', 'items' => [
 //                        ['label' => 'Route', 'icon' => 'file-o', 'url' => ['/rbac/route'], 'active' => Yii::$app->controller->id == 'route'],

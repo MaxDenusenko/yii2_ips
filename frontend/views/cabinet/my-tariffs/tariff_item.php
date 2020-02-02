@@ -19,13 +19,13 @@ use yii\widgets\DetailView;
                     'label' => 'Тариф',
                     'attribute' => 'tariff.name',
                 ],
-                [
-                    'attribute' => 'tariff.price',
-                    'value' => function($price) use ($tariff) {
-                        return $tariff->getPrice(). ' '.$tariff->tariff->currency;
-                    },
-                    'format' => 'raw',
-                ],
+//                [
+//                    'attribute' => 'tariff.price',
+//                    'value' => function($price) use ($tariff) {
+//                        return $tariff->getPrice(). ' '.$tariff->tariff->currency;
+//                    },
+//                    'format' => 'raw',
+//                ],
                 'tariff.qty_proxy',
                 'tariff.price_for_additional_ip',
                 [
@@ -61,8 +61,21 @@ use yii\widgets\DetailView;
                 'time_to',
             ],
         ]) ?>
-        <?= $tariff->ip_quantity >= 1 ? Html::a('Изменить IP', ['edit',  'id' => $tariff->tariff_id, 'hash' => $tariff->hash], ['class' => 'btn btn-primary']) : '' ; ?>
-        <?= $tariff->isDeactivated() ? Html::a('Запрос на продление тарифа', ['renewal',  'id' => $tariff->tariff_id, 'hash' => $tariff->hash], ['class' => 'btn btn-primary', 'data-method' => 'post']) : '' ?>
-        <?= !$tariff->isRequestCancel() ? Html::a('Отменить тариф', ['cancel',  'id' => $tariff->tariff_id, 'hash' => $tariff->hash], ['class' => 'btn btn-warning', 'data-method' => 'post']) : '' ?>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Оплата</div>
+            <div class="panel-body">
+                <?php if ($tariff->isPaid()): ?>
+                    <p>Оплачено</p>
+                <?php else: ?>
+                    <p>Не оплачено</p>
+                    <?= Html::a('Оплатить', ['pay',  'id' => $tariff->tariff_id, 'hash' => $tariff->hash], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
+                <?php endif; ?>
+            </div>
+        </div>
+
+<!--        --><?//= $tariff->ip_quantity >= 1 ? Html::a('Изменить IP', ['edit',  'id' => $tariff->tariff_id, 'hash' => $tariff->hash], ['class' => 'btn btn-primary']) : '' ; ?>
+<!--        --><?//= $tariff->isDeactivated() ? Html::a('Запрос на продление тарифа', ['renewal',  'id' => $tariff->tariff_id, 'hash' => $tariff->hash], ['class' => 'btn btn-primary', 'data-method' => 'post']) : '' ?>
+<!--        --><?//= !$tariff->isRequestCancel() ? Html::a('Отменить тариф', ['cancel',  'id' => $tariff->tariff_id, 'hash' => $tariff->hash], ['class' => 'btn btn-warning', 'data-method' => 'post']) : '' ?>
     </div>
 </div>

@@ -1,6 +1,7 @@
 <?php
 
 use core\entities\Core\TariffDefaults;
+use core\helpers\CurrencyHelper;
 use core\helpers\TariffDefaultsHelper;
 use core\helpers\TariffHelper;
 use yii\helpers\Html;
@@ -44,8 +45,12 @@ YiiAsset::register($this);
                     'id',
                     'number',
                     'name',
-                    'price',
-                    'currency',
+                    [
+                        'attribute' => 'price',
+                        'value' => function($model) {
+                            return Yii::$app->formatter->asCurrency($model->getPrice(), CurrencyHelper::getActiveCode());
+                        },
+                    ],
                     'price_for_additional_ip',
                     'qty_proxy',
                     [

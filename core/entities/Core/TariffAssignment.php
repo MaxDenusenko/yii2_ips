@@ -8,7 +8,6 @@ use core\helpers\TariffAssignmentHelper;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
-use yii\helpers\Html;
 
 /**
  * This is the model class for table "tariff_assignments".
@@ -16,6 +15,7 @@ use yii\helpers\Html;
  * @property int $tariff_id
  * @property int $user_id
  * @property string $hash_id
+ * @property int $order_item_id
  * @property string $file_path
  * @property string $hash
  * @property int $status
@@ -30,6 +30,7 @@ use yii\helpers\Html;
  *
  * @property Tariff $tariff
  * @property User $user
+ * @property OrderItem $orderItem
  */
 
 class TariffAssignment extends ActiveRecord
@@ -43,7 +44,7 @@ class TariffAssignment extends ActiveRecord
     const STATUS_REQUEST_CANCEL = 6;
     const STATUS_CANCEL = 7;
 
-    public static function create($tariffId, bool $trial = false): self
+    public static function create($tariffId, bool $trial = false, OrderItem $orderItem = null): self
     {
         $assignment = new static();
         $assignment->tariff_id = $tariffId;
@@ -54,6 +55,10 @@ class TariffAssignment extends ActiveRecord
             $assignment->setDefaultTrial(true, false);
             $assignment->status = self::STATUS_REQUEST_TRIAL;
         } else {
+
+            if ($orderItem) {
+                $assignment->order_item_id = $orderItem->id;
+            }
             $assignment->setDefault(true, false);
         }
 
@@ -158,6 +163,14 @@ class TariffAssignment extends ActiveRecord
         return $this->hasOne(User::className(), ['id' => 'user_id']);
     }
 
+    /**
+     * @return ActiveQuery
+     */
+    public function getOrderItem()
+    {
+        return $this->hasOne(OrderItem::className(), ['id' => 'order_item_id']);
+    }
+
     public function draft(): void
     {
         if ($this->isDraft()) {
@@ -196,6 +209,11 @@ class TariffAssignment extends ActiveRecord
             throw new \DomainException('Уже запрошена отмена тарифа');
         }
         $this->status = self::STATUS_REQUEST_CANCEL;
+    }
+
+    public function isPaid(): bool
+    {
+        return $this->orderItem->order->isPaid();
     }
 
     public function isActive(): bool

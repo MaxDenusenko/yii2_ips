@@ -4,20 +4,27 @@
 namespace core\services\manage\Core;
 
 
+use core\entities\Core\TariffAssignment;
 use core\entities\User\User;
 use core\forms\manage\Core\TariffAssignmentEditIpsForm;
 use core\forms\manage\Core\TariffAssignmentForm;
 use core\forms\manage\Core\TariffAssignmentFormEditRenewal;
 use core\helpers\TariffAssignmentHelper;
 use core\repositories\Core\TariffAssignmentRepository;
+use core\services\PayService;
 
 class TariffAssignmentManageService
 {
     private $tariffs;
+    private $payService;
 
-    public function __construct(TariffAssignmentRepository $tariffs)
+    public function __construct(
+        TariffAssignmentRepository $tariffs,
+        PayService $payService
+    )
     {
         $this->tariffs = $tariffs;
+        $this->payService = $payService;
     }
 
     public function editIPs(int $tariff_id, int $user_id, $hash_id, TariffAssignmentEditIpsForm $form)
@@ -118,5 +125,11 @@ class TariffAssignmentManageService
             true
         );
         $this->tariffs->save($tariff);
+    }
+
+    public function getPayLink(TariffAssignment $tariff)
+    {
+        $order = $tariff->orderItem->order;
+        return $this->payService->getPayLink($order);
     }
 }

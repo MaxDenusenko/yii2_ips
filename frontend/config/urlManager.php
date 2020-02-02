@@ -9,6 +9,7 @@ return [
         '' => 'site/index',
         '<_a:about>' => 'site/<_a>',
         'contact' => 'contact/index',
+        'basket' => 'basket/index',
         'faq' => 'site/faq',
         'signup' => '/auth/signup/index',
         'signup/<_a:[\w-]+>' => '/auth/signup/<_a>',

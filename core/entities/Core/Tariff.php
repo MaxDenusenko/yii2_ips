@@ -3,21 +3,21 @@
 namespace core\entities\Core;
 
 use core\entities\Core\queries\TariffQuery;
-use core\entities\User\User;
 use core\forms\manage\Core\TariffDefaultsForm;
-use core\services\manage\Core\TariffDefaultsManageService;
+use core\helpers\converter\CurrencyConverter;
+use core\helpers\CurrencyHelper;
 use DomainException;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
+use yii\db\Exception;
 
 /**
  * This is the model class for table "tariffs".
  *
  * @property int $id
  * @property string $qty_proxy
- * @property string $currency
  * @property int $number
  * @property int $category_id
  * @property string $name
@@ -43,11 +43,10 @@ class Tariff extends ActiveRecord
      * @param $description
      * @param $price_for_additional_ip
      * @param $qty_proxy
-     * @param $currency
      * @param $category_id
      * @return static
      */
-    public static function create($name, $number, $price, $status, $proxy_link, $description, $price_for_additional_ip, $qty_proxy, $currency, $category_id)
+    public static function create($name, $number, $price, $status, $proxy_link, $description, $price_for_additional_ip, $qty_proxy, $category_id)
     {
         $tariff = new static();
         $tariff->name = $name;
@@ -58,7 +57,6 @@ class Tariff extends ActiveRecord
         $tariff->description = $description;
         $tariff->price_for_additional_ip = $price_for_additional_ip;
         $tariff->qty_proxy = $qty_proxy;
-        $tariff->currency = $currency;
         $tariff->category_id = $category_id;
         return $tariff;
     }
@@ -73,7 +71,7 @@ class Tariff extends ActiveRecord
      * @param $qty_proxy
      * @param $currency
      */
-    public function edit($name, $number, $price, $proxy_link, $description, $price_for_additional_ip, $qty_proxy, $currency, $category_id)
+    public function edit($name, $number, $price, $proxy_link, $description, $price_for_additional_ip, $qty_proxy, $category_id)
     {
         $this->name = $name;
         $this->number = $number;
@@ -82,8 +80,27 @@ class Tariff extends ActiveRecord
         $this->description = $description;
         $this->price_for_additional_ip = $price_for_additional_ip;
         $this->qty_proxy = $qty_proxy;
-        $this->currency = $currency;
         $this->category_id = $category_id;
+    }
+
+    public function getPrice($active_curr_code = null)
+    {
+        $active_curr = $active_curr_code ? $active_curr_code : CurrencyHelper::getActiveCode();
+        $base_curr = CurrencyHelper::getBaseCode();
+
+        if (!$active_curr || !$base_curr) {
+            throw new Exception('не задана базовая и активная валюта');
+        }
+
+        $price = $this->price;
+        if ($active_curr !== $base_curr) {
+
+            $converter = new CurrencyConverter();
+            $rate =  $converter->convert($base_curr, $active_curr);
+            $price = $price*$rate;
+        }
+
+        return round($price, 2);
     }
 
     /**
@@ -127,9 +144,10 @@ class Tariff extends ActiveRecord
     {
         return [
             [['number', 'name'], 'required'],
-            [['number', 'status', 'price_for_additional_ip', 'price', 'category_id'], 'integer'],
+            [['number', 'status', 'price_for_additional_ip', 'category_id'], 'integer'],
+            [['price'], 'double'],
             [['name'], 'string', 'max' => 255],
-            [['proxy_link', 'description', 'qty_proxy', 'currency'], 'string'],
+            [['proxy_link', 'description', 'qty_proxy'], 'string'],
             [['name'], 'unique'],
             [['number'], 'unique'],
         ];
@@ -150,7 +168,6 @@ class Tariff extends ActiveRecord
             'description' => 'Описание',
             'price_for_additional_ip' => 'Цена за доп ip (% от стоимости номинала)',
             'qty_proxy' => 'Количество прокси',
-            'currency' => 'Валюта',
             'category_id' => 'Категория',
         ];
     }
@@ -227,5 +244,13 @@ class Tariff extends ActiveRecord
         $default = new TariffDefaults($defaultTrial);
         $default->type = TariffDefaults::TYPE_TRIAL;
         $this->defaultTrial = $default;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getLabel()
+    {
+        return $this->name;
     }
 }
