@@ -7,13 +7,13 @@ use yii\grid\GridView;
 /* @var $searchModel backend\forms\FaqSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Faqs';
+$this->title = \Yii::t('frontend', 'Faqs');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="faq-index">
 
     <p>
-        <?= Html::a('Create Faq', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(\Yii::t('frontend', 'Create Faq'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="box">

@@ -45,7 +45,7 @@ class UserRepository
     public function getBy(array $condition): User
     {
         if (!$user = User::find()->andWhere($condition)->limit(1)->one()) {
-            throw new NotFoundException('User not found');
+            throw new NotFoundException(\Yii::t('frontend', 'User not found'));
         }
         return $user;
     }
@@ -53,7 +53,7 @@ class UserRepository
     public function get($id): User
     {
         if (!$user = User::findOne($id)) {
-            throw new NotFoundException('User not found');
+            throw new NotFoundException(\Yii::t('frontend', 'User not found'));
         }
         return $user;
     }
@@ -65,7 +65,7 @@ class UserRepository
     public function getByEmail(string $email): User
     {
         if (!$user = User::findOne(['email' => $email, 'status' => User::STATUS_ACTIVE])) {
-            throw new NotFoundException('User is not found');
+            throw new NotFoundException(\Yii::t('frontend', 'User not found'));
         }
         return $user;
     }
@@ -77,7 +77,7 @@ class UserRepository
     public function getByUsername(string $username): User
     {
         if (!$user = User::findOne(['username' => $username, 'status' => User::STATUS_ACTIVE])) {
-            throw new \DomainException('User is not found');
+            throw new \DomainException(\Yii::t('frontend', 'User not found'));
         }
         return $user;
     }
@@ -98,7 +98,7 @@ class UserRepository
     public function getByPasswordResetToken(string $token): User
     {
         if (!$user = User::findByPasswordResetToken($token)) {
-            throw new \DomainException('User is not found');
+            throw new \DomainException(\Yii::t('frontend', 'User not found'));
         }
         return $user;
     }
@@ -109,7 +109,7 @@ class UserRepository
     public function save(User $user): void
     {
         if (!$user->save()) {
-            throw new \RuntimeException('Saving error');
+            throw new \RuntimeException(\Yii::t('frontend', 'Saving error'));
         }
     }
 }

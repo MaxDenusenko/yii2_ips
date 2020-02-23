@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="currency-index">
 
     <p>
-        <?= Html::a('Create Currency', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(\Yii::t('frontend', 'Create Currency'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="box">

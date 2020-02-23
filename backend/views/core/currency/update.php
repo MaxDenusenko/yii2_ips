@@ -8,7 +8,7 @@ use yii\helpers\Html;
 /* @var $currency core\entities\Core\Currency */
 
 $this->title = 'Update Currency: ' . $currency->code;
-$this->params['breadcrumbs'][] = ['label' => 'Currencies', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('frontend', 'Currencies'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $currency->code, 'url' => ['view', 'id' => $currency->code]];
 $this->params['breadcrumbs'][] = 'Update';
 ?>

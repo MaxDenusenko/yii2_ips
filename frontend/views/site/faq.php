@@ -5,23 +5,15 @@
 use core\entities\Faq;
 use yii\data\ActiveDataProvider;
 
+$this->title = 'FAQ';
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="panel-group" id="accordion">
+
+<ul class="collapsible popout">
     <?php foreach ($faqDataProvider->getModels() as $k => $question): ?>
-        <!-- 1 панель -->
-        <div class="panel panel-default">
-            <!-- Заголовок 1 панели -->
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne<?=$k?>"><?=$question->question?></a>
-                </h4>
-            </div>
-            <div id="collapseOne<?=$k?>" class="panel-collapse collapse">
-                <!-- Содержимое 1 панели -->
-                <div class="panel-body">
-                    <?=$question->answer?>
-                </div>
-            </div>
-        </div>
+        <li>
+            <div class="collapsible-header"><?=$question->question?></div>
+            <div class="collapsible-body"><span><?=$question->answer?></span></div>
+        </li>
     <?php endforeach; ?>
-</div>
+</ul>

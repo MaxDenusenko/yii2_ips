@@ -1,34 +1,32 @@
 <?php
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
+/* @var $form ActiveForm */
 /* @var $model ResetPasswordForm */
 
 use core\forms\auth\ResetPasswordForm;
 use himiklab\yii2\recaptcha\ReCaptcha2;
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use macgyer\yii2materializecss\lib\Html;
+use macgyer\yii2materializecss\widgets\form\ActiveForm;
 
-$this->title = 'Отправить письмо с подтверждением';
+$this->title = \Yii::t('frontend', 'Send confirmation email');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-resend-verification-email">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Пожалуйста, заполните вашу электронную почту. Письмо с подтверждением будет отправлено туда.</p>
+    <p><?=\Yii::t('frontend', 'Please fill in your email. A confirmation email will be sent there.')?></p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'resend-verification-email-form']); ?>
+    <br>
 
-            <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+    <?php $form = ActiveForm::begin(['id' => 'resend-verification-email-form']); ?>
 
-            <?= $form->field($model, 'reCaptcha')->widget(ReCaptcha2::className()) ?>
+    <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
-            <div class="form-group">
-                <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
-            </div>
+    <?= $form->field($model, 'reCaptcha')->widget(ReCaptcha2::className()) ?>
 
-            <?php ActiveForm::end(); ?>
-        </div>
+    <div class="form-group">
+        <?= Html::submitButton(\Yii::t('frontend', 'Send'), ['class' => 'btn btn-primary']) ?>
     </div>
+
+    <?php ActiveForm::end(); ?>
 </div>

@@ -9,13 +9,13 @@ use yii\grid\GridView;
 /* @var $searchModel backend\forms\core\TariffDefaultsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Tariff Defaults';
+$this->title = \Yii::t('frontend', 'Tariff Defaults');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tariff-defaults-index">
 
     <p>
-        <?= Html::a('Create Tariff Defaults', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(\Yii::t('frontend', 'Create Tariff Defaults'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="box">

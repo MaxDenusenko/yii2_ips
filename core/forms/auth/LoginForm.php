@@ -25,7 +25,7 @@ class LoginForm extends Model
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             [['reCaptcha'], ReCaptchaValidator2::className(),
-                'uncheckedMessage' => 'Пожалуйста, подтвердите, что вы не бот.'],
+                'uncheckedMessage' => \Yii::t('frontend', 'Please confirm that you are not a bot.')],
         ];
     }
 
@@ -35,9 +35,10 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => 'Логин',
-            'rememberMe' => 'Запомнить меня',
-            'password' => 'Пароль',
+            'username' => \Yii::t('frontend', 'Login'),
+            'rememberMe' => \Yii::t('frontend', 'Remember me'),
+            'password' => \Yii::t('frontend', 'Password'),
+            'reCaptcha' => false,
         ];
     }
 }

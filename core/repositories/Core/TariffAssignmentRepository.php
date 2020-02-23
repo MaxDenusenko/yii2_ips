@@ -19,7 +19,7 @@ class TariffAssignmentRepository
     public function get($tariff_id, $user_id, $hash_id): TariffAssignment
     {
         if (!$tariff = TariffAssignment::findOne(['tariff_id' => $tariff_id, 'user_id' => $user_id, 'hash_id' => $hash_id])) {
-            throw new NotFoundException('Tariff is not found');
+            throw new NotFoundException(\Yii::t('frontend', 'Tariff not found'));
         }
         return $tariff;
     }
@@ -30,7 +30,7 @@ class TariffAssignmentRepository
     public function save(TariffAssignment $tariff): void
     {
         if (!$tariff->save()) {
-            throw new \RuntimeException('Saving error');
+            throw new \RuntimeException(\Yii::t('frontend', 'Saving error'));
         }
     }
 
@@ -42,7 +42,7 @@ class TariffAssignmentRepository
     public function remove(TariffAssignment $tariff): void
     {
         if (!$tariff->delete()) {
-            throw new \RuntimeException('Removing error');
+            throw new \RuntimeException(\Yii::t('frontend', 'Removing error'));
         }
     }
 }

@@ -2,7 +2,6 @@
 
 namespace backend\controllers;
 
-use core\entities\Core\Tariff;
 use core\entities\Core\TariffAssignment;
 use DomainException;
 use core\forms\manage\User\UserCreateForm;
@@ -25,6 +24,7 @@ use yii\filters\VerbFilter;
 class UserController extends Controller
 {
     private $userManageService;
+
     public function __construct(
         $id,
         $module,
@@ -33,6 +33,7 @@ class UserController extends Controller
     )
     {
         $this->userManageService = $userManageService;
+
         parent::__construct($id, $module, $config);
     }
 
@@ -213,6 +214,6 @@ class UserController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(\Yii::t('frontend', 'The requested page does not exist.'));
     }
 }

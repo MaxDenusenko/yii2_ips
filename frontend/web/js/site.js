@@ -1,4 +1,5 @@
 jQuery(document).ready(function($) {
+
     /*
      * Добавление товара в корзину с использованием AJAX
      */
@@ -77,7 +78,6 @@ jQuery(document).ready(function($) {
         event.preventDefault();
     });
 
-
     /*
      * Обновление содержимого корзины в модальном окне
      */
@@ -110,7 +110,6 @@ jQuery(document).ready(function($) {
         return false;
     });
 
-
     /*
      * Обновление содержимого корзины на странице корзины
      */
@@ -140,4 +139,5 @@ jQuery(document).ready(function($) {
         event.preventDefault();
     });
 
+    M.AutoInit();
 });

@@ -18,7 +18,7 @@ class FragmentsSearch extends Fragments
     {
         return [
             [['id'], 'integer'],
-            [['name', 'text'], 'safe'],
+            [['name'], 'safe'],
         ];
     }
 
@@ -61,8 +61,7 @@ class FragmentsSearch extends Fragments
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'text', $this->text]);
+        $query->andFilterWhere(['like', 'name', $this->name]);
 
         return $dataProvider;
     }

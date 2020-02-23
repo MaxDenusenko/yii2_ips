@@ -7,14 +7,14 @@ use yii\grid\GridView;
 /* @var $searchModel backend\forms\core\PaymentMethodSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Payment Methods';
+$this->title = \Yii::t('frontend', 'Payment Methods');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="payment-method-index">
 
-    <p>
-        <?= Html::a('Create Payment Method', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <!--<p>
+        <?/*= Html::a('Create Payment Method', ['create'], ['class' => 'btn btn-success']) */?>
+    </p>-->
 
     <div class="box">
         <div class="box-body">
@@ -25,8 +25,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
 
                     'name',
+                    'label',
 
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '{update}'
+                    ],
                 ],
             ]); ?>
 

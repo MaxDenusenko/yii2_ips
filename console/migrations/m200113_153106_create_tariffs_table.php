@@ -17,7 +17,6 @@ class m200113_153106_create_tariffs_table extends Migration
         $this->createTable('{{%tariffs}}', [
             'id' => $this->primaryKey(),
             'number' => $this->integer()->notNull(),
-            'name' => $this->string()->notNull()->unique(),
             'price' => $this->float()->notNull(),
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
         ], $tableOptions);

@@ -3,11 +3,15 @@
 namespace core\entities\Core;
 
 use core\entities\Core\queries\TariffQuery;
+use core\forms\ActiveRecordCompositeForm;
 use core\forms\manage\Core\TariffDefaultsForm;
+use core\forms\manage\Core\TariffDefaultsTrialForm;
 use core\helpers\converter\CurrencyConverter;
 use core\helpers\CurrencyHelper;
 use DomainException;
 use lhs\Yii2SaveRelationsBehavior\SaveRelationsBehavior;
+use omgdef\multilingual\MultilingualBehavior;
+use omgdef\multilingual\MultilingualQuery;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
@@ -28,59 +32,27 @@ use yii\db\Exception;
  * @property int $price_for_additional_ip
  * @property TariffDefaults [] default
  * @property TariffDefaults [] defaultTrial
+ *
+ * @property TariffDefaultsForm [] defaultComposite
+ * @property TariffDefaultsTrialForm [] defaultTrialComposite
  */
-class Tariff extends ActiveRecord
+class Tariff extends ActiveRecordCompositeForm
 {
+    private $oldRecord;
+
     const STATUS_DRAFT = 1;
     const STATUS_ACTIVE = 2;
 
-    /**
-     * @param $name
-     * @param $number
-     * @param $price
-     * @param $status
-     * @param $proxy_link
-     * @param $description
-     * @param $price_for_additional_ip
-     * @param $qty_proxy
-     * @param $category_id
-     * @return static
-     */
-    public static function create($name, $number, $price, $status, $proxy_link, $description, $price_for_additional_ip, $qty_proxy, $category_id)
+    public function __construct($config = [])
     {
-        $tariff = new static();
-        $tariff->name = $name;
-        $tariff->number = $number;
-        $tariff->price = $price;
-        $tariff->status = $status;
-        $tariff->proxy_link = $proxy_link;
-        $tariff->description = $description;
-        $tariff->price_for_additional_ip = $price_for_additional_ip;
-        $tariff->qty_proxy = $qty_proxy;
-        $tariff->category_id = $category_id;
-        return $tariff;
+        parent::__construct($config);
+        $this->setComposite();
     }
 
-    /**
-     * @param $name
-     * @param $number
-     * @param $price
-     * @param $proxy_link
-     * @param $description
-     * @param $price_for_additional_ip
-     * @param $qty_proxy
-     * @param $currency
-     */
-    public function edit($name, $number, $price, $proxy_link, $description, $price_for_additional_ip, $qty_proxy, $category_id)
+    public function setComposite()
     {
-        $this->name = $name;
-        $this->number = $number;
-        $this->price = $price;
-        $this->proxy_link = $proxy_link;
-        $this->description = $description;
-        $this->price_for_additional_ip = $price_for_additional_ip;
-        $this->qty_proxy = $qty_proxy;
-        $this->category_id = $category_id;
+        $this->defaultComposite = new TariffDefaultsForm(isset($this->default[0]) ? $this->default[0] : null);
+        $this->defaultTrialComposite = new TariffDefaultsTrialForm(isset($this->defaultTrial[0]) ? $this->defaultTrial[0] : null);
     }
 
     public function getPrice($active_curr_code = null)
@@ -146,9 +118,9 @@ class Tariff extends ActiveRecord
             [['number', 'name'], 'required'],
             [['number', 'status', 'price_for_additional_ip', 'category_id'], 'integer'],
             [['price'], 'double'],
+            [['description'], 'string'],
             [['name'], 'string', 'max' => 255],
-            [['proxy_link', 'description', 'qty_proxy'], 'string'],
-            [['name'], 'unique'],
+            [['proxy_link', 'qty_proxy'], 'string'],
             [['number'], 'unique'],
         ];
     }
@@ -161,14 +133,14 @@ class Tariff extends ActiveRecord
         return [
             'id' => 'ID',
             'number' => '№',
-            'name' => 'Название',
-            'price' => 'Цена',
-            'status' => 'Статус',
-            'proxy_link' => 'Ссылка на список прокси',
-            'description' => 'Описание',
-            'price_for_additional_ip' => 'Цена за доп ip (% от стоимости номинала)',
-            'qty_proxy' => 'Количество прокси',
-            'category_id' => 'Категория',
+            'name' => Yii::t('frontend', 'Name'),
+            'price' => Yii::t('frontend', 'Price'),
+            'status' => Yii::t('frontend', 'Status'),
+            'proxy_link' => Yii::t('frontend', 'Link to proxy list'),
+            'description' => Yii::t('frontend', 'Description'),
+            'price_for_additional_ip' => Yii::t('frontend', 'Price for additional ip (% of face value)'),
+            'qty_proxy' => Yii::t('frontend', 'Number of proxies'),
+            'category_id' => Yii::t('frontend', 'Category'),
         ];
     }
 
@@ -180,6 +152,11 @@ class Tariff extends ActiveRecord
     public function getDefault(): ActiveQuery
     {
         return $this->hasMany(TariffDefaults::class, ['tariff_id' => 'id'])->where(['type' => TariffDefaults::TYPE_SIMPLE]);
+    }
+
+    public function getTariffsLang(): ActiveQuery
+    {
+        return $this->hasMany(TariffsLang::class, ['tariff_id' => 'id']);
     }
 
     public function getDefaultTrial(): ActiveQuery
@@ -207,10 +184,25 @@ class Tariff extends ActiveRecord
     public function behaviors()
     {
         return [
+            'ml' => [
+                'class' => MultilingualBehavior::className(),
+                'languages' => Yii::$app->params['languages'],
+                'languageField' => 'language',
+                //'localizedPrefix' => '',
+                //'requireTranslations' => false,
+                'dynamicLangClass' => true,
+                'langClassName' => TariffsLang::className(),
+                'defaultLanguage' => Yii::$app->sourceLanguage,
+                'langForeignKey' => 'tariffs_id',
+                'tableName' => "{{%tariffs_lang}}",
+                'attributes' => [
+                    'name', 'description'
+                ]
+            ],
             [
                 'class' => SaveRelationsBehavior::className(),
                 'relations' => ['default', 'defaultTrial'],
-            ]
+            ],
         ];
     }
 
@@ -221,7 +213,7 @@ class Tariff extends ActiveRecord
         if(count($tariffs)) {
             Yii::$app->session->setFlash(
                 'warning',
-                'Нельзя удалить тариф, который имеет связи'
+                Yii::t('frontend', 'You cannot delete a tariff that has links')
             );
             return false;
         }
@@ -252,5 +244,64 @@ class Tariff extends ActiveRecord
     public function getLabel()
     {
         return $this->name;
+    }
+
+    public function afterFind()
+    {
+        $this->oldRecord = clone $this;
+        $this->setComposite();
+
+        return parent::afterFind();
+    }
+
+    public function beforeSave($insert)
+    {
+        if ($this->oldRecord) {
+
+            if (
+                ($this->oldRecord->price != $this->price)
+                ||
+                ($this->oldRecord->price_for_additional_ip != $this->price_for_additional_ip)
+            ) {
+
+                $renewalItems = RenewalOrderItem::find()->where(['product_id' => $this->id])->joinWith(['order'])->all();
+
+                if (count($renewalItems)) {
+                    foreach ($renewalItems as $renewalItem) {
+                        if (!$renewalItem->order->isPaid()) {
+                            $renewalItem->order->canceled();
+                            $renewalItem->order->save();
+                        }
+                    }
+                }
+
+                $orderItems = OrderItem::find()->where(['product_id' => $this->id])->joinWith(['order'])->all();
+
+                if (count($orderItems)) {
+                    foreach ($orderItems as $orderItem) {
+                        if (!$orderItem->order->isPaid()) {
+                            $orderItem->order->delete();
+                        }
+                    }
+                }
+
+                $additionalItems = AdditionalOrderItem::find()->where(['product_id' => $this->id])->joinWith(['order'])->all();
+
+                if (count($additionalItems)) {
+                    foreach ($additionalItems as $additionalItem) {
+                        if (!$additionalItem->order->isPaid()) {
+                            $additionalItem->order->delete();
+                        }
+                    }
+                }
+
+            }
+        }
+        return parent::beforeSave($insert);
+    }
+
+    protected function internalForms(): array
+    {
+        return ['defaultComposite', 'defaultTrialComposite'];
     }
 }

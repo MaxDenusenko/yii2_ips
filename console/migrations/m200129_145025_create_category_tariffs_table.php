@@ -14,7 +14,6 @@ class m200129_145025_create_category_tariffs_table extends Migration
     {
         $this->createTable('{{%category_tariffs}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string()->notNull()
         ]);
     }
 

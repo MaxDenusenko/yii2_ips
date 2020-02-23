@@ -1,23 +1,22 @@
 <?php
-/** @var ActiveDataProvider $tariffDataProvider */
+/** @var TariffAssignment[] $tariffs */
 
-use yii\data\ActiveDataProvider;
+use core\entities\Core\TariffAssignment;
 
 ?>
 
-<table class="table table-bordered table-hover table-striped">
+<table class="striped highlight centered responsive-table">
     <thead>
         <tr>
             <th>№</th>
-            <th>Название</th>
-            <th>Колличество</th>
-            <th>Цена</th>
-            <th>Статус</th>
-            <th></th>
+            <th><?=$tariffs[0]->getAttributeLabel('name')?></th>
+            <th><?=$tariffs[0]->tariff->getAttributeLabel('qty_proxy')?></th>
+            <th><?=$tariffs[0]->tariff->getAttributeLabel('price')?></th>
+            <th><?=$tariffs[0]->getAttributeLabel('status')?></th>
         </tr>
     </thead>
     <tbody>
-        <?php foreach ($tariffDataProvider->getModels() as $tariff): ?>
+        <?php foreach ($tariffs as $tariff): ?>
             <?= $this->render('_tariff', [
                 'tariff' => $tariff
             ]) ?>

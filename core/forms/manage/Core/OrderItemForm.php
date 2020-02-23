@@ -6,6 +6,7 @@ namespace core\forms\manage\Core;
 
 use core\entities\Core\Tariff;
 use yii\base\Model;
+use core\helpers\CurrencyHelper;
 
 class OrderItemForm extends Model
 {
@@ -14,6 +15,7 @@ class OrderItemForm extends Model
     public $quantity;
     public $cost;
     public $product_id;
+    public $currency;
 
     private $_tariff;
 
@@ -25,6 +27,7 @@ class OrderItemForm extends Model
             $this->quantity = 1;
             $this->cost = $this->price;
             $this->product_id = $tariff->id;
+            $this->currency = CurrencyHelper::getActiveCode();
             $this->_tariff = $tariff;
         }
 
@@ -47,12 +50,13 @@ class OrderItemForm extends Model
 
     public function beforeValidate()
     {
-        if (!$this->price && $product = Tariff::findOne($this->product_id)) {
+        if (!$this->price && $product = Tariff::find()->where(['id' => $this->product_id])->active()->one()) {
 
             $this->name = $product->name;
             $this->price = $product->getPrice();
             $this->quantity = 1;
             $this->cost = $product->price;
+            $this->currency = CurrencyHelper::getActiveCode();
         }
 
         return parent::beforeValidate();

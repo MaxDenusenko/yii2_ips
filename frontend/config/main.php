@@ -7,12 +7,35 @@ $params = array_merge(
 );
 
 return [
-    'name' => 'Proxy List',
+    'sourceLanguage' => 'ru',
+    'name' => 'RemProxy',
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'languages'],
     'controllerNamespace' => 'frontend\controllers',
+    'modules' => [
+        'languages' => [
+            'class' => 'common\modules\languages\Module',
+            //Языки используемые в приложении
+            'languages' => [
+                'En' => 'en',
+                'Ru' => 'ru',
+            ],
+            'default_language' => 'ru', //основной язык (по-умолчанию)
+            'show_default' => true, //true - показывать в URL основной язык, false - нет
+        ],
+    ],
     'components' => [
+        'assetManager' => [
+            'bundles' => [
+                'yii\bootstrap\BootstrapAsset' => [
+                    'css' => [],
+                ],
+                'yii\bootstrap\BootstrapPluginAsset' => [
+                    'js'=>[]
+                ],
+            ],
+        ],
         'reCaptcha' => [
             'class' => 'himiklab\yii2\recaptcha\ReCaptchaConfig',
             'siteKeyV2' => '6Ldd6s4UAAAAAFfYT1FuiDTen2v_kl2sEyctD6v0',
@@ -23,6 +46,8 @@ return [
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'cookieValidationKey' => $params['cookieValidationKey'],
+            'baseUrl' => '',
+            'class' => 'common\components\Request'
         ],
         'user' => [
             'identityClass' => 'core\entities\User\User',
@@ -50,13 +75,13 @@ return [
         'i18n' => [
             'translations'=>[
                 'frontend*'=>[
-                    'class'=>yii\i18n\PhpMessageSource::className(),
-                    'basePath'=>'@frontend/messages',
-                    'sourceLanguage'=>'ru-RU',
-                    'fileMap'=>[
-                        'frontend'=>'frontend.php',
-                        'frontend/error'=>'frontend_error.php',
-                    ]
+                    'class'=>yii\i18n\GettextMessageSource::className(),
+//                    'basePath'=>'@frontend/messages',
+//                    'sourceLanguage'=>'ru-RU',
+//                    'fileMap'=>[
+//                        'frontend'=>'frontend.php',
+//                        'frontend/error'=>'frontend_error.php',
+//                    ]
                 ],
             ]
         ],
@@ -71,7 +96,7 @@ return [
     ],
     'as access' => [
         'class' => \yii2mod\rbac\filters\AccessControl::className(),
-        'except' => ['site/*', 'contact/*', 'auth/auth/*', 'auth/reset/*', 'auth/reset/*', 'auth/signup/*'],
+        'except' => ['news/*', 'site/*', 'contact/*', 'auth/auth/*', 'auth/reset/*', 'auth/reset/*', 'auth/signup/*', 'coin/webhook'],
         'rules' => [
             [
                 'allow' => true,

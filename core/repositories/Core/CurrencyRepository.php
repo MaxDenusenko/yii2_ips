@@ -17,7 +17,7 @@ class CurrencyRepository
     public function get($id): Currency
     {
         if (!$currency = Currency::findOne($id)) {
-            throw new NotFoundException('Currency is not found');
+            throw new NotFoundException(\Yii::t('frontend', 'Currency is not found'));
         }
         return $currency;
     }
@@ -28,7 +28,7 @@ class CurrencyRepository
     public function save(Currency $currency): void
     {
         if (!$currency->save()) {
-            throw new \RuntimeException('Saving error');
+            throw new \RuntimeException(\Yii::t('frontend', 'Saving error'));
         }
     }
 
@@ -40,7 +40,7 @@ class CurrencyRepository
     public function remove(Currency $currency): void
     {
         if (!$currency->delete()) {
-            throw new \RuntimeException('Removing error');
+            throw new \RuntimeException(\Yii::t('frontend', 'Removing error'));
         }
     }
 }

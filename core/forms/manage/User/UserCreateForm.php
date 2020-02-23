@@ -35,12 +35,12 @@ class UserCreateForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => 'Логин',
-            'email' => 'Email',
-            'full_name' => 'ФИО',
+            'username' => \Yii::t('frontend', 'Login'),
+            'email' => \Yii::t('frontend', 'Email'),
+            'full_name' => \Yii::t('frontend', 'Full name'),
             'telegram' => 'Telegram',
             'gabber' => 'Jabber',
-            'tariff_reminder' => 'Напоминание о окончании тарифа (за n дней)',
+            'tariff_reminder' => \Yii::t('frontend', 'Reminder of the end of the tariff (for n days)'),
         ];
     }
 }

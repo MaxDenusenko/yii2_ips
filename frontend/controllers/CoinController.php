@@ -6,57 +6,57 @@ namespace frontend\controllers;
 
 use CoinbaseCommerce\ApiClient;
 use CoinbaseCommerce\Resources\Charge;
-use CoinbaseCommerce\Resources\Checkout;
-use CoinbaseCommerce\Resources\Event;
+use core\entities\CoinPay;
 use yii\web\Controller;
+use CoinbaseCommerce\Webhook;
+use Yii;
 
 class CoinController extends Controller
 {
 
-    public function actionIndex()
+    public function beforeAction($action)
     {
-        ApiClient::init('57c293a1-4ff4-462a-b356-74c99c9ea13e');
+        $this->enableCsrfValidation = ($action->id !== "webhook");
 
-//        $checkoutObj = new Checkout([
-//            "description" => "Mastering the Transition to the Information Age",
-//            "local_price" => [
-//                "amount" => "1.00",
-//                "currency" => "USD"
-//            ],
-//            "name" => "test item 15 edited",
-//            "pricing_type" => "fixed_price",
-//            "requested_info" => ["email"]
-//        ]);
-//
-//        try {
-//            $checkoutObj->save();
-//            echo sprintf("Successfully created new checkout with id: %s \n", $checkoutObj->id);
-//
-//            echo '<pre>';
-//            print_r($checkoutObj);
-//            echo '</pre>';
-//
-//        } catch (\Exception $exception) {
-//            echo sprintf("Enable to create checkout. Error: %s \n", $exception->getMessage());
-//        }
+        return parent::beforeAction($action);
+    }
 
+    public function actionWebhook()
+    {
+        $secret = Yii::$app->params['coin_commerce']['secret_key'];
+        $headerName = 'X-Cc-Webhook-Signature';
+        $headers = getallheaders();
+        $signraturHeader = isset($headers[$headerName]) ? $headers[$headerName] : null;
+        $payload = trim(file_get_contents('php://input'));
 
+        try {
+            $event = Webhook::buildEvent($payload, $signraturHeader, $secret);
+            http_response_code(200);
 
-        $params = [
-            'order' => 'desc'
-        ];
+            $charge_code = $event->data->code;
+            ApiClient::init(Yii::$app->params['coin_commerce']['api_key']);
+            $allCharges = Charge::getAll();
 
-        $allCheckouts = Checkout::getAll($params);
+            foreach ($allCharges as $charge) {
+                if ($charge->code == $charge_code) {
+                    $checkout_id = $charge->checkout['id'];
+                    if ($checkout_id) {
+                        $coin_pay = CoinPay::find()->where(['identity' => $checkout_id])->one();
+                        if ($coin_pay) {
+                            $coin_pay->status = $event->type;
+                            $coin_pay->charge_id = $charge->id;
+                            $coin_pay->save();
+                        }
+                    }
+                }
+                break;
+            }
 
-        $allCharges = Charge::getAll();
-//        $allEvents = Event::getAll();
+            echo sprintf('Successully verified event with id %s and type %s.', $event->data->code, $event->type);
 
-        echo '<pre>';
-//        print_r($allEvents);
-        print_r($allCharges);
-        print_r($allCheckouts);
-        echo '</pre>';
-
-        die();
+        } catch (\Exception $exception) {
+            http_response_code(400);
+            echo 'Error occured. ' . $exception->getMessage();
+        }
     }
 }

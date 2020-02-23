@@ -7,13 +7,13 @@ use yii\grid\GridView;
 /* @var $searchModel backend\forms\FragmentsSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Fragments';
+$this->title = \Yii::t('frontend', 'Pages');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="fragments-index">
 
     <p>
-        <?= Html::a('Create Fragments', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(\Yii::t('frontend', 'Create Fragments'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <div class="box">
@@ -25,8 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'columns' => [
 
                     'name',
-
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '{update}',
+                    ],
                 ],
             ]); ?>
 

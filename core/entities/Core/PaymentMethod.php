@@ -10,6 +10,7 @@ use yii\db\ActiveQuery;
  *
  * @property int $id
  * @property string $name
+ * @property string $label
  *
  * @property Order[] $orders
  */
@@ -29,8 +30,8 @@ class PaymentMethod extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'label'], 'required'],
+            [['name', 'label'], 'string', 'max' => 255],
         ];
     }
 
@@ -41,7 +42,8 @@ class PaymentMethod extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
+            'name' => \Yii::t('frontend', 'Code'),
+            'label' => \Yii::t('frontend', 'Name')
         ];
     }
 

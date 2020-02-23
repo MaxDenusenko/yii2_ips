@@ -3,6 +3,144 @@ body {
     height: 100%;
 }
 
+.breadcrumbs {
+    background-color: transparent;
+    box-shadow: none;
+    margin-top: 10px;
+}
+
+.breadcrumb:before {
+    color: #888;
+}
+
+.breadcrumb, .breadcrumb:last-child {
+    color: #888;
+}
+
+.hint-block {
+    display: block;
+    margin-top: 5px;
+    color: #999;
+}
+
+.alert.success .card-panel{
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.error-summary {
+    color: #a94442;
+    background: #fdf7f7;
+    border-left: 3px solid #eed3d7;
+    padding: 10px 20px;
+    margin: 0 0 15px 0;
+}
+
+.alert.error .card-panel{
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert.warning .card-panel{
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+nav.nav-center ul li a,
+nav .brand-logo,
+nav a{
+    color: #506784;
+}
+
+nav {
+    box-shadow: 0px 2px 8px rgba(80,103,132,0.25);
+}
+
+body {
+    background-color: #F3F6FA!important;
+}
+
+.material-tooltip {
+    background-color: white!important;
+    color: #506784!important;
+    box-shadow: 0px 2px 8px rgba(80,103,132,0.25);
+}
+
+main.content {
+    margin: 30px 10px;
+}
+
+.g-recaptcha label {
+    top: -40px!important;
+}
+
+.g-recaptcha {
+    margin-top: 50px;
+}
+
+nav ul li.active {
+    background-color: white;
+}
+nav ul li.active a {
+    color: #27A99D;
+}
+
+.btn, .btn-large, .btn-small {
+    margin-bottom: 5px;
+}
+
+nav .brand-logo {
+    font-size: 1.8em;
+}
+
+.new.badge:after {
+    content: none!important;
+}
+
+.text-darken-4 {
+    color: #506784;
+}
+
+.breadcrumbs {
+    height: 100%;
+}
+
+th {
+    max-width: 125px;
+}
+
+.collapsible-main-tariffs .collapsible-header{
+    display: block;
+}
+
+#tariffassignmenteditipsform-ips {
+    height: auto;
+}
+
+h3 {
+    font-size: 2.12rem;
+}
+
+h2 {
+    font-size: 2.5rem;
+}
+
+h1 {
+    font-size: 3rem;
+}
+
+
+
+
+
+
+
+
+
+
 .wrap {
     min-height: 100%;
     height: auto;

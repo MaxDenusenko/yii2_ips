@@ -1,11 +1,13 @@
 <?php
 
 return [
-    'class' => 'yii\web\UrlManager',
+    'class' => 'common\components\UrlManager',
     'hostInfo' => $params['backendHostInfo'],
     'enablePrettyUrl' => true,
     'showScriptName' => false,
     'rules' => [
+        'languages' => 'languages/default/index',
+
         '' => 'site/index',
         '<_a:login|logout>' => 'site/<_a>',
 

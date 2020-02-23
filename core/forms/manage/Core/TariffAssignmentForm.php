@@ -29,8 +29,8 @@ class TariffAssignmentForm extends Model
             $this->mb_limit = $tariff->mb_limit;
             $this->quantity_incoming_traffic = $tariff->quantity_incoming_traffic;
             $this->quantity_outgoing_traffic = $tariff->quantity_outgoing_traffic;
-            $this->date_to = $tariff->date_to;
-            $this->time_to = $tariff->time_to;
+//            $this->date_to = $tariff->date_to;
+//            $this->time_to = $tariff->time_to;
             $this->ip_quantity = $tariff->ip_quantity;
             $this->discount = $tariff->discount;
             $this->_tariff = $tariff;
@@ -41,8 +41,8 @@ class TariffAssignmentForm extends Model
     public function rules(): array
     {
         return [
-            [['mb_limit', 'quantity_incoming_traffic', 'quantity_outgoing_traffic', 'ip_quantity', 'discount'], 'integer'],
-            [['file_path', 'IPs', 'date_to', 'time_to'], 'string'],
+            [['mb_limit', 'ip_quantity', 'discount'], 'integer'],
+            [['file_path', 'IPs', 'date_to', 'time_to', 'quantity_incoming_traffic', 'quantity_outgoing_traffic',], 'string'],
             [['ip_quantity'], 'ip_quantity_validator'],
             [['IPs'], 'ip_validator'],
         ];
@@ -58,7 +58,7 @@ class TariffAssignmentForm extends Model
 
         foreach ($arr_ip as $IP) {
             if (!filter_var($IP, FILTER_VALIDATE_IP))
-                $this->addError('IPs', "IP-адрес $IP указан верно.");
+                $this->addError('IPs', \Yii::t('frontend', 'IP address')." $IP ".\Yii::t('frontend', 'not specified correctly.'));
         }
     }
 
@@ -69,7 +69,7 @@ class TariffAssignmentForm extends Model
         }, array_diff(explode("\n", $this->IPs), array('')));
 
         if ($this->$attribute < count($arr_ip)) {
-            $this->addError($attribute, 'Количество доступных IP меньше чем присвоенных сейчас.');
+            $this->addError($attribute, \Yii::t('frontend', 'The number of available IPs is less than assigned now.'));
         }
     }
 
@@ -79,18 +79,18 @@ class TariffAssignmentForm extends Model
     public function attributeLabels()
     {
         return [
-            'tariff_id' => 'Тариф',
-            'user_id' => 'Пользователь',
-            'file_path' => 'Пути к конфиг-файлам',
-            'status' => 'Статус',
-            'IPs' => 'IPs',
-            'mb_limit' => 'Ограничение по траффику',
-            'quantity_incoming_traffic' => 'Количество потоков входящего трафика',
-            'quantity_outgoing_traffic' => 'Количество потоков исходящего трафика',
-            'date_to' => 'Дата(до)',
-            'time_to' => 'Время(до)',
-            'ip_quantity' => 'Количество доступных ip',
-            'discount' => 'Скидка',
+            'tariff_id' => \Yii::t('frontend', 'Tariff'),
+            'user_id' => \Yii::t('frontend', 'User'),
+            'file_path' => \Yii::t('frontend', 'Paths to config files'),
+            'status' => \Yii::t('frontend', 'Status'),
+            'IPs' => \Yii::t('frontend', 'IPs'),
+            'mb_limit' => \Yii::t('frontend', 'Traffic limit'),
+            'quantity_incoming_traffic' => \Yii::t('frontend', 'Number of incoming traffic streams'),
+            'quantity_outgoing_traffic' => \Yii::t('frontend', 'Number of outgoing traffic flows'),
+            'date_to' => \Yii::t('frontend', 'Date (before)'),
+            'time_to' => \Yii::t('frontend', 'Time (before)'),
+            'ip_quantity' => \Yii::t('frontend', 'Number of ip available'),
+            'discount' => \Yii::t('frontend', 'A discount %'),
         ];
     }
 }

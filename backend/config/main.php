@@ -11,6 +11,8 @@ $params = array_merge(
 );
 
 return [
+    'sourceLanguage' => 'ru',
+    'name' => 'RemProxy',
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'aliases' => [
@@ -18,10 +20,20 @@ return [
         '@static' => $params['staticHostInfo'],
     ],
     'controllerNamespace' => 'backend\controllers',
-    'bootstrap' => ['log'],
+    'bootstrap' => ['log', 'languages'],
     'modules' => [
         'rbac' => [
             'class' => 'yii2mod\rbac\Module',
+        ],
+        'languages' => [
+            'class' => 'common\modules\languages\Module',
+            //Языки используемые в приложении
+            'languages' => [
+                'En' => 'en',
+                'Ru' => 'ru',
+            ],
+            'default_language' => 'ru', //основной язык (по-умолчанию)
+            'show_default' => false, //true - показывать в URL основной язык, false - нет
         ],
     ],
     'components' => [
@@ -35,6 +47,8 @@ return [
         'request' => [
             'csrfParam' => '_csrf-backend',
             'cookieValidationKey' => $params['cookieValidationKey'],
+            'baseUrl' => '', // убрать frontend/web
+            'class' => 'common\components\Request'
         ],
         'user' => [
             'identityClass' => 'core\entities\User\User',
@@ -57,6 +71,19 @@ return [
                     'levels' => ['error', 'warning'],
                 ],
             ],
+        ],
+        'i18n' => [
+            'translations'=>[
+                'frontend*'=>[
+                    'class'=>yii\i18n\GettextMessageSource::className(),
+//                    'basePath'=>'@frontend/messages',
+//                    'sourceLanguage'=>'ru-RU',
+//                    'fileMap'=>[
+//                        'frontend'=>'frontend.php',
+//                        'frontend/error'=>'frontend_error.php',
+//                    ]
+                ],
+            ]
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

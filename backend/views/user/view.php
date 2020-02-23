@@ -17,7 +17,7 @@ use yii\widgets\DetailView;
 /* @var $modificationsProvider ActiveDataProvider */
 
 $this->title = $user->username;
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('frontend', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
 ?>
@@ -25,18 +25,18 @@ YiiAsset::register($this);
 
     <p>
         <?php if ($user->isActive()): ?>
-            <?= Html::a('To ban', ['to-ban',  'id' => $user->id], ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
+            <?= Html::a(\Yii::t('frontend', 'To ban'), ['to-ban',  'id' => $user->id], ['class' => 'btn btn-warning', 'data-method' => 'post']) ?>
         <?php elseif ($user->isBanned()): ?>
-            <?= Html::a('Unban', ['unban',  'id' => $user->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
+            <?= Html::a(\Yii::t('frontend', 'Unban'), ['unban',  'id' => $user->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
         <?php else: ?>
-            <?= Html::a('Activate', ['activate',  'id' => $user->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
+            <?= Html::a(\Yii::t('frontend', 'Activate'), ['activate',  'id' => $user->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
         <?php endif; ?>
 
-        <?= Html::a('Update', ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $user->id], [
+        <?= Html::a(\Yii::t('frontend', 'Update'), ['update', 'id' => $user->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(\Yii::t('frontend', 'Delete'), ['delete', 'id' => $user->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => \Yii::t('frontend', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
@@ -70,10 +70,10 @@ YiiAsset::register($this);
     </div>
 
     <div class="box" id="modifications">
-        <div class="box-header with-border">Tariffs</div>
+        <div class="box-header with-border"><?=\Yii::t('frontend', 'Tariffs')?></div>
         <div class="box-body">
             <p>
-                <?= Html::a('Add Tariff', ['update', 'id' => $user->id], ['class' => 'btn btn-success']) ?>
+                <?= Html::a(\Yii::t('frontend', 'Add Tariff'), ['update', 'id' => $user->id], ['class' => 'btn btn-success']) ?>
             </p>
             <?= GridView::widget([
                 'dataProvider' => $modificationsProvider,

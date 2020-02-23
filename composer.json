@@ -31,7 +31,9 @@
         "vova07/yii2-imperavi-widget": "*",
         "coinbase/coinbase-commerce": "^1.0",
         "kartik-v/yii2-money": "dev-master",
-        "imanilchaudhari/yii2-currency-converter": "1.0"
+        "imanilchaudhari/yii2-currency-converter": "1.0",
+        "macgyer/yii2-materializecss": "~3.0.0",
+        "omgdef/yii2-multilingual-behavior": "^2.1"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",

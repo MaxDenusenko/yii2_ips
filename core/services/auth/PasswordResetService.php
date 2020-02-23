@@ -52,11 +52,11 @@ class PasswordResetService
             )
             ->setFrom($this->supportEmail)
             ->setTo($user->email)
-            ->setSubject('Регистрация аккаунта ' . $this->appName)
+            ->setSubject(\Yii::t('frontend', 'Account registration').' ' . $this->appName)
             ->send();
 
         if (!$sent) {
-            throw new \RuntimeException('Ошибка отправки электронной почты');
+            throw new \RuntimeException(\Yii::t('frontend', 'Error sending email'));
         }
     }
 
@@ -69,10 +69,10 @@ class PasswordResetService
     public function validateToken($token) : void
     {
         if (empty($token) || !is_string($token)) {
-            throw new InvalidArgumentException('Маркер сброса пароля не может быть пустым.');
+            throw new InvalidArgumentException(\Yii::t('frontend', 'Password reset token cannot be empty.'));
         }
         if (!User::findByPasswordResetToken($token)) {
-            throw new InvalidArgumentException('Неверный токен сброса пароля.');
+            throw new InvalidArgumentException(\Yii::t('frontend', 'Invalid password reset token.'));
         }
     }
 

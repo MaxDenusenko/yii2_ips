@@ -118,10 +118,10 @@ class FragmentsController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Fragments::findOne($id)) !== null) {
+        if (($model = Fragments::find()->where(['id' => $id])->multilingual()->one()) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(\Yii::t('frontend', 'The requested page does not exist.'));
     }
 }

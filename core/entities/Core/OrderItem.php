@@ -13,6 +13,7 @@ use yii\db\ActiveRecord;
  * @property int $order_id
  * @property int $product_id
  * @property string $name
+ * @property string $currency
  * @property float $price
  * @property int $quantity
  * @property float $cost
@@ -39,7 +40,7 @@ class OrderItem extends ActiveRecord
             [['product_id', 'name', 'price', 'quantity', 'cost'], 'required'],
             [['order_id', 'product_id', 'quantity'], 'integer'],
             [['price', 'cost'], 'number'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'currency'], 'string', 'max' => 255],
             [['order_id'], 'exist', 'skipOnError' => true, 'targetClass' => Order::className(), 'targetAttribute' => ['order_id' => 'id']],
             [['product_id'], 'exist', 'skipOnError' => true, 'targetClass' => Tariff::className(), 'targetAttribute' => ['product_id' => 'id']],
         ];
@@ -52,12 +53,13 @@ class OrderItem extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'order_id' => 'Заказ',
-            'product_id' => 'Товар',
-            'name' => 'Название товара',
-            'price' => 'Цена товара',
-            'quantity' => 'Количество в заказе',
-            'cost' => 'Стоимость = Цена * Кол-во',
+            'order_id' => \Yii::t('frontend', 'Order'),
+            'product_id' => \Yii::t('frontend', 'Product'),
+            'name' => \Yii::t('frontend', 'Product Name'),
+            'price' => \Yii::t('frontend', 'The price of the product'),
+            'quantity' => \Yii::t('frontend', 'Quantity'),
+            'cost' => \Yii::t('frontend', 'Cost = Price * Qty'),
+            'currency' => \Yii::t('frontend', 'Currency'),
         ];
     }
 

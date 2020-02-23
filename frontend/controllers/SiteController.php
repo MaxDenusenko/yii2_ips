@@ -1,15 +1,27 @@
 <?php
 namespace frontend\controllers;
 
+use core\entities\Core\CategoryTariffs;
 use core\entities\Core\Tariff;
 use core\entities\Faq;
+use core\entities\News;
+use core\forms\manage\Core\OrderForm;
+use core\services\NestedSetsTree;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
-use yii2mod\rbac\filters\AccessControl;
 
 
 class SiteController extends Controller
 {
+    public $nestedSetsTree;
+
+    public function __construct($id, $module, NestedSetsTree $nestedSetsTree, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+
+        $this->nestedSetsTree = $nestedSetsTree;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -33,12 +45,18 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $tariffDataProvider = new ActiveDataProvider([
-            'query' => Tariff::find()->active(),
-        ]);
+        $other_tariffs = Tariff::find()->noCategory()->all();
+        $category_root = CategoryTariffs::find()->roots()->one();
+        $categories = $category_root->populateTree();
+        $news = News::find()->all();
+
+        $orderForm = new OrderForm();
 
         return $this->render('index', [
-            'tariffDataProvider' => $tariffDataProvider
+            'other_tariffs' => $other_tariffs,
+            'orderForm' => $orderForm,
+            'categories' => $categories->children,
+            'news' => $news,
         ]);
     }
 

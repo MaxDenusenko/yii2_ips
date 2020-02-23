@@ -18,7 +18,7 @@ class PaymentMethodSearch extends PaymentMethod
     {
         return [
             [['id'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'label'], 'safe'],
         ];
     }
 
@@ -61,7 +61,8 @@ class PaymentMethodSearch extends PaymentMethod
             'id' => $this->id,
         ]);
 
-        $query->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name', $this->name])
+              ->andFilterWhere(['like', 'label', $this->name]);
 
         return $dataProvider;
     }

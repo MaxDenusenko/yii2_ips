@@ -37,7 +37,7 @@ class AddToBasketForm extends Model
     {
         return [
             'id_product' => false,
-            'count' => 'Количество',
+            'count' => \Yii::t('frontend', 'Quantity'),
         ];
     }
 }

@@ -5,7 +5,8 @@ return [
         '@npm'   => '@vendor/npm-asset',
     ],
     'sourceLanguage' => 'ru',
-    'timeZone' => 'Europe/Kiev',
+//    'timeZone' => 'Europe/Kiev',
+    'timeZone' => 'Europe/Moscow',
     'language' => 'ru',
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'bootstrap' => [
@@ -14,12 +15,12 @@ return [
     'components' => [
         'formatter' => [
             'class'           => 'yii\i18n\Formatter',
-            'defaultTimeZone' => 'Europe/Moscow',
+            'defaultTimeZone' => 'Europe/Kiev',
         ],
-        'cache' => [
-            'class' => 'yii\caching\FileCache',
-            'cachePath' => '@common/runtime/cache',
-        ],
+//        'cache' => [
+//            'class' => 'yii\caching\FileCache',
+//            'cachePath' => '@common/runtime/cache',
+//        ],
         'cart' => [
             'class' => 'yii2mod\cart\Cart',
             'storageClass' => [
@@ -33,8 +34,8 @@ return [
         'i18n' => [
             'translations' => [
                 'yii2mod.rbac' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@yii2mod/rbac/messages',
+                    'class' => 'yii\i18n\GettextMessageSource',
+//                    'basePath' => '@yii2mod/rbac/messages',
                 ],
             ],
         ],

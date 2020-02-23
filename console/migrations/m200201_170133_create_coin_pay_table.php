@@ -17,7 +17,8 @@ class m200201_170133_create_coin_pay_table extends Migration
             'order_id' => $this->integer()->notNull(),
             'pay_link' => $this->string()->notNull(),
             'identity' => $this->string()->notNull(),
-            'status' => $this->integer()->notNull()->defaultValue(1),
+            'status' => $this->string()->null(),
+            'charge_id' => $this->string()->null(),
         ]);
 
         $this->createIndex('{{%idx-coin_pay-order_id}}', '{{%coin_pay}}', 'order_id');

@@ -2,23 +2,25 @@
 
 namespace core\entities;
 
+use omgdef\multilingual\MultilingualBehavior;
+use omgdef\multilingual\MultilingualQuery;
 use Yii;
+use yii\db\ActiveRecord;
 
 /**
  * This is the model class for table "fragments".
  *
  * @property int $id
  * @property string|null $name
- * @property string|null $text
  */
-class Fragments extends \yii\db\ActiveRecord
+class Fragments extends ActiveRecord
 {
     /**
      * {@inheritdoc}
      */
     public static function tableName()
     {
-        return 'fragments';
+        return '{{%fragments}}';
     }
 
     /**
@@ -27,8 +29,8 @@ class Fragments extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text'], 'string'],
             [['name'], 'string', 'max' => 255],
+            [['text'], 'string'],
         ];
     }
 
@@ -39,8 +41,44 @@ class Fragments extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Name',
-            'text' => 'Text',
+            'name' => \Yii::t('frontend', 'Name'),
+            'text' => Yii::t('frontend', 'Text'),
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'ml' => [
+                'class' => MultilingualBehavior::className(),
+                'languages' => Yii::$app->params['languages'],
+                'languageField' => 'language',
+                //'localizedPrefix' => '',
+                //'requireTranslations' => false,
+                'dynamicLangClass' => true,
+                'langClassName' => FragmentsLang::className(),
+                'defaultLanguage' => Yii::$app->sourceLanguage,
+                'langForeignKey' => 'fragment_id',
+                'tableName' => "{{%fragments_lang}}",
+                'attributes' => [
+                    'text',
+                ]
+            ],
+        ];
+    }
+
+    public static function find()
+    {
+        return new MultilingualQuery(get_called_class());
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function transactions()
+    {
+        return [
+            self::SCENARIO_DEFAULT => self::OP_ALL,
         ];
     }
 }

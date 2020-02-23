@@ -9,10 +9,10 @@ use yii\data\ActiveDataProvider;
 /* @var $tariff TariffAssignment */
 /* @var $dataProviderDefaults ActiveDataProvider */
 
-$this->title = 'Update Tariff Assignment: ' . $tariff->tariff_id;
-$this->params['breadcrumbs'][] = ['label' => 'Tariff Assignments', 'url' => ['index']];
+$this->title = \Yii::t('frontend', 'Update Tariff Assignment').': ' . $tariff->tariff_id;
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('frontend', 'Tariff Assignments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $tariff->tariff_id, 'url' => ['view', 'tariff_id' => $tariff->tariff_id, 'user_id' => $tariff->user_id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = \Yii::t('frontend', 'Update');
 ?>
 <div class="tariff-assignment-update">
 

@@ -66,7 +66,7 @@ class SignupController extends Controller
         try {
             if ($form->load(Yii::$app->request->post()) && $form->validate()) {
                 if ($this->signupService->signup($form)) {
-                    Yii::$app->session->setFlash('success', 'Спасибо за регистрацию. Пожалуйста, проверьте свой почтовый ящик для подтверждения по электронной почте.');
+                    Yii::$app->session->setFlash('success', Yii::t('frontend', 'Thank you for registering. Please check your email inbox for confirmation.'));
                     return $this->goHome();
                 }
             }
@@ -101,7 +101,7 @@ class SignupController extends Controller
         try {
             if ($form->validate()) {
                 $this->emailVerification->verifyEmail($token);
-                Yii::$app->session->setFlash('success', 'Ваш email подтвержден!');
+                Yii::$app->session->setFlash('success', Yii::t('frontend', 'Your email has been confirmed!'));
                 return $this->redirect(['/login']);
             }
         } catch (\Exception $e) {
@@ -124,7 +124,7 @@ class SignupController extends Controller
         try {
             if ($form->load(Yii::$app->request->post()) && $form->validate()) {
                 $this->emailVerification->sendEmail($form);
-                Yii::$app->session->setFlash('success', 'Проверьте свою электронную почту для дальнейших инструкций.');
+                Yii::$app->session->setFlash('success', Yii::t('frontend', 'Check your email for further instructions.'));
                 return $this->goHome();
             }
         } catch (\Exception $e) {

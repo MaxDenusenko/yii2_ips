@@ -2,6 +2,8 @@
 
 namespace backend\controllers\core;
 
+use core\entities\Core\AdditionalOrderItem;
+use core\entities\Core\RenewalOrderItem;
 use core\entities\Core\TariffDefaults;
 use core\forms\manage\Core\TariffAssignmentForm;
 use core\forms\manage\Core\TariffAssignmentFormEditRenewal;
@@ -93,7 +95,7 @@ class TariffAssignmentController extends Controller
     public function actionActivate($tariff_id, $user_id, $hash_id)
     {
         try {
-            $this->service->activate($tariff_id, $user_id, $hash_id);
+            $this->service->activate($tariff_id, $user_id, $hash_id, true);
         } catch (\DomainException $e) {
             Yii::$app->session->setFlash('error', $e->getMessage());
         }
@@ -160,6 +162,7 @@ class TariffAssignmentController extends Controller
     {
         $assignment = $this->findModel($tariff_id, $user_id, $hash_id);
         $form = new TariffAssignmentFormEditRenewal($assignment->tariff->default[0]);
+        $orderItem = $assignment->orderItem;
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -171,9 +174,15 @@ class TariffAssignmentController extends Controller
             }
         }
 
+        $renewal_items = RenewalOrderItem::find()->where(['product_user' => $assignment->user_id, 'product_hash' => $assignment->hash_id])->all();
+        $additional_ip_items = AdditionalOrderItem::find()->where(['product_user' => $assignment->user_id, 'product_hash' => $assignment->hash_id])->all();
+
         return $this->render('view', [
             'model' => $assignment,
             'model_help' => $form,
+            'orderItem' => $orderItem,
+            'renewal_items' => $renewal_items,
+            'additional_ip_items' => $additional_ip_items,
         ]);
     }
 
@@ -245,6 +254,6 @@ class TariffAssignmentController extends Controller
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(\Yii::t('frontend', 'The requested page does not exist.'));
     }
 }

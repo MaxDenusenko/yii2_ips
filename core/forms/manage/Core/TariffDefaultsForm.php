@@ -41,9 +41,8 @@ class TariffDefaultsForm extends Model
     public function rules(): array
     {
         return [
-            [['mb_limit', 'quantity_incoming_traffic', 'quantity_outgoing_traffic',
-                'ip_quantity', 'type', 'extend_days', 'extend_hours', 'extend_minutes'], 'integer'],
-            [['file_path'], 'string'],
+            [['mb_limit', 'ip_quantity', 'type', 'extend_days', 'extend_hours', 'extend_minutes'], 'integer'],
+            [['file_path', 'quantity_incoming_traffic', 'quantity_outgoing_traffic'], 'string'],
         ];
     }
 
@@ -54,15 +53,15 @@ class TariffDefaultsForm extends Model
     {
         return [
             'id' => 'ID',
-            'mb_limit' => 'Ограничение по траффику',
-            'quantity_incoming_traffic' => 'Количество потоков входящего трафика',
-            'quantity_outgoing_traffic' => 'Количество потоков исходящего трафика',
-            'ip_quantity' => 'Количество доступных ip',
-            'file_path' => 'Пути к конфиг-файлам',
-            'type' => 'Тип',
-            'extend_days' => 'Продлить на (дней)',
-            'extend_hours' => 'Продлить на (часов)',
-            'extend_minutes' => 'Продлить на (минут)',
+            'mb_limit' => \Yii::t('frontend', 'Traffic limit'),
+            'quantity_incoming_traffic' => \Yii::t('frontend', 'Number of incoming traffic streams'),
+            'quantity_outgoing_traffic' => \Yii::t('frontend', 'Number of outgoing traffic flows'),
+            'ip_quantity' => \Yii::t('frontend', 'Number of ip available'),
+            'file_path' => \Yii::t('frontend', 'Paths to config files'),
+            'type' => \Yii::t('frontend', 'Type'),
+            'extend_days' => \Yii::t('frontend', 'Renew for (days)'),
+            'extend_hours' => \Yii::t('frontend', 'Renew by (hours)'),
+            'extend_minutes' => \Yii::t('frontend', 'Renew by (minutes)'),
         ];
     }
 }

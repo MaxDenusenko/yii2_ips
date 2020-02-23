@@ -17,7 +17,7 @@ class TariffRepository
     public function get($id): Tariff
     {
         if (!$tariff = Tariff::findOne($id)) {
-            throw new NotFoundException('Tariff is not found');
+            throw new NotFoundException(\Yii::t('frontend', 'Tariff not found'));
         }
         return $tariff;
     }
@@ -28,7 +28,7 @@ class TariffRepository
     public function save(Tariff $tariff): void
     {
         if (!$tariff->save()) {
-            throw new \RuntimeException('Saving error');
+            throw new \RuntimeException(\Yii::t('frontend', 'Saving error'));
         }
     }
 
@@ -40,7 +40,12 @@ class TariffRepository
     public function remove(Tariff $tariff): void
     {
         if (!$tariff->delete()) {
-            throw new \RuntimeException('Removing error');
+            throw new \RuntimeException(\Yii::t('frontend', 'Removing error'));
         }
+    }
+
+    public function existsByMainCategory($id): bool
+    {
+        return Tariff::find()->andWhere(['category_id' => $id])->exists();
     }
 }

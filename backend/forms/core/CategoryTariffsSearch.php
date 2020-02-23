@@ -40,12 +40,15 @@ class CategoryTariffsSearch extends CategoryTariffs
      */
     public function search($params)
     {
-        $query = CategoryTariffs::find();
+        $query = CategoryTariffs::find()->andWhere(['>', 'depth', 0])->joinWith(['translation']);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => ['lft' => SORT_ASC]
+            ]
         ]);
 
         $this->load($params);

@@ -14,16 +14,16 @@ class CurrencyHelper
     public static function statusList(): array
     {
         return [
-            Currency::STATUS_ACTIVE => 'Активна',
-            Currency::STATUS_INACTIVE => 'Не активна',
+            Currency::STATUS_ACTIVE => \Yii::t('frontend', 'Active'),
+            Currency::STATUS_INACTIVE => \Yii::t('frontend', 'Inactive'),
         ];
     }
 
     public static function baseList(): array
     {
         return [
-            Currency::STATUS_BASE => 'Да',
-            Currency::STATUS_NOT_BASE => 'Нет',
+            Currency::STATUS_BASE => \Yii::t('frontend', 'Yes'),
+            Currency::STATUS_NOT_BASE => \Yii::t('frontend', 'Not'),
         ];
     }
 
@@ -85,7 +85,7 @@ class CurrencyHelper
     public static function getBaseSymbol()
     {
         if (!$currency = Currency::find()->base()->one()) {
-            throw new NotFoundException('Не задана базовая валюта!');
+            throw new NotFoundException(\Yii::t('frontend', 'Base currency not set!'));
         }
         return $currency->symbol;
     }
@@ -96,7 +96,7 @@ class CurrencyHelper
     public static function getBaseCode()
     {
         if (!$currency = Currency::find()->base()->one()) {
-            throw new NotFoundException('Не задана базовая валюта!');
+            throw new NotFoundException(\Yii::t('frontend', 'Base currency not set!'));
         }
         return $currency->code;
     }
@@ -107,7 +107,7 @@ class CurrencyHelper
     public static function getActiveSymbol()
     {
         if (!$currency = Currency::find()->active()->one()) {
-            throw new NotFoundException('Не задана активная валюта!');
+            throw new NotFoundException(\Yii::t('frontend', 'No active currency set!'));
         }
         return $currency->symbol;
     }
@@ -118,7 +118,7 @@ class CurrencyHelper
     public static function getActiveCode()
     {
         if (!$currency = Currency::find()->active()->one()) {
-            throw new NotFoundException('Не задана активная валюта!');
+            throw new NotFoundException(\Yii::t('frontend', 'No active currency set!'));
         }
         return $currency->code;
     }

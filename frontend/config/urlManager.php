@@ -1,11 +1,25 @@
 <?php
 
 return [
-    'class' => 'yii\web\UrlManager',
+    'class' => 'common\components\UrlManager',
     'hostInfo' => $params['frontendHostInfo'],
     'enablePrettyUrl' => true,
     'showScriptName' => false,
     'rules' => [
+        'languages' => 'languages/default/index',
+
+
+//        '' => 'site/index',
+//        '<controller:\w+>/<action:\w+>/<key:[\w+-]*\w+>/'=>'<controller>/<action>',
+////                '<controller:\w+>/<key:[\w+-]*\w+>/'=>'<controller>/view',
+//
+//        '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
+//        '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+//
+//        '<_c:[\w\-]+>' => '<_c>/index',
+//        '<_c:[\w\-]+>/<_a:[\w-]+>' => '<_c>/<_a>',
+//        '<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => '<_c>/<_a>',
+
         '' => 'site/index',
         '<_a:about>' => 'site/<_a>',
         'contact' => 'contact/index',

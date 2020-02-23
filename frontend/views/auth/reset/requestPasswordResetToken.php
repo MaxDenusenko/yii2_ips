@@ -1,35 +1,31 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
+/* @var $form ActiveForm */
 /* @var $model PasswordResetRequestForm */
 
 use core\forms\auth\PasswordResetRequestForm;
 use himiklab\yii2\recaptcha\ReCaptcha2;
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use macgyer\yii2materializecss\lib\Html;
+use macgyer\yii2materializecss\widgets\form\ActiveForm;
 
-$this->title = 'Запрос сброса пароля';
+$this->title = \Yii::t('frontend', 'Password Reset Request');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-request-password-reset">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Пожалуйста, заполните вашу электронную почту. Ссылка для сброса пароля будет отправлена туда.</p>
+    <p><?=\Yii::t('frontend', 'Please fill in your email. A password reset link will be sent there.')?></p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
+    <?php $form = ActiveForm::begin(['id' => 'request-password-reset-form']); ?>
 
-                <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
+    <?= $form->field($model, 'email')->textInput(['autofocus' => true]) ?>
 
-                <?= $form->field($model, 'reCaptcha')->widget(ReCaptcha2::className()) ?>
+    <?= $form->field($model, 'reCaptcha')->widget(ReCaptcha2::className()) ?>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
-                </div>
-
-            <?php ActiveForm::end(); ?>
-        </div>
+    <div class="form-group">
+        <?= Html::submitButton(\Yii::t('frontend', 'Send'), ['class' => 'btn btn-primary']) ?>
     </div>
+
+    <?php ActiveForm::end(); ?>
 </div>

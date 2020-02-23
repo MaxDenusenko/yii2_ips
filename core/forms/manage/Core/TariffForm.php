@@ -12,10 +12,14 @@ use yii\helpers\ArrayHelper;
 class TariffForm extends CompositeForm
 {
     public $name;
+    public $name_en;
+
+    public $description;
+    public $description_en;
+
     public $number;
     public $price;
     public $proxy_link;
-    public $description;
     public $price_for_additional_ip;
     public $qty_proxy;
     public $category_id;
@@ -51,15 +55,15 @@ class TariffForm extends CompositeForm
             [['number', 'name', 'price'], 'required'],
             [['number', 'price_for_additional_ip', 'category_id'], 'integer'],
             [['price'], 'double'],
-            [['proxy_link', 'description', 'qty_proxy'], 'string'],
-            [['name'], 'string', 'max' => 255],
-            [['name', 'number'], 'unique', 'targetClass' => Tariff::class, 'filter' => $this->_tariff ? ['<>', 'id', $this->_tariff->id] : null],
+            [['proxy_link', 'description', 'description_en', 'qty_proxy'], 'string'],
+            [['name', 'name_en'], 'string', 'max' => 255],
+//            [['name', 'number'], 'unique', 'targetClass' => Tariff::class, 'filter' => $this->_tariff ? ['<>', 'id', $this->_tariff->id] : null],
         ];
     }
 
-    public function categoryList()
+    public static function categoryList()
     {
-        return ArrayHelper::map(CategoryTariffs::find()->orderBy('name')->asArray()->all(), 'id', 'name');
+        return ArrayHelper::map(CategoryTariffs::find()->joinWith(['translation'])->orderBy('name')->asArray()->all(), 'id', 'translation.name');
     }
 
     /**
@@ -70,14 +74,14 @@ class TariffForm extends CompositeForm
         return [
             'id' => 'ID',
             'number' => '№',
-            'name' => 'Название',
-            'price' => 'Цена',
-            'status' => 'Статус',
-            'proxy_link' => 'Ссылка на список прокси',
-            'description' => 'Описание',
-            'price_for_additional_ip' => 'Цена за доп ip (% от стоимости номинала)',
-            'qty_proxy' => 'Количество прокси',
-            'category_id' => 'Категория',
+            'name' => \Yii::t('frontend', 'Name'),
+            'price' => \Yii::t('frontend', 'Price'),
+            'status' => \Yii::t('frontend', 'Status'),
+            'proxy_link' => \Yii::t('frontend', 'Link to proxy list'),
+            'description' => \Yii::t('frontend', 'Description'),
+            'price_for_additional_ip' => \Yii::t('frontend', 'Price for additional ip (% of face value)'),
+            'qty_proxy' => \Yii::t('frontend', 'Number of proxies'),
+            'category_id' => \Yii::t('frontend', 'Category'),
         ];
     }
 

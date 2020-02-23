@@ -66,11 +66,11 @@ class SignupService
             )
             ->setFrom($this->supportEmail)
             ->setTo($user->email)
-            ->setSubject('Регистрация аккаунта ' . $this->appName)
+            ->setSubject(\Yii::t('frontend', 'Account registration').' ' . $this->appName)
             ->send();
 
         if (!$send) {
-            throw new \RuntimeException('К сожалению, мы не можем отправить токен подтверждения для указанного адреса электронной почты.');
+            throw new \RuntimeException(\Yii::t('frontend', 'Sorry, we are unable to send a confirmation token for the specified email address.'));
         }
     }
 }

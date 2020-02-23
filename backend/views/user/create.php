@@ -7,8 +7,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model UserCreateForm */
 
-$this->title = 'Create User';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
+$this->title = \Yii::t('frontend', 'Create User');
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('frontend', 'Users'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-create">
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <?= $form->field($model, 'tariff_reminder')->textInput(['maxLength' => true]) ?>
 
             <div class="form-group">
-                <?= Html::submitButton('Save', ['class' => 'btn btn-primary']) ?>
+                <?= Html::submitButton(\Yii::t('frontend', 'Save'), ['class' => 'btn btn-primary']) ?>
             </div>
 
         </div>

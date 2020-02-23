@@ -47,16 +47,16 @@ class EmailVerification
 
         $send = $this->mailer
             ->compose(
-                ['html' => 'emailVerify-html', 'text' => 'emailVerify-text'],
+                ['html' => 'auth/signup/confirm-html', 'text' => 'auth/signup/confirm-text'],
                 ['user' => $user]
             )
             ->setFrom($this->supportEmail)
             ->setTo($form->email)
-            ->setSubject('Регистрация аккаунта ' . $this->appName)
+            ->setSubject(\Yii::t('frontend', 'Account registration').' ' . $this->appName)
             ->send();
 
         if (!$send) {
-            throw new \DomainException('К сожалению, мы не можем переслать подтверждающее письмо на указанный адрес электронной почты..');
+            throw new \DomainException(\Yii::t('frontend', 'Sorry, we cannot forward the verification email to the indicated email address ..'));
         }
     }
 
@@ -69,11 +69,11 @@ class EmailVerification
     public function validateToken(string $token): void
     {
         if (empty($token) || !is_string($token)) {
-            throw new InvalidArgumentException('Ттокен электронной почты не может быть пустым.');
+            throw new InvalidArgumentException(\Yii::t('frontend', 'Email token cannot be empty.'));
         }
 
         if (!User::findByVerificationToken($token)) {
-            throw new InvalidArgumentException('Неправильно подтвержден токен электронной почты.');
+            throw new InvalidArgumentException(\Yii::t('frontend', 'Invalid email token.'));
         }
     }
 
@@ -86,7 +86,7 @@ class EmailVerification
     public function verifyEmail(string $token) : void
     {
         if (empty($token)) {
-            throw new \DomainException(['Пустой токен подтверждения']);
+            throw new \DomainException([\Yii::t('frontend', 'Confirmation blank token')]);
         }
 
         $user = $this->users->getByEmailConfirmToken($token);

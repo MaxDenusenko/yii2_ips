@@ -4,6 +4,7 @@
 namespace core\forms\manage\Core;
 
 
+use core\entities\Core\Coupons;
 use core\entities\Core\Order;
 use core\entities\Core\PaymentMethod;
 use core\entities\Core\Tariff;
@@ -14,6 +15,9 @@ class OrderForm extends CompositeForm
 {
     public $payment_method_id;
     public $comment;
+    public $trial = false;
+    public $additional_id;
+    public $coupon_code;
 
     private $_order;
 
@@ -33,7 +37,7 @@ class OrderForm extends CompositeForm
 
     public function getPaymentList()
     {
-        return ArrayHelper::map(PaymentMethod::find()->orderBy('name')->asArray()->all(), 'id', 'name');
+        return ArrayHelper::map(PaymentMethod::find()->orderBy('name')->asArray()->all(), 'id', 'label');
     }
 
     /**
@@ -42,8 +46,11 @@ class OrderForm extends CompositeForm
     public function rules()
     {
         return [
+            [['trial'], 'safe'],
+            [['additional_id'], 'integer'],
             [['comment'], 'string', 'max' => 255],
             [['payment_method_id'], 'exist', 'skipOnError' => false, 'targetClass' => PaymentMethod::className(), 'targetAttribute' => ['payment_method_id' => 'id']],
+            [['coupon_code'], 'exist', 'skipOnError' => false, 'targetClass' => Coupons::className(), 'targetAttribute' => ['coupon_code' => 'code']],
         ];
     }
 
@@ -53,8 +60,11 @@ class OrderForm extends CompositeForm
     public function attributeLabels()
     {
         return [
-            'comment' => 'Комментарий',
-            'payment_method_id' => 'Способ оплаты',
+            'comment' => false,
+            'trial' => false,
+            'payment_method_id' => \Yii::t('frontend', 'Payment method'),
+            'additional_id' => \Yii::t('frontend', 'Number of additional IP'),
+            'coupon_code' => \Yii::t('frontend', 'Coupon'),
         ];
     }
 

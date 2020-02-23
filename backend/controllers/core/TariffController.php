@@ -2,6 +2,8 @@
 
 namespace backend\controllers\core;
 
+use core\forms\manage\Core\TariffDefaultsForm;
+use core\forms\manage\Core\TariffDefaultsTrialForm;
 use core\forms\manage\Core\TariffForm;
 use core\services\manage\Core\TariffManageService;
 use Yii;
@@ -111,7 +113,13 @@ class TariffController extends Controller
      */
     public function actionCreate()
     {
-        $form = new TariffForm();
+//        $form = new TariffForm();
+        $form = new Tariff();
+
+//        echo '<pre>';
+//        print_r($form);
+//        echo '</pre>';
+//        die();
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -139,7 +147,8 @@ class TariffController extends Controller
     public function actionUpdate($id)
     {
         $tariff = $this->findModel($id);
-        $form= new TariffForm($tariff);
+//        $form= new TariffForm($tariff);
+        $form = $tariff;
 
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
@@ -182,10 +191,10 @@ class TariffController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Tariff::findOne($id)) !== null) {
+        if (($model = Tariff::find()->multilingual()->where(['id' => $id])->one()) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(\Yii::t('frontend', 'The requested page does not exist.'));
     }
 }

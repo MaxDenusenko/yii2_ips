@@ -29,10 +29,10 @@ class ResendVerificationEmailForm extends Model
             ['email', 'exist',
                 'targetClass' => User::class,
                 'filter' => ['status' => User::STATUS_INACTIVE],
-                'message' => 'Нет пользователя с этим адресом электронной почты.'
+                'message' => \Yii::t('frontend', 'There is no user with this email address.')
             ],
             [['reCaptcha'], ReCaptchaValidator2::className(),
-                'uncheckedMessage' => 'Пожалуйста, подтвердите, что вы не бот.'],
+                'uncheckedMessage' => \Yii::t('frontend', 'Please confirm that you are not a bot.')],
         ];
     }
 
@@ -42,7 +42,8 @@ class ResendVerificationEmailForm extends Model
     public function attributeLabels()
     {
         return [
-            'email' => 'Email',
+            'email' => \Yii::t('frontend', 'Email'),
+            'reCaptcha' => false,
         ];
     }
 }

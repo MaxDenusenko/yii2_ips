@@ -30,7 +30,7 @@ class AuthService
     {
         $user = $this->users->findByUsernameOrEmail($form->username);
         if (!$user || !$user->isActive() || !$user->validatePassword($form->password)) {
-            throw new DomainException('Неверный логин или пароль');
+            throw new DomainException(\Yii::t('frontend', 'Wrong login or password'));
         }
         return $user;
     }

@@ -53,7 +53,7 @@ class SettingController extends Controller
         if ($form->load(Yii::$app->request->post()) && $form->validate()) {
             try {
                 $this->profileService->edit($this->user->id, $form);
-                Yii::$app->session->setFlash('success', 'Данные аккаунта обновлены');
+                Yii::$app->session->setFlash('success', \Yii::t('frontend', 'Account Details Updated'));
                 return $this->redirect(['index']);
             } catch (\DomainException $e) {
                 Yii::$app->errorHandler->logException($e);

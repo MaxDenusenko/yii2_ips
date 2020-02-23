@@ -15,7 +15,6 @@ class m200125_182206_create_fragments_table extends Migration
         $this->createTable('{{%fragments}}', [
             'id' => $this->primaryKey(),
             'name' => $this->string(),
-            'text' => $this->text()
         ]);
     }
 

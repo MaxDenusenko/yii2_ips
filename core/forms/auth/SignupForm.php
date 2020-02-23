@@ -42,12 +42,12 @@ class SignupForm extends Model
             ['password', 'required'],
             ['password', 'string', 'min' => 8],
             ['password_repeat', 'required'],
-            ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message'=>"Пароли не совпадают" ],
+            ['password_repeat', 'compare', 'compareAttribute'=>'password', 'message' => \Yii::t('frontend', 'Passwords do not match') ],
 
             [['password'], StrengthValidator::className(), 'preset'=>'normal', 'userAttribute'=>'username'],
 
             [['reCaptcha'], ReCaptchaValidator2::className(),
-                'uncheckedMessage' => 'Пожалуйста, подтвердите, что вы не бот.'],
+                'uncheckedMessage' => \Yii::t('frontend', 'Please confirm that you are not a bot.')],
         ];
     }
 
@@ -57,13 +57,14 @@ class SignupForm extends Model
     public function attributeLabels()
     {
         return [
-            'username' => 'Логин',
-            'email' => 'Email',
-            'password' => 'Пароль',
-            'password_repeat' => 'Подтверждение пароля',
-            'full_name' => 'ФИО',
+            'username' => \Yii::t('frontend', 'Login'),
+            'email' => \Yii::t('frontend', 'Email'),
+            'password' => \Yii::t('frontend', 'Password'),
+            'password_repeat' => \Yii::t('frontend', 'Password confirmation'),
+            'full_name' => \Yii::t('frontend', 'Full name'),
             'telegram' => 'Telegram',
             'gabber' => 'Jabber',
+            'reCaptcha' => false,
         ];
     }
 }

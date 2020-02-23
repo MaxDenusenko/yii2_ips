@@ -8,6 +8,7 @@ return [
         'appId' => ''
     ],
     'coin_commerce' => [
-        'api_key' => ''
+        'api_key' => '',
+        'secret_key' => '',
     ],
 ];

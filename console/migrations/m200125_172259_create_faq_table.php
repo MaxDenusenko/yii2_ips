@@ -14,8 +14,6 @@ class m200125_172259_create_faq_table extends Migration
     {
         $this->createTable('{{%faq}}', [
             'id' => $this->primaryKey(),
-            'question' => $this->string()->notNull(),
-            'answer' => $this->text()->notNull(),
         ]);
     }
 

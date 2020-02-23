@@ -2,6 +2,8 @@
 
 namespace core\entities;
 
+use omgdef\multilingual\MultilingualBehavior;
+use omgdef\multilingual\MultilingualQuery;
 use Yii;
 
 /**
@@ -18,7 +20,7 @@ class Faq extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'faq';
+        return '{{%faq}}';
     }
 
     /**
@@ -40,8 +42,41 @@ class Faq extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'question' => 'Вопрос',
-            'answer' => 'Ответ',
+            'question' => \Yii::t('frontend', 'Question'),
+            'answer' => \Yii::t('frontend', 'Answer'),
         ];
+    }
+
+    public function transactions()
+    {
+        return [
+            self::SCENARIO_DEFAULT => self::OP_ALL,
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'ml' => [
+                'class' => MultilingualBehavior::className(),
+                'languages' => Yii::$app->params['languages'],
+                'languageField' => 'language',
+                //'localizedPrefix' => '',
+                //'requireTranslations' => false,
+                'dynamicLangClass' => true,
+                'langClassName' => FaqLang::className(),
+                'defaultLanguage' => Yii::$app->sourceLanguage,
+                'langForeignKey' => 'faq_id',
+                'tableName' => "{{%faq_lang}}",
+                'attributes' => [
+                    'answer', 'question'
+                ]
+            ],
+        ];
+    }
+
+    public static function find(): MultilingualQuery
+    {
+        return new MultilingualQuery(static::class);
     }
 }

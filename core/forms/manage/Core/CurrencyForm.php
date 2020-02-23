@@ -40,8 +40,8 @@ class CurrencyForm extends Model
     public function attributeLabels()
     {
         return [
-            'code' => 'Код',
-            'symbol' => 'Символ',
+            'code' => \Yii::t('frontend', 'Code'),
+            'symbol' => \Yii::t('frontend', 'Symbol'),
         ];
     }
 }

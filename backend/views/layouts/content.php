@@ -36,6 +36,9 @@ use dmstr\widgets\Alert;
 </div>
 
 <footer class="main-footer">
+
+    <?= common\modules\languages\widgets\ListWidget::widget()?>
+
     <div class="pull-right hidden-xs">
         <b>Version</b> 2.0
     </div>
@@ -54,7 +57,7 @@ use dmstr\widgets\Alert;
     <div class="tab-content">
         <!-- Home tab content -->
         <div class="tab-pane" id="control-sidebar-home-tab">
-            <h3 class="control-sidebar-heading">Recent Activity</h3>
+            <h3 class="control-sidebar-heading"><?=\Yii::t('frontend', 'Recent Activity')?></h3>
             <ul class='control-sidebar-menu'>
                 <li>
                     <a href='javascript::;'>

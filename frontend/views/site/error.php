@@ -5,9 +5,9 @@
 /* @var $message string */
 /* @var $exception Exception */
 
-use yii\helpers\Html;
-
 $this->title = $name;
+
+use macgyer\yii2materializecss\lib\Html;
 ?>
 <div class="site-error">
 
@@ -18,10 +18,10 @@ $this->title = $name;
     </div>
 
     <p>
-        Вышеуказанная ошибка произошла, когда веб-сервер обрабатывал ваш запрос.
+        <?=\Yii::t('frontend', 'The above error occurred when the web server was processing your request.')?>
     </p>
     <p>
-        Пожалуйста, свяжитесь с нами, если считаете, что это ошибка сервера. Спасибо.
+        <?=\Yii::t('frontend', 'Please contact us if you think this is a server error. Thanks.')?>
     </p>
 
 </div>

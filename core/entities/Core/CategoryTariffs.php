@@ -2,7 +2,13 @@
 
 namespace core\entities\Core;
 
+use core\entities\Core\queries\CategoryTariffsQuery;
+use omgdef\multilingual\MultilingualBehavior;
+use paulzi\nestedsets\NestedSetsBehavior;
 use Yii;
+use yii\behaviors\SluggableBehavior;
+use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "category_tariffs".
@@ -10,9 +16,16 @@ use Yii;
  * @property int $id
  * @property string $name
  * @property string $description
+ *
+ * @property string $slug
+ * @property integer $lft
+ * @property integer $rgt
+ * @property integer $depth
  */
-class CategoryTariffs extends \yii\db\ActiveRecord
+class CategoryTariffs extends ActiveRecord
 {
+    public $parentId;
+
     /**
      * {@inheritdoc}
      */
@@ -28,8 +41,9 @@ class CategoryTariffs extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name'], 'string', 'max' => 255],
+            [['name', 'slug'], 'string', 'max' => 255],
             [['description'], 'string'],
+            [['parentId'], 'integer'],
         ];
     }
 
@@ -40,9 +54,16 @@ class CategoryTariffs extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Название',
-            'description' => 'Описание',
+            'name' => Yii::t('frontend', 'Title'),
+            'description' => Yii::t('frontend', 'Description'),
         ];
+    }
+
+    public function afterFind()
+    {
+//        $this->parentId = $this->parent->id;
+
+        parent::afterFind();
     }
 
     public function getTariffs()
@@ -57,11 +78,65 @@ class CategoryTariffs extends \yii\db\ActiveRecord
         if(count($tariffs)) {
             Yii::$app->session->setFlash(
                 'warning',
-                'Нельзя удалить категорию, который имеет связи'
+                Yii::t('frontend', 'You cannot delete a category that has links.')
             );
             return false;
         }
 
         return parent::beforeDelete();
+    }
+
+    public function transactions()
+    {
+        return [
+            self::SCENARIO_DEFAULT => self::OP_ALL,
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'ml' => [
+                'class' => MultilingualBehavior::className(),
+                'languages' => Yii::$app->params['languages'],
+                'languageField' => 'language',
+                //'localizedPrefix' => '',
+                //'requireTranslations' => false,
+                'dynamicLangClass' => true,
+                'langClassName' => CategoryTariffsLang::className(),
+                'defaultLanguage' => Yii::$app->sourceLanguage,
+                'langForeignKey' => 'category_tariffs_id',
+                'tableName' => "{{%category_tariffs_lang}}",
+                'attributes' => [
+                    'name', 'description'
+                ]
+            ],
+            NestedSetsBehavior::className(),
+            [
+                'class' => SluggableBehavior::className(),
+                'attribute' => 'name',
+            ],
+        ];
+    }
+
+    public static function find(): CategoryTariffsQuery
+    {
+        return new CategoryTariffsQuery(static::class);
+    }
+
+    public function isRoot(): bool
+    {
+        return $this->id == 1;
+    }
+
+    public static function parentCategoriesList(): array
+    {
+        $arr[1] = 'root';
+        $result = ArrayHelper::map(CategoryTariffs::find()->joinWith(['translation'])->orderBy('lft')->asArray()->all(), 'id', function (array $category) {
+            return ($category['depth'] > 1 ? str_repeat('-- ', $category['depth'] - 1) . ' ': '') . $category['translation']['name'];
+        });
+        $result = array_replace($arr, $result);
+
+        return $result;
     }
 }

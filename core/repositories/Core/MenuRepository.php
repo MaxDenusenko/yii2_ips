@@ -17,7 +17,7 @@ class MenuRepository
     public function get($id): Menu
     {
         if (!$menu = Menu::findOne($id)) {
-            throw new NotFoundException('Menu is not found.');
+            throw new NotFoundException(\Yii::t('frontend', 'Menu is not found.'));
         }
         return $menu;
     }
@@ -28,7 +28,7 @@ class MenuRepository
     public function save(Menu $menu): void
     {
         if (!$menu->save()) {
-            throw new \RuntimeException('Saving error.');
+            throw new \RuntimeException(\Yii::t('frontend', 'Saving error.'));
         }
     }
 
@@ -40,7 +40,7 @@ class MenuRepository
     public function remove(Menu $menu): void
     {
         if (!$menu->delete()) {
-            throw new \RuntimeException('Removing error.');
+            throw new \RuntimeException(\Yii::t('frontend', 'Removing error.'));
         }
     }
 }

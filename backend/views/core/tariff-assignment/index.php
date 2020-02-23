@@ -11,7 +11,9 @@ use yii\grid\GridView;
 
 $this->title = 'Tariff Assignments';
 $this->params['breadcrumbs'][] = $this->title;
+
 ?>
+
 <div class="tariff-assignment-index">
 
     <div class="box">
@@ -43,7 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format' => 'raw',
                     ],
 
-                    ['class' => 'yii\grid\ActionColumn'],
+                    [
+                        'class' => 'yii\grid\ActionColumn',
+                        'template' => '{view}{update}',
+                    ],
                 ],
             ]); ?>
         </div>

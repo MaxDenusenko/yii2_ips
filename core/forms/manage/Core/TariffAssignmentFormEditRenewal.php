@@ -36,9 +36,9 @@ class TariffAssignmentFormEditRenewal extends Model
     public function attributeLabels()
     {
         return [
-            'extend_days' => 'Продлить на (дней)',
-            'extend_hours' => 'Продлить на (часов)',
-            'extend_minutes' => 'Продлить на (минут)',
+            'extend_days' => \Yii::t('frontend', 'Renew for (days)'),
+            'extend_hours' => \Yii::t('frontend', 'Renew by (hours)'),
+            'extend_minutes' => \Yii::t('frontend', 'Renew by (minutes)'),
         ];
     }
 }

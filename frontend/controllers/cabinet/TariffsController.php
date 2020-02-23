@@ -4,6 +4,7 @@
 namespace frontend\controllers\cabinet;
 
 
+use core\entities\Core\CategoryTariffs;
 use core\entities\Core\Tariff;
 use core\entities\User\User;
 use core\forms\manage\Core\AddToBasketForm;
@@ -52,12 +53,16 @@ class TariffsController extends Controller
 
     public function actionIndex()
     {
-        $tariffDataProvider = new ActiveDataProvider([
-            'query' => Tariff::find()->active(),
-        ]);
+        $other_tariffs = Tariff::find()->noCategory()->all();
+        $category_root = CategoryTariffs::find()->roots()->one();
+        $categories = $category_root->populateTree();
+
+        $orderForm = new OrderForm();
 
         return $this->render('index', [
-            'tariffDataProvider' => $tariffDataProvider
+            'other_tariffs' => $other_tariffs,
+            'orderForm' => $orderForm,
+            'categories' => $categories->children
         ]);
     }
 

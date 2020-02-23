@@ -6,9 +6,9 @@ use yii\helpers\Html;
 /* @var $model core\entities\Core\PaymentMethod */
 
 $this->title = 'Update Payment Method: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Payment Methods', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('frontend', 'Payment Methods'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->id]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->params['breadcrumbs'][] = \Yii::t('frontend', 'Update');
 ?>
 <div class="payment-method-update">
 

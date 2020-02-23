@@ -10,6 +10,7 @@ use core\forms\manage\Core\TariffForm;
 use core\repositories\Core\TariffDefaultsRepository;
 use core\repositories\Core\TariffRepository;
 use core\services\TransactionManager;
+use Throwable;
 use yii\db\StaleObjectException;
 
 class TariffManageService
@@ -44,66 +45,42 @@ class TariffManageService
     }
 
     /**
-     * @param TariffForm $form
+     * @param Tariff $form
      * @return Tariff
      */
-    public function create(TariffForm $form): Tariff
+    public function create(Tariff $form): Tariff
     {
-        $tariff = Tariff::create(
-            $form->name,
-            $form->number,
-            $form->price,
-            Tariff::STATUS_DRAFT,
-            $form->proxy_link,
-            $form->description,
-            $form->price_for_additional_ip,
-            $form->qty_proxy,
-            $form->category_id
-        );
+        $form->addDefault($form->defaultComposite);
+        $form->addDefaultTrial($form->defaultTrialComposite);
 
-        $tariff->addDefault($form->default);
-        $tariff->addDefaultTrial($form->defaultTrial);
-
-        $this->tariffs->save($tariff);
-        return $tariff;
+        $this->tariffs->save($form);
+        return $form;
     }
 
     /**
      * @param $id
-     * @param TariffForm $form
+     * @param Tariff $form
      */
-    public function edit($id, TariffForm $form): void
+    public function edit($id, Tariff $form): void
     {
-        $tariff = $this->tariffs->get($id);
-        $tariff->edit(
-            $form->name,
-            $form->number,
-            $form->price,
-            $form->proxy_link,
-            $form->description,
-            $form->price_for_additional_ip,
-            $form->qty_proxy,
-            $form->category_id
-        );
+        $this->transaction->wrap(function () use ($form) {
 
-        $this->transaction->wrap(function () use ($tariff, $form) {
-
-            $default_old = TariffDefaults::findOne($tariff->default[0]->id);
-            $default_old->attributes = $form->default->attributes;
+            $default_old = TariffDefaults::findOne($form->default[0]->id);
+            $default_old->attributes = $form->defaultComposite->attributes;
             $this->tariffDefaults->save($default_old);
 
-            $defaultTrial_old = TariffDefaults::findOne($tariff->defaultTrial[0]->id);
-            $defaultTrial_old->attributes = $form->defaultTrial->attributes;
+            $defaultTrial_old = TariffDefaults::findOne($form->defaultTrial[0]->id);
+            $defaultTrial_old->attributes = $form->defaultTrialComposite->attributes;
             $this->tariffDefaults->save($defaultTrial_old);
 
-            $this->tariffs->save($tariff);
+            $this->tariffs->save($form);
 
         });
     }
 
     /**
      * @param $id
-     * @throws \Throwable
+     * @throws Throwable
      * @throws StaleObjectException
      */
     public function remove($id): void

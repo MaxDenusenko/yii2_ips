@@ -176,7 +176,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function checkPasswordResetToken(): void {
         if (!empty($this->password_reset_token) && self::isPasswordResetTokenValid($this->password_reset_token)) {
-            throw new \DomainException('Сброс пароля уже запрошен');
+            throw new \DomainException(\Yii::t('frontend', 'Password reset already requested'));
         }
         $this->generatePasswordResetToken();
     }
@@ -189,7 +189,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function resetPassword(string $password) : void {
 
         if (empty($this->password_reset_token)) {
-            throw new \DomainException('Сброс пароля не запрошен');
+            throw new \DomainException(\Yii::t('frontend', 'Password reset not requested'));
         }
         $this->setPassword($password);
         $this->removePasswordResetToken();
@@ -200,7 +200,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public function verifyEmail() : void {
         if (!$this->isWait()) {
-            throw new \DomainException('Пользователь уже активен');
+            throw new \DomainException(\Yii::t('frontend', 'User is already active'));
         }
 
         $this->removeEmailConfirmToken();
@@ -419,15 +419,15 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Tariff::class, ['id' => 'tariff_id'])->via('tariffAssignments');
     }
 
-    public function assignTariff($id, bool $trial = false, $order = null): void
+    public function assignTariff($id, bool $trial = false, $order = null, int $additional_id = 0): void
     {
         $assignments = $this->tariffAssignments;
-//        foreach ($assignments as $assignment) {
-//            if ($assignment->isForTariff($id)) {
-//                return;
-//            }
-//        }
-        $assignments[] = TariffAssignment::create($id, $trial, $order);
+
+        $tariffAssignment = TariffAssignment::create($id, $trial, $order);
+        if ($additional_id) {
+            $tariffAssignment->ip_quantity = $tariffAssignment->ip_quantity + $additional_id;
+        }
+        $assignments[] = $tariffAssignment;
         $this->tariffAssignments = $assignments;
     }
 
@@ -442,13 +442,14 @@ class User extends ActiveRecord implements IdentityInterface
         $this->tariffAssignments = $assignments;
     }
 
-    public function editProfile($username, $email, $full_name, $telegram, $jabber)
+    public function editProfile($username, $email, $full_name, $telegram, $jabber, $tariff_reminder)
     {
         $this->username = $username;
         $this->email = $email;
         $this->full_name = $full_name;
         $this->telegram = $telegram;
         $this->gabber = $jabber;
+        $this->tariff_reminder = $tariff_reminder;
     }
 
     public function issetTariff($tariff_id, $user_id, $hash_id): bool
@@ -468,14 +469,14 @@ class User extends ActiveRecord implements IdentityInterface
     public function attributeLabels()
     {
         return [
-            'username' => 'Логин',
-            'email' => 'Email',
-            'full_name' => 'ФИО',
+            'username' => \Yii::t('frontend', 'Login'),
+            'email' => \Yii::t('frontend', 'Email'),
+            'full_name' => \Yii::t('frontend', 'Full name'),
             'telegram' => 'Telegram',
             'gabber' => 'Jabber',
-            'created_at' => 'Аккаунт создан',
-            'updated_at' => 'Аккаунт изменен',
-            'tariff_reminder' => 'Напоминание о окончании тарифа (за n дней)',
+            'created_at' => \Yii::t('frontend', 'Account Created'),
+            'updated_at' => \Yii::t('frontend', 'Account changed'),
+            'tariff_reminder' => \Yii::t('frontend', 'Reminder of the end of the tariff (for n days)'),
         ];
     }
 
@@ -510,7 +511,7 @@ class User extends ActiveRecord implements IdentityInterface
         if(count($tariffs)) {
             Yii::$app->session->setFlash(
                 'warning',
-                'Нельзя удалить пользователя, который имеет тарифы'
+                \Yii::t('frontend', 'You cannot delete a user who has tariffs.')
             );
             return false;
         }

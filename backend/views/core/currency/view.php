@@ -8,7 +8,7 @@ use yii\widgets\DetailView;
 /* @var $model core\entities\Core\Currency */
 
 $this->title = $model->code;
-$this->params['breadcrumbs'][] = ['label' => 'Currencies', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => \Yii::t('frontend', 'Currencies'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -19,7 +19,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => \Yii::t('frontend', 'Are you sure you want to delete this item?'),
                 'method' => 'post',
             ],
         ]) ?>
@@ -27,20 +27,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Set active', ['activate', 'id' => $model->id], ['class' => 'btn btn-primary',
             'data' => [
-                'confirm' => 'Are you sure you want to activate this item?',
+                'confirm' => \Yii::t('frontend', 'Are you sure you want to activate this item?'),
                 'method' => 'post',
             ]
         ]) ?>
         <?= Html::a('Set base', ['set-base', 'id' => $model->id], ['class' => 'btn btn-primary',
             'data' => [
-                'confirm' => 'Are you sure you want to set base this item?',
+                'confirm' => \Yii::t('frontend', 'Are you sure you want to set base this item?'),
                 'method' => 'post',
             ]
         ]) ?>
     </p>
 
     <div class="box box-default">
-        <div class="box-header with-border">Common</div>
+        <div class="box-header with-border"><?=\Yii::t('frontend', 'Common')?></div>
         <div class="box-body">
             <?= DetailView::widget([
                 'model' => $model,

@@ -1,38 +1,36 @@
 <?php
 
 /* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
+/* @var $form ActiveForm */
 /* @var $model ResetPasswordForm */
 
 use core\forms\auth\ResetPasswordForm;
 use kartik\password\PasswordInput;
-use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use macgyer\yii2materializecss\lib\Html;
+use macgyer\yii2materializecss\widgets\form\ActiveForm;
 
-$this->title = 'Сброс пароля';
+$this->title = \Yii::t('frontend', 'Password reset');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-reset-password">
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>Пожалуйста, выберите новый пароль:</p>
+    <p><?=\Yii::t('frontend', 'Please select a new password')?>:</p>
 
-    <div class="row">
-        <div class="col-lg-5">
-            <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
+    <br>
 
-                <?= $form->field($model, 'password')->widget(PasswordInput::classname(), [
-                    'pluginOptions' => [
-                        'showMeter' => true,
-                        'toggleMask' => false
-                    ]
-                ]) ?>
+    <?php $form = ActiveForm::begin(['id' => 'reset-password-form']); ?>
 
-                <div class="form-group">
-                    <?= Html::submitButton('Сохранить', ['class' => 'btn btn-primary']) ?>
-                </div>
+    <?= $form->field($model, 'password')->widget(PasswordInput::classname(), [
+        'pluginOptions' => [
+            'showMeter' => true,
+            'toggleMask' => false
+        ]
+    ]) ?>
 
-            <?php ActiveForm::end(); ?>
-        </div>
+    <div class="form-group">
+        <?= Html::submitButton(\Yii::t('frontend', 'Save'), ['class' => 'btn btn-primary']) ?>
     </div>
+
+    <?php ActiveForm::end(); ?>
 </div>

@@ -20,6 +20,7 @@ class m200201_120356_create_order_item_table extends Migration
             'price' => $this->float()->notNull(),
             'quantity' => $this->integer()->notNull(),
             'cost' => $this->float()->notNull(),
+            'currency' => $this->string()->notNull(),
         ]);
 
         $this->createIndex('{{%idx-order_items-order_id}}', '{{%order_items}}', 'order_id');

@@ -1,0 +1,2408 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgctxt "fileinput"
+msgid "Note:"
+msgstr ""
+
+msgctxt "fileinput"
+msgid "Your browser does not support {validation}. Try an alternative or more recent browser to access these features."
+msgstr ""
+
+msgctxt "fileinput"
+msgid "file preview and multiple file upload"
+msgstr ""
+
+msgctxt "fileinput"
+msgid "multiple file upload"
+msgstr ""
+
+msgctxt "kvbase"
+msgid "It is recommended you use an upgraded browser to display the {type} control properly."
+msgstr ""
+
+msgctxt "kvcolor"
+msgid "Clear Color Selection"
+msgstr ""
+
+msgctxt "kvcolor"
+msgid "No Color Selected"
+msgstr ""
+
+msgctxt "kvcolor"
+msgid "cancel"
+msgstr ""
+
+msgctxt "kvcolor"
+msgid "choose"
+msgstr ""
+
+msgctxt "kvcolor"
+msgid "less"
+msgstr ""
+
+msgctxt "kvcolor"
+msgid "more"
+msgstr ""
+
+msgctxt "kvdate"
+msgid "Clear field"
+msgstr ""
+
+msgctxt "kvdate"
+msgid "Select date"
+msgstr ""
+
+msgctxt "kvdtime"
+msgid "Clear field"
+msgstr ""
+
+msgctxt "kvdtime"
+msgid "Select date & time"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Amaya"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Android"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Apple Safari"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "April"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Arora"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "August"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Avant"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Blackberry"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Chromium"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "December"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Email"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Epiphany"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "February"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Friday"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Galeon"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Google Chrome"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "January"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "July"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "June"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Konqueror"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Linux"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Macintosh OSX"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Maemo"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "March"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Maxthon"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "May"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Microsoft Internet Explorer"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Microsoft Internet Explorer Mobile"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Minimo"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Mobile Safari"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Monday"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Mosaic"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Mozilla Firefox"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Mozilla Firefox Fennec"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Mozilla Sea Monkey"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "NetFront"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "NetSurf"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Netscape"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "No"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "November"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "October"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Omniweb"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Opera"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Other"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Palm"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Phone"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Puffin"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Safari"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Saturday"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "September"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Sunday"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Symbian"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Thursday"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Tuesday"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Unix"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Unknown"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Wednesday"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Windows"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "Yes"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "a moment"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "ago"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "billion"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "eight"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "eighteen"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "eighty"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "eleven"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "fifteen"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "fifty"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "five"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "forty"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "four"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "fourteen"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "hundred"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "iOS"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "million"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "minus"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "nine"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "nineteen"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "ninety"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "nonillion"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "octillion"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "one"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "quadrillion"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "quintillion"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "septillion"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "seven"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "seventeen"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "seventy"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "sextillion"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "six"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "sixteen"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "sixty"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "ten"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "thirteen"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "thirty"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "thousand"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "three"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "trillion"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "twelve"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "twenty"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "two"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "zero"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "{n, plural, one{one day} other{# days}}"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "{n, plural, one{one hour} other{# hours}}"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "{n, plural, one{one minute} other{# minutes}}"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "{n, plural, one{one month} other{# months}}"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "{n, plural, one{one second} other{# seconds}}"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "{n, plural, one{one week} other{# weeks}}"
+msgstr ""
+
+msgctxt "kvenum"
+msgid "{n, plural, one{one year} other{# years}}"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} cannot contain an email address"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} cannot contain any spaces"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} cannot contain the username"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} must be a string"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} should contain at least {n, plural, one{one character} other{# characters}} ({found} found)!"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} should contain at least {n, plural, one{one lower case character} other{# lower case characters}} ({found} found)!"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} should contain at least {n, plural, one{one numeric / digit character} other{# numeric / digit characters}} ({found} found)!"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} should contain at least {n, plural, one{one special character} other{# special characters}} ({found} found)!"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} should contain at least {n, plural, one{one upper case character} other{# upper case characters}} ({found} found)!"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} should contain at most {n, plural, one{one character} other{# characters}} ({found} found)!"
+msgstr ""
+
+msgctxt "kvpwdstrength"
+msgid "{attribute} should contain exactly {n, plural, one{one character} other{# characters}} ({found} found)!"
+msgstr ""
+
+msgctxt "kvselect"
+msgid "Select all"
+msgstr ""
+
+msgctxt "kvselect"
+msgid "Unselect all"
+msgstr ""
+
+msgctxt "vova07/imperavi"
+msgid "ERROR_CANNOT_REMOVE_FILE"
+msgstr ""
+
+msgctxt "vova07/imperavi"
+msgid "ERROR_CAN_NOT_UPLOAD_FILE"
+msgstr ""
+
+msgctxt "vova07/imperavi"
+msgid "ERROR_DURING_UPLOAD_PROCESS"
+msgstr ""
+
+msgctxt "vova07/imperavi"
+msgid "ERROR_FILE_ALREADY_EXIST"
+msgstr ""
+
+msgctxt "vova07/imperavi"
+msgid "ERROR_FILE_DOES_NOT_EXIST"
+msgstr ""
+
+msgctxt "vova07/imperavi"
+msgid "ERROR_FILE_IDENTIFIER_MUST_BE_PROVIDED"
+msgstr ""
+
+msgctxt "yii"
+msgid " and "
+msgstr ""
+
+msgctxt "yii"
+msgid "\"{attribute}\" does not support operator \"{operator}\"."
+msgstr ""
+
+msgctxt "yii"
+msgid "(not set)"
+msgstr ""
+
+msgctxt "yii"
+msgid "Action not found."
+msgstr ""
+
+msgctxt "yii"
+msgid "Aliases available: {aliases}"
+msgstr ""
+
+msgctxt "yii"
+msgid "An internal server error occurred."
+msgstr ""
+
+msgctxt "yii"
+msgid "Are you sure you want to delete this item?"
+msgstr ""
+
+msgctxt "yii"
+msgid "Condition for \"{attribute}\" should be either a value or valid operator specification."
+msgstr ""
+
+msgctxt "yii"
+msgid "Delete"
+msgstr ""
+
+msgctxt "yii"
+msgid "Error"
+msgstr ""
+
+msgctxt "yii"
+msgid "File upload failed."
+msgstr ""
+
+msgctxt "yii"
+msgid "Home"
+msgstr ""
+
+msgctxt "yii"
+msgid "Invalid data received for parameter \"{param}\"."
+msgstr ""
+
+msgctxt "yii"
+msgid "Login Required"
+msgstr ""
+
+msgctxt "yii"
+msgid "Missing required arguments: {params}"
+msgstr ""
+
+msgctxt "yii"
+msgid "Missing required parameters: {params}"
+msgstr ""
+
+msgctxt "yii"
+msgid "No"
+msgstr ""
+
+msgctxt "yii"
+msgid "No results found."
+msgstr ""
+
+msgctxt "yii"
+msgid "Only files with these MIME types are allowed: {mimeTypes}."
+msgstr ""
+
+msgctxt "yii"
+msgid "Only files with these extensions are allowed: {extensions}."
+msgstr ""
+
+msgctxt "yii"
+msgid "Operator \"{operator}\" must be used with a search attribute."
+msgstr ""
+
+msgctxt "yii"
+msgid "Operator \"{operator}\" requires multiple operands."
+msgstr ""
+
+msgctxt "yii"
+msgid "Options available: {options}"
+msgstr ""
+
+msgctxt "yii"
+msgid "Page not found."
+msgstr ""
+
+msgctxt "yii"
+msgid "Please fix the following errors:"
+msgstr ""
+
+msgctxt "yii"
+msgid "Please upload a file."
+msgstr ""
+
+msgctxt "yii"
+msgid "Powered by {yii}"
+msgstr ""
+
+msgctxt "yii"
+msgid "Showing <b>{begin, number}-{end, number}</b> of <b>{totalCount, number}</b> {totalCount, plural, one{item} other{items}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "The combination {values} of {attributes} has already been taken."
+msgstr ""
+
+msgctxt "yii"
+msgid "The file \"{file}\" is not an image."
+msgstr ""
+
+msgctxt "yii"
+msgid "The file \"{file}\" is too big. Its size cannot exceed {formattedLimit}."
+msgstr ""
+
+msgctxt "yii"
+msgid "The file \"{file}\" is too small. Its size cannot be smaller than {formattedLimit}."
+msgstr ""
+
+msgctxt "yii"
+msgid "The format of {attribute} is invalid."
+msgstr ""
+
+msgctxt "yii"
+msgid "The format of {filter} is invalid."
+msgstr ""
+
+msgctxt "yii"
+msgid "The image \"{file}\" is too large. The height cannot be larger than {limit, number} {limit, plural, one{pixel} other{pixels}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "The image \"{file}\" is too large. The width cannot be larger than {limit, number} {limit, plural, one{pixel} other{pixels}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "The image \"{file}\" is too small. The height cannot be smaller than {limit, number} {limit, plural, one{pixel} other{pixels}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "The image \"{file}\" is too small. The width cannot be smaller than {limit, number} {limit, plural, one{pixel} other{pixels}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "The requested view \"{name}\" was not found."
+msgstr ""
+
+msgctxt "yii"
+msgid "The verification code is incorrect."
+msgstr ""
+
+msgctxt "yii"
+msgid "Total <b>{count, number}</b> {count, plural, one{item} other{items}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "Unable to verify your data submission."
+msgstr ""
+
+msgctxt "yii"
+msgid "Unknown alias: -{name}"
+msgstr ""
+
+msgctxt "yii"
+msgid "Unknown filter attribute \"{attribute}\""
+msgstr ""
+
+msgctxt "yii"
+msgid "Unknown option: --{name}"
+msgstr ""
+
+msgctxt "yii"
+msgid "Update"
+msgstr ""
+
+msgctxt "yii"
+msgid "View"
+msgstr ""
+
+msgctxt "yii"
+msgid "Yes"
+msgstr ""
+
+msgctxt "yii"
+msgid "Yii Framework"
+msgstr ""
+
+msgctxt "yii"
+msgid "You are not allowed to perform this action."
+msgstr ""
+
+msgctxt "yii"
+msgid "You can upload at most {limit, number} {limit, plural, one{file} other{files}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "You should upload at least {limit, number} {limit, plural, one{file} other{files}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "in {delta, plural, =1{a day} other{# days}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "in {delta, plural, =1{a minute} other{# minutes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "in {delta, plural, =1{a month} other{# months}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "in {delta, plural, =1{a second} other{# seconds}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "in {delta, plural, =1{a year} other{# years}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "in {delta, plural, =1{an hour} other{# hours}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "just now"
+msgstr ""
+
+msgctxt "yii"
+msgid "the input value"
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} \"{value}\" has already been taken."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} cannot be blank."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} contains wrong subnet mask."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} is invalid."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} is not a valid URL."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} is not a valid email address."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} is not in the allowed range."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be \"{requiredValue}\"."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be a number."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be a string."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be a valid IP address."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be an IP address with specified subnet."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be an integer."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be either \"{true}\" or \"{false}\"."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be equal to \"{compareValueOrAttribute}\"."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be greater than \"{compareValueOrAttribute}\"."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be greater than or equal to \"{compareValueOrAttribute}\"."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be less than \"{compareValueOrAttribute}\"."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be less than or equal to \"{compareValueOrAttribute}\"."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be no greater than {max}."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must be no less than {min}."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must not be a subnet."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must not be an IPv4 address."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must not be an IPv6 address."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} must not be equal to \"{compareValueOrAttribute}\"."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} should contain at least {min, number} {min, plural, one{character} other{characters}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} should contain at most {max, number} {max, plural, one{character} other{characters}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "{attribute} should contain {length, number} {length, plural, one{character} other{characters}}."
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{1 day} other{# days}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{1 hour} other{# hours}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{1 minute} other{# minutes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{1 month} other{# months}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{1 second} other{# seconds}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{1 year} other{# years}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{a day} other{# days}} ago"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{a minute} other{# minutes}} ago"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{a month} other{# months}} ago"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{a second} other{# seconds}} ago"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{a year} other{# years}} ago"
+msgstr ""
+
+msgctxt "yii"
+msgid "{delta, plural, =1{an hour} other{# hours}} ago"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} B"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} GB"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} GiB"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} KiB"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} MB"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} MiB"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} PB"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} PiB"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} TB"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} TiB"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} kB"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{byte} other{bytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{gibibyte} other{gibibytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{gigabyte} other{gigabytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{kibibyte} other{kibibytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{kilobyte} other{kilobytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{mebibyte} other{mebibytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{megabyte} other{megabytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{pebibyte} other{pebibytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{petabyte} other{petabytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{tebibyte} other{tebibytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{nFormatted} {n, plural, =1{terabyte} other{terabytes}}"
+msgstr ""
+
+msgctxt "yii"
+msgid "{percent}% Complete"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "'{class}' must extend from 'yii\rbac\Rule' or its child class"
+msgstr "@@@@"
+
+msgctxt "yii2mod.rbac"
+msgid "'{class}' must extend from 'yii\rbac\Rule' or its child class"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Action"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Are you sure to delete this item?"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Assign"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Assignment : {0}"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Assignments"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Class Name"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Create"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Create Rule"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Create label"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Data"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Delete"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Description"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Invalid rule \"{value}\""
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Item has been removed."
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Item has been saved."
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Name"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Permissions"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Refresh"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Remove"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Roles"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Routes"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Rule"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Rule \"{value}\" does not exists"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Rule : {0}"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Rule Name"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Rule has been deleted."
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Rule has been saved."
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Rules"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Search for assigned"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Search for available"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Select Rule"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "The requested page does not exist."
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Type"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Unknown class '{class}'"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Update"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Update Rule : {0}"
+msgstr ""
+
+msgctxt "yii2mod.rbac"
+msgid "Update label"
+msgstr ""
+
+msgctxt "frontend"
+msgid "A comment"
+msgstr ""
+
+msgctxt "frontend"
+msgid "A discount %"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Ability to pause"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Account Created"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Account Details Updated"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Account changed"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Account registration"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Activate"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Activate tariff ?"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Active"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Add Tariff"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Add. IP"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Additional IP"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Already requested a tariff extension"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Answer"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Apply default (data + date)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Apply default (data)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Apply default (date)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Apply default (trial) (data + date)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Apply default (trial) (data)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Apply default (trial) (date)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Are you sure you want to activate this item?"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Are you sure you want to delete this item?"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Are you sure you want to set base this item?"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Banned"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Base currency"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Base currency not set!"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Body"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Bunch"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Buying extra. Ip"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Cancel"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Canceled"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Cancellation Request"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Category"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Category Tariffs"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Category Tariffs ID"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Change IP"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Change ip is not available!"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Check your email for further instructions."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Checkout"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Choose a category"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Code"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Common"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Confirmation blank token"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Contacts"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Control Panel"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Cost = Price * Qty"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Coupon"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Coupon Uses"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Coupons"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create Category Tariffs"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create Coupon Uses"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create Coupons"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create Currency"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create Faq"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create Fragments"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create News"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create Order"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create Payment Method"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create Tariff"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create Tariff Defaults"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Create User"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Created At"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Currencies"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Currency"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Currency is already active."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Currency is already base."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Currency is not found"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Date"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Date (before)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Date of creation"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Deactivated"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Default"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Default trial"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Delete"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Deleted"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Description"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Details"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Discount for first payment only"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Draft"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Edit"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Editing"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Email"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Email token cannot be empty."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Error sending email"
+msgstr ""
+
+msgctxt "frontend"
+msgid "FAQ"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Failed to create order."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Failed to update configuration file."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Faq"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Faqs"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Fragment"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Fragments"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Full name"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Go to the website"
+msgstr ""
+
+msgctxt "frontend"
+msgid "ID"
+msgstr ""
+
+msgctxt "frontend"
+msgid "IP Editing"
+msgstr ""
+
+msgctxt "frontend"
+msgid "IP address"
+msgstr ""
+
+msgctxt "frontend"
+msgid "IPs"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Identity"
+msgstr ""
+
+msgctxt "frontend"
+msgid "If you have forgotten your password, you can"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Inactive"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Information has been updated!"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Invalid email token."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Invalid password reset token."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Lang attribute"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Lang attributes"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Language"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Link to proxy list"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Log out"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Login"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Management"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Menu is not found."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Name"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Need a new confirmation email?"
+msgstr ""
+
+msgctxt "frontend"
+msgid "New password"
+msgstr ""
+
+msgctxt "frontend"
+msgid "New password saved."
+msgstr ""
+
+msgctxt "frontend"
+msgid "News"
+msgstr ""
+
+msgctxt "frontend"
+msgid "News ID"
+msgstr ""
+
+msgctxt "frontend"
+msgid "No active currency set!"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Not"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Not paid"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Not relevant"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Number"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Number of IPs Available"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Number of additional IP"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Number of additional ip"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Number of incoming traffic streams"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Number of ip available"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Number of outgoing traffic flows"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Number of proxies"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Order"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Order additional IP"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Order extra ip for tariff"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Order is not found."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Order price"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Order renewal"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Order status"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Orders"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Pages"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Paid"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Password"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Password Reset Request"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Password confirmation"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Password reset"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Password reset already requested"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Password reset not requested"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Password reset token cannot be empty."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Passwords do not match"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Paths to config files"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Pause"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Pause the tariff ?"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Pay"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment Link"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment Methods"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment State"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment allowed"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment and renewal"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment confirmed"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment created"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment detected but not confirmed"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment failed"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment is not relevant"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment method"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment methods"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Payment not created"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Per Cent"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Personal"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Please confirm that you are not a bot."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Please contact us if you think this is a server error. Thanks."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Please fill in the following entry fields"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Please fill in the following fields for registration"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Please fill in your email. A confirmation email will be sent there."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Please fill in your email. A password reset link will be sent there."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Please select a new password"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Price"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Price for additional ip (% of face value)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Product"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Product Name"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Profile"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Quantity"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Question"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Recent Activity"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Record each new IP from a new line"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Remember me"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Reminder of the end of the tariff (for n days)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Removing error"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Removing error."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Renew by (hours)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Renew by (minutes)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Renew for (days)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Renewal"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Renewal Request"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Renewal for tariff"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Request for tariff cancellation sent!"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Request for tariff extension sent!"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Save"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Saving error"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Saving error."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Send"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Send confirmation email"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Sign In"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Sign Up"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Simple"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Simple default"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Slug"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Sorry, we are unable to send a confirmation token for the specified email address."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Sorry, we cannot forward the verification email to the indicated email address .."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Status"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Stopped"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Sum"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Symbol"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff Assignments"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff Categories"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff Default"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff Defaults"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff already paid"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff cancellation already requested"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff category is not found."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff extension"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff is already active."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff is already cancel."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff is already deactivated."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff is already draft."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff not active"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff not found"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff not paid"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff order"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariff payment"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariffs"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariffs (ordered)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Tariffs ID"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Text"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Thank you for registering. Please check your email inbox for confirmation."
+msgstr ""
+
+msgctxt "frontend"
+msgid "The above error occurred when the web server was processing your request."
+msgstr ""
+
+msgctxt "frontend"
+msgid "The number of available IPs is less than assigned now."
+msgstr ""
+
+msgctxt "frontend"
+msgid "The price of the product"
+msgstr ""
+
+msgctxt "frontend"
+msgid "The requested page does not exist."
+msgstr ""
+
+msgctxt "frontend"
+msgid "The tariff is already stopped"
+msgstr ""
+
+msgctxt "frontend"
+msgid "The tariff stopped"
+msgstr ""
+
+msgctxt "frontend"
+msgid "There is no user with this email address."
+msgstr ""
+
+msgctxt "frontend"
+msgid "This email address has already been taken."
+msgstr ""
+
+msgctxt "frontend"
+msgid "This order has already been paid"
+msgstr ""
+
+msgctxt "frontend"
+msgid "This tariff cannot be paused."
+msgstr ""
+
+msgctxt "frontend"
+msgid "This username has already been taken."
+msgstr ""
+
+msgctxt "frontend"
+msgid "Time (before)"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Time left"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Time until the end of the tariff"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Title"
+msgstr ""
+
+msgctxt "frontend"
+msgid "To ban"
+msgstr ""
+
+msgctxt "frontend"
+msgid "To order"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Toggle navigation"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Total"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Traffic limit"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Trial"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Trial default"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Trial request"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Type"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Unban"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update Category Tariffs"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update Coupon Uses"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update Coupons"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update Faq"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update Fragments"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update News: {name}"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update Order"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update Tariff"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update Tariff Assignment"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update Tariff Default"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update User"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Update date"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Updated At"
+msgstr ""
+
+msgctxt "frontend"
+msgid "User"
+msgstr ""
+
+msgctxt "frontend"
+msgid "User is already active"
+msgstr ""
+
+msgctxt "frontend"
+msgid "User not found"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Users"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Using coupons"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Wrong login or password"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Yes"
+msgstr ""
+
+msgctxt "frontend"
+msgid "You can add only"
+msgstr ""
+
+msgctxt "frontend"
+msgid "You cannot delete a category that has links."
+msgstr ""
+
+msgctxt "frontend"
+msgid "You cannot delete a tariff that has links"
+msgstr ""
+
+msgctxt "frontend"
+msgid "You cannot delete a user who has tariffs."
+msgstr ""
+
+msgctxt "frontend"
+msgid "You have no tariffs"
+msgstr ""
+
+msgctxt "frontend"
+msgid "You ordered"
+msgstr ""
+
+msgctxt "frontend"
+msgid "You ordered a tariff"
+msgstr ""
+
+msgctxt "frontend"
+msgid "You ordered a tariff extension"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Your email has been confirmed!"
+msgstr ""
+
+msgctxt "frontend"
+msgid "for tariff"
+msgstr ""
+
+msgctxt "frontend"
+msgid "not specified correctly."
+msgstr ""
+
+msgctxt "frontend"
+msgid "reset him"
+msgstr ""
+
+msgctxt "frontend"
+msgid "Статус заказа"
+msgstr "@@@@"
+

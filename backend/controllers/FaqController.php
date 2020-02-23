@@ -118,10 +118,10 @@ class FaqController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = Faq::findOne($id)) !== null) {
+        if (($model = Faq::find()->multilingual()->where(['id' => $id])->one()) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(\Yii::t('frontend', 'The requested page does not exist.'));
     }
 }

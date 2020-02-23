@@ -70,10 +70,10 @@ class Currency extends ActiveRecord
     {
         return [
             'id' => 'ID',
-            'code' => 'Код',
-            'active' => 'Активен',
-            'base' => 'Базовая валюта',
-            'symbol' => 'Символ',
+            'code' => \Yii::t('frontend', 'Code'),
+            'active' => \Yii::t('frontend', 'Active'),
+            'base' => \Yii::t('frontend', 'Base currency'),
+            'symbol' => \Yii::t('frontend', 'Symbol'),
         ];
     }
 
@@ -100,7 +100,7 @@ class Currency extends ActiveRecord
     public function activate()
     {
         if ($this->isActive()) {
-            throw new DomainException('Currency is already active.');
+            throw new DomainException(\Yii::t('frontend', 'Currency is already active.'));
         }
         $this->active = self::STATUS_ACTIVE;
     }
@@ -108,7 +108,7 @@ class Currency extends ActiveRecord
     public function setBase()
     {
         if ($this->isBase()) {
-            throw new DomainException('Currency is already base.');
+            throw new DomainException(\Yii::t('frontend', 'Currency is already base.'));
         }
         $this->base = self::STATUS_BASE;
     }

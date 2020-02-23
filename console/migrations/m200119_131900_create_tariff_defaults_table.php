@@ -16,8 +16,8 @@ class m200119_131900_create_tariff_defaults_table extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string()->notNull(),
             'mb_limit' => $this->integer(),
-            'quantity_incoming_traffic' => $this->integer(),
-            'quantity_outgoing_traffic' => $this->integer(),
+            'quantity_incoming_traffic' => $this->string(),
+            'quantity_outgoing_traffic' => $this->string(),
         ]);
     }
 

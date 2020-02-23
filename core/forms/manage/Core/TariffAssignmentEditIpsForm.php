@@ -43,12 +43,12 @@ class TariffAssignmentEditIpsForm extends Model
     public function ip_arr_validator($attribute, $params) {
 
         if (count($this->$attribute) > $this->_tariff->ip_quantity)
-            $this->addError('IPs', "Можно добавить только {$this->_tariff->ip_quantity} IP.");
+            $this->addError('IPs', \Yii::t('frontend', 'You can add only')." {$this->_tariff->ip_quantity} IP.");
 
         foreach ($this->$attribute as $ip) {
 
             if (!filter_var($ip, FILTER_VALIDATE_IP))
-                $this->addError('IPs', "IP-адрес $ip указан верно.");
+                $this->addError('IPs', \Yii::t('frontend', 'IP address')." $ip ".\Yii::t('frontend', 'not specified correctly.'));
         }
     }
 
@@ -56,7 +56,6 @@ class TariffAssignmentEditIpsForm extends Model
     {
         return [
             [['IPs'] , 'string'],
-            [['IPs'] , 'required'],
             [['IPsArr'] , 'ip_arr_validator'],
         ];
     }

@@ -16,10 +16,10 @@ class UserHelper
     public static function statusList(): array
     {
         return [
-            User::STATUS_ACTIVE => 'Активный',
-            User::STATUS_INACTIVE => 'Неактивный',
-            User::STATUS_DELETED => 'Удален',
-            User::STATUS_BANNED => 'Забанен',
+            User::STATUS_ACTIVE => \Yii::t('frontend', 'Active'),
+            User::STATUS_INACTIVE => \Yii::t('frontend', 'Inactive'),
+            User::STATUS_DELETED => \Yii::t('frontend', 'Deleted'),
+            User::STATUS_BANNED => \Yii::t('frontend', 'Banned'),
         ];
     }
 

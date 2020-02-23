@@ -14,8 +14,8 @@ class TariffHelper
     public static function statusList(): array
     {
         return [
-            Tariff::STATUS_DRAFT => 'Неактивен',
-            Tariff::STATUS_ACTIVE => 'Активен',
+            Tariff::STATUS_DRAFT => \Yii::t('frontend', 'Inactive'),
+            Tariff::STATUS_ACTIVE => \Yii::t('frontend', 'Active'),
         ];
     }
 
@@ -43,6 +43,6 @@ class TariffHelper
 
     public static function categoryList()
     {
-        return ArrayHelper::map(CategoryTariffs::find()->orderBy('name')->asArray()->all(), 'id', 'name');
+        return ArrayHelper::map(CategoryTariffs::find()->joinWith(['translation'])->orderBy('name')->asArray()->all(), 'id', 'translation.name');
     }
 }

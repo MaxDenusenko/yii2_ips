@@ -17,7 +17,7 @@ class OrderRepository
     public function get($id): Order
     {
         if (!$order = Order::findOne($id)) {
-            throw new NotFoundException('Order is not found.');
+            throw new NotFoundException(\Yii::t('frontend', 'Order is not found.'));
         }
         return $order;
     }
@@ -28,7 +28,7 @@ class OrderRepository
     public function save(Order $order): void
     {
         if (!$order->save()) {
-            throw new \RuntimeException('Saving error.');
+            throw new \RuntimeException(\Yii::t('frontend', 'Saving error.'));
         }
     }
 
@@ -40,7 +40,7 @@ class OrderRepository
     public function remove(Order $order): void
     {
         if (!$order->delete()) {
-            throw new \RuntimeException('Removing error.');
+            throw new \RuntimeException(\Yii::t('frontend', 'Removing error.'));
         }
     }
 }

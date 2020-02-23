@@ -26,14 +26,15 @@ class ProfileService
             $form->email,
             $form->full_name,
             $form->telegram,
-            $form->gabber
+            $form->gabber,
+            $form->tariff_reminder
         );
         $this->users->save($user);
     }
 
-    public function addTariff(User $user, Tariff $tariff, bool $trial, $order = null)
+    public function addTariff(User $user, Tariff $tariff, bool $trial, $order = null, $additional_id = 0)
     {
-        $user->assignTariff($tariff->id, $trial, $order);
+        $user->assignTariff($tariff->id, $trial, $order, (int) $additional_id);
         $this->users->save($user);
     }
 }

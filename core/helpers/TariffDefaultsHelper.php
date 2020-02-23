@@ -13,8 +13,8 @@ class TariffDefaultsHelper
     public static function statusList(): array
     {
         return [
-            TariffDefaults::TYPE_SIMPLE => 'Обычный',
-            TariffDefaults::TYPE_TRIAL => 'Триал',
+            TariffDefaults::TYPE_SIMPLE => \Yii::t('frontend', 'Simple'),
+            TariffDefaults::TYPE_TRIAL => \Yii::t('frontend', 'Trial'),
         ];
     }
 

@@ -2,6 +2,8 @@
 
 namespace backend\controllers\core;
 
+use core\entities\User\User;
+use core\services\manage\Core\CategoryTariffsManageService;
 use Yii;
 use core\entities\Core\CategoryTariffs;
 use backend\forms\core\CategoryTariffsSearch;
@@ -14,6 +16,15 @@ use yii\filters\VerbFilter;
  */
 class CategoryTariffsController extends Controller
 {
+    private $service;
+
+    public function __construct($id, $module, CategoryTariffsManageService $service, $config = [])
+    {
+        parent::__construct($id, $module, $config);
+
+        $this->service = $service;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -24,9 +35,23 @@ class CategoryTariffsController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'move-up' => ['POST'],
+                    'move-down' => ['POST'],
                 ],
             ],
         ];
+    }
+
+    public function actionMoveUp($id)
+    {
+        $this->service->moveUp($id);
+        return $this->redirect(['index']);
+    }
+
+    public function actionMoveDown($id)
+    {
+        $this->service->moveDown($id);
+        return $this->redirect(['index']);
     }
 
     /**
@@ -66,8 +91,14 @@ class CategoryTariffsController extends Controller
     {
         $model = new CategoryTariffs();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            try {
+                $model = $this->service->create($model);
+                return $this->redirect(['view', 'id' => $model->id]);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
         }
 
         return $this->render('create', [
@@ -86,8 +117,14 @@ class CategoryTariffsController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            try {
+                $this->service->edit($model->id, $model);
+                return $this->redirect(['view', 'id' => $model->id]);
+            } catch (\DomainException $e) {
+                Yii::$app->errorHandler->logException($e);
+                Yii::$app->session->setFlash('error', $e->getMessage());
+            }
         }
 
         return $this->render('update', [
@@ -118,10 +155,10 @@ class CategoryTariffsController extends Controller
      */
     protected function findModel($id)
     {
-        if (($model = CategoryTariffs::findOne($id)) !== null) {
+        if (($model = CategoryTariffs::find()->multilingual()->where(['id' => $id])->one()) !== null) {
             return $model;
         }
 
-        throw new NotFoundHttpException('The requested page does not exist.');
+        throw new NotFoundHttpException(\Yii::t('frontend', 'The requested page does not exist.'));
     }
 }

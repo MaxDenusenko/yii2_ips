@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin(); ?>
 
     <div class="box box-default">
-        <div class="box-header with-border">Common</div>
+        <div class="box-header with-border"><?=\Yii::t('frontend', 'Common')?></div>
         <div class="box-body">
             <?= $form->field($model, 'user_id')->textInput() ?>
             <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
     </div>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton(\Yii::t('frontend', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

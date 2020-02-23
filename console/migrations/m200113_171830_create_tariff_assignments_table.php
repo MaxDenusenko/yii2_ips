@@ -24,8 +24,8 @@ class m200113_171830_create_tariff_assignments_table extends Migration
 
             'IPs' => $this->string(),
             'mb_limit' => $this->integer(),
-            'quantity_incoming_traffic' => $this->integer(),
-            'quantity_outgoing_traffic' => $this->integer(),
+            'quantity_incoming_traffic' => $this->string(),
+            'quantity_outgoing_traffic' => $this->string(),
             'date_to' => $this->string(),
             'time_to' => $this->string(),
 

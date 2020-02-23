@@ -26,10 +26,10 @@ class PasswordResetRequestForm extends Model
             ['email', 'exist',
                 'targetClass' => '\core\entities\User\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => 'Нет пользователя с этим адресом электронной почты.'
+                'message' => \Yii::t('frontend', 'There is no user with this email address.')
             ],
             [['reCaptcha'], ReCaptchaValidator2::className(),
-                'uncheckedMessage' => 'Пожалуйста, подтвердите, что вы не бот.'],
+                'uncheckedMessage' => \Yii::t('frontend', 'Please confirm that you are not a bot.')],
         ];
     }
 
@@ -39,7 +39,8 @@ class PasswordResetRequestForm extends Model
     public function attributeLabels()
     {
         return [
-            'email' => 'Email',
+            'email' => \Yii::t('frontend', 'Email'),
+            'reCaptcha' => false,
         ];
     }
 }

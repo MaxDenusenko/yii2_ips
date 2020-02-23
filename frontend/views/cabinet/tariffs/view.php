@@ -20,6 +20,14 @@ use yii\widgets\DetailView; ?>
                 'number',
                 'name',
                 'qty_proxy',
+                'category_id',
+                'price_for_additional_ip',
+                [
+                    'label' => \Yii::t('frontend', 'Number of ip available'),
+                    'value' => function($tariff) {
+                        return $tariff->default[0]->ip_quantity;
+                    },
+                ],
                 [
                     'attribute' => 'price',
                     'value' => function($tariff) {
@@ -38,14 +46,12 @@ use yii\widgets\DetailView; ?>
             </div>
         <?php endif; ?>
 
-        <?//= Html::a('Попробовать', ['order', 'id' => $tariff->id, 'trial' => true], ['class' => 'btn btn-primary', 'data-method' => 'post']) ?>
-<!--        --><?//= Html::a('Заказать', ['basket/add', 'id' => $tariff->id], ['class' => 'btn btn-success', 'data-method' => 'post']) ?>
 
         <?php
         Modal::begin([
-            'header' => '<h2>Заказ тарифа '.$tariff->name.'</h2>',
+            'header' => '<h2>'.\Yii::t('frontend', 'Tariff order').' '.$tariff->name.'</h2>',
             'toggleButton' => [
-                'label' => 'Заказать',
+                'label' => \Yii::t('frontend', 'To order'),
                 'tag' => 'button',
                 'class' => 'btn btn-success',
             ],
@@ -61,34 +67,17 @@ use yii\widgets\DetailView; ?>
 
         <div class="form-group form-group">
             <?= $form->field($orderForm, 'payment_method_id')->dropDownList($orderForm->getPaymentList()) ?>
-            <?= $form->field($orderForm, 'comment')->textarea(['autofocus' => true]) ?>
+            <?= $form->field($orderForm, 'additional_id')->textInput(['autofocus' => false]) ?>
+            <?= $form->field($orderForm, 'comment')->hiddenInput(['autofocus' => true]) ?>
             <?= $form->field($orderForm->product, 'product_id')->hiddenInput(['value' => $tariff->id]) ?>
         </div>
         <br>
-        <?= Html::submitButton('Оформить', ['class' => 'btn btn-primary', 'name' => 'basket-button']) ?>
+        <?= Html::submitButton(\Yii::t('frontend', 'Checkout'), ['class' => 'btn btn-primary', 'name' => 'basket-button']) ?>
 
         <?php ActiveForm::end();
 
         Modal::end();
         ?>
-
-        <?php /*$form = ActiveForm::begin([
-            'id' => 'basket-form',
-            'action' => ['basket/add'],
-            'options' => [
-                'class' => 'form-inline add-to-basket',
-                'method' => 'post',
-            ]
-        ]); */?><!--
-
-        <div class="form-group form-group">
-            <?/*= $form->field($addToBasketForm, 'count')->textInput(['autofocus' => true]) */?>
-            <?/*= $form->field($addToBasketForm, 'id_product')->hiddenInput(['value' => $tariff->id]) */?>
-        </div>
-        <br>
-        <?/*= Html::submitButton('В корзину', ['class' => 'btn btn-primary', 'name' => 'basket-button']) */?>
-
-        --><?php /*ActiveForm::end(); */?>
 
     </div>
 </div>
